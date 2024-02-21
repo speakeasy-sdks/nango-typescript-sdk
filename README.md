@@ -6,13 +6,13 @@
 ### NPM
 
 ```bash
-npm add https://github.com/speakeasy-sdks/Nango-sample-sdk
+npm add https://github.com/speakeasy-sdks/nango-typescript-sdk
 ```
 
 ### Yarn
 
 ```bash
-yarn add https://github.com/speakeasy-sdks/Nango-sample-sdk
+yarn add https://github.com/speakeasy-sdks/nango-typescript-sdk
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -28,7 +28,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
     const sdk = new Nango();
@@ -91,10 +91,7 @@ run();
 * [create](docs/sdks/proxy/README.md#create) - Make a POST request with the Proxy.
 * [update](docs/sdks/proxy/README.md#update) - Make a PUT request with the Proxy.
 * [patch](docs/sdks/proxy/README.md#patch) - Make a PATCH request with the Proxy.
-
-### [delete](docs/sdks/delete/README.md)
-
-* [deletes](docs/sdks/delete/README.md#deletes) - Make a DELETE request with the Proxy.
+* [deletes](docs/sdks/proxy/README.md#deletes) - Make a DELETE request with the Proxy.
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -110,7 +107,7 @@ All SDK methods return a response object or throw an error. If Error objects are
 Example
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
     const sdk = new Nango();
@@ -152,7 +149,7 @@ You can override the default server globally by passing a server name to the `se
 | `local` | `http://localhost:3003` | None |
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
     const sdk = new Nango({
@@ -175,7 +172,7 @@ run();
 The default server can also be overridden globally by passing a URL to the `serverURL` optional parameter when initializing the SDK client instance. For example:
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
     const sdk = new Nango({
@@ -211,8 +208,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { Nango } from "@nango/sdk";
-import { HTTPClient } from "@nango/sdk/lib/http";
+import { Nango } from "@speakeasy-sdks/nango";
+import { HTTPClient } from "@speakeasy-sdks/nango/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.

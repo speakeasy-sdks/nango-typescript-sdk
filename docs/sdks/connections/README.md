@@ -17,7 +17,7 @@ Returns a list of connections
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -58,7 +58,7 @@ Adds a connection for which you already have an access token
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -98,7 +98,7 @@ Returns a specific connection
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -147,7 +147,7 @@ Deletes a specific connection
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -192,7 +192,7 @@ Set custom metadata for the connection.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -238,7 +238,7 @@ Update custom metadata for the connection.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();

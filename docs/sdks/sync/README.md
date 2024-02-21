@@ -17,7 +17,7 @@ Returns data synced with Nango Sync
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -61,7 +61,7 @@ Triggers an additional, one-off execution of specified sync(s) (for a given conn
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -106,7 +106,7 @@ Starts the continuous execution of specified sync(s) (for a given connection or 
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -151,7 +151,7 @@ Pauses the continuous execution of specified sync(s) (for a given connection or 
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -196,7 +196,7 @@ Get the status of specified sync(s) (for a given connection or all applicable co
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -242,7 +242,7 @@ Override a sync's default frequency for a specific connection, or revert to the 
 ### Example Usage
 
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
   const sdk = new Nango();

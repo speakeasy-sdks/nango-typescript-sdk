@@ -1,6 +1,6 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
-import { Nango } from "@nango/sdk";
+import { Nango } from "@speakeasy-sdks/nango";
 
 async function run() {
     const sdk = new Nango();

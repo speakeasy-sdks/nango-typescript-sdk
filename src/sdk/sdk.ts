@@ -10,7 +10,6 @@ import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 import { Action } from "./action";
 import { Connections } from "./connections";
-import { Delete } from "./delete";
 import { Integrations } from "./integrations";
 import { Proxy } from "./proxy";
 import { Records } from "./records";
@@ -71,11 +70,6 @@ export class Nango extends ClientSDK {
     private _proxy?: Proxy;
     get proxy() {
         return (this._proxy ??= new Proxy(this.options$));
-    }
-
-    private _delete?: Delete;
-    get delete() {
-        return (this._delete ??= new Delete(this.options$));
     }
 
     /**
