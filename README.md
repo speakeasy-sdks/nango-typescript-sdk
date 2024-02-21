@@ -6,13 +6,13 @@
 ### NPM
 
 ```bash
-npm add https://github.com/speakeasy-sdks/nango-typescript-sdk
+npm add @simplesagar92/nango
 ```
 
 ### Yarn
 
 ```bash
-yarn add https://github.com/speakeasy-sdks/nango-typescript-sdk
+yarn add @simplesagar92/nango
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -28,7 +28,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
     const sdk = new Nango();
@@ -107,7 +107,7 @@ All SDK methods return a response object or throw an error. If Error objects are
 Example
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
     const sdk = new Nango();
@@ -149,7 +149,7 @@ You can override the default server globally by passing a server name to the `se
 | `local` | `http://localhost:3003` | None |
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
     const sdk = new Nango({
@@ -172,7 +172,7 @@ run();
 The default server can also be overridden globally by passing a URL to the `serverURL` optional parameter when initializing the SDK client instance. For example:
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
     const sdk = new Nango({
@@ -208,8 +208,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
-import { HTTPClient } from "@speakeasy-sdks/nango/lib/http";
+import { Nango } from "@simplesagar92/nango";
+import { HTTPClient } from "@simplesagar92/nango/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.

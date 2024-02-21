@@ -16,7 +16,7 @@ Returns a list of integrations
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -54,7 +54,7 @@ Create a new integration
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -94,7 +94,7 @@ Edit an integration (only for OAuth APIs)
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -135,7 +135,7 @@ Returns a specific integration
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -180,7 +180,7 @@ Deletes a specific integration
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();

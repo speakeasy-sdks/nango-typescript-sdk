@@ -16,7 +16,7 @@ Make a GET request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -60,7 +60,7 @@ Make a POST request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -104,7 +104,7 @@ Make a PUT request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -148,7 +148,7 @@ Make a PATCH request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();
@@ -192,7 +192,7 @@ Make a DELETE request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();

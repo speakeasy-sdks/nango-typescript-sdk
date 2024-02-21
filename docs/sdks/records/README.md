@@ -12,7 +12,7 @@ Returns data synced with Nango Sync
 ### Example Usage
 
 ```typescript
-import { Nango } from "@speakeasy-sdks/nango";
+import { Nango } from "@simplesagar92/nango";
 
 async function run() {
   const sdk = new Nango();
