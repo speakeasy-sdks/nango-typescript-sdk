@@ -908,7 +908,7 @@ paths:
           description: The response exactly as returned by the external API
     delete:
       tags:
-        - delete
+        - proxy
       description: Make a DELETE request with the Proxy.
       summary: Make a DELETE request with the Proxy.
       operationId: deleteProxy
