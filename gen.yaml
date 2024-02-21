@@ -29,5 +29,5 @@ typescript:
   inputModelSuffix: input
   maxMethodParams: 4
   outputModelSuffix: output
-  packageName: '@nango/sdk'
+  packageName: "@speakeasy-sdks/nango"
   templateVersion: v2
