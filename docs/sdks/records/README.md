@@ -1,17 +1,13 @@
-# Nango SDK
-
-
-## Overview
-
-Nango API: Nango API specs used to authorize & sync data with external APIs.
+# Records
+(*records*)
 
 ### Available Operations
 
-* [getEnvironmentVariables](#getenvironmentvariables) - Retrieve the environment variables as added in the Nango dashboard.
+* [get](#get) - Returns data synced with Nango Sync, filtered by specified parameters.
 
-## getEnvironmentVariables
+## get
 
-Retrieve the environment variables as added in the Nango dashboard
+Returns data synced with Nango Sync
 
 ### Example Usage
 
@@ -21,7 +17,11 @@ import { Nango } from "@nango/sdk";
 async function run() {
   const sdk = new Nango();
 
-  const result = await sdk.getEnvironmentVariables();
+  const result = await sdk.records.get({
+    model: "Sentra",
+    connectionId: "<value>",
+    providerConfigKey: "<value>",
+  });
 
   // Handle the result
   console.log(result)
@@ -34,15 +34,17 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetRecordRequest](../../models/operations/getrecordrequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetEnvironmentVariableResponse](../../models/operations/getenvironmentvariableresponse.md)>**
+**Promise<[operations.GetRecordResponse](../../models/operations/getrecordresponse.md)>**
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| errors.Response400 | 400                | application/json   |
+| errors.SDKError    | 4xx-5xx            | */*                |

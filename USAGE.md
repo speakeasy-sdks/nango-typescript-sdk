@@ -5,7 +5,7 @@ import { Nango } from "@nango/sdk";
 async function run() {
     const sdk = new Nango();
 
-    const result = await sdk.listIntegrations();
+    const result = await sdk.getEnvironmentVariables();
 
     // Handle the result
     console.log(result);

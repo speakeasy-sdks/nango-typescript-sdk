@@ -4,19 +4,14 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
+import * as enc$ from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
+import * as components from "../models/components";
 import * as errors from "../models/errors";
 import * as operations from "../models/operations";
-import { Action } from "./action";
-import { Connections } from "./connections";
-import { Delete } from "./delete";
-import { Integrations } from "./integrations";
-import { Proxy } from "./proxy";
-import { Records } from "./records";
-import { Sync } from "./sync";
 
-export class Nango extends ClientSDK {
+export class Action extends ClientSDK {
     private readonly options$: SDKOptions & { hooks?: SDKHooks };
 
     constructor(options: SDKOptions = {}) {
@@ -43,67 +38,63 @@ export class Nango extends ClientSDK {
         void this.options$;
     }
 
-    private _integrations?: Integrations;
-    get integrations() {
-        return (this._integrations ??= new Integrations(this.options$));
-    }
-
-    private _connections?: Connections;
-    get connections() {
-        return (this._connections ??= new Connections(this.options$));
-    }
-
-    private _records?: Records;
-    get records() {
-        return (this._records ??= new Records(this.options$));
-    }
-
-    private _sync?: Sync;
-    get sync() {
-        return (this._sync ??= new Sync(this.options$));
-    }
-
-    private _action?: Action;
-    get action() {
-        return (this._action ??= new Action(this.options$));
-    }
-
-    private _proxy?: Proxy;
-    get proxy() {
-        return (this._proxy ??= new Proxy(this.options$));
-    }
-
-    private _delete?: Delete;
-    get delete() {
-        return (this._delete ??= new Delete(this.options$));
-    }
-
     /**
-     * Retrieve the environment variables as added in the Nango dashboard.
+     * Triggers an action for a connection.
      *
      * @remarks
-     * Retrieve the environment variables as added in the Nango dashboard
+     * Triggers an action for a connection
      */
-    async getEnvironmentVariables(
+    async createTrigger(
+        connectionId: string,
+        providerConfigKey: string,
+        createActionTriggerRequest: components.CreateActionTriggerRequest,
         options?: RequestOptions
-    ): Promise<operations.GetEnvironmentVariableResponse> {
+    ): Promise<operations.CreateActionTriggerResponse> {
+        const input$: operations.CreateActionTriggerRequest = {
+            connectionId: connectionId,
+            providerConfigKey: providerConfigKey,
+            createActionTriggerRequest: createActionTriggerRequest,
+        };
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
+        headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
-        const path$ = this.templateURLComponent("/environment-variables")();
+        const payload$ = operations.CreateActionTriggerRequest$.outboundSchema.parse(input$);
+
+        const body$ = enc$.encodeJSON("body", payload$.CreateActionTriggerRequest, {
+            explode: true,
+        });
+
+        const path$ = this.templateURLComponent("/action/trigger")();
 
         const query$ = "";
 
-        const context = { operationID: "getEnvironmentVariable" };
-        const doOptions = { context, errorCodes: ["4XX", "5XX"] };
+        headers$.set(
+            "Connection-Id",
+            enc$.encodeSimple("Connection-Id", payload$["Connection-Id"], {
+                explode: false,
+                charEncoding: "none",
+            })
+        );
+        headers$.set(
+            "Provider-Config-Key",
+            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+                explode: false,
+                charEncoding: "none",
+            })
+        );
+
+        const context = { operationID: "createActionTrigger" };
+        const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = await this.createRequest$(
             {
                 context,
-                method: "GET",
+                method: "POST",
                 path: path$,
                 headers: headers$,
                 query: query$,
+                body: body$,
             },
             options
         );
@@ -118,11 +109,18 @@ export class Nango extends ClientSDK {
 
         if (this.matchResponse(response, 200, "application/json")) {
             const responseBody = await response.json();
-            const result = operations.GetEnvironmentVariableResponse$.inboundSchema.parse({
+            const result = operations.CreateActionTriggerResponse$.inboundSchema.parse({
                 ...responseFields$,
-                GetEnvironmentVariableResponse: responseBody,
+                CreateActionTriggerResponse: responseBody,
             });
             return result;
+        } else if (this.matchResponse(response, 400, "application/json")) {
+            const responseBody = await response.json();
+            const result = errors.Response400$.inboundSchema.parse({
+                ...responseFields$,
+                ...responseBody,
+            });
+            throw result;
         } else {
             const responseBody = await response.text();
             throw new errors.SDKError("Unexpected API response", response, responseBody);

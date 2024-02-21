@@ -1,17 +1,13 @@
-# Nango SDK
-
-
-## Overview
-
-Nango API: Nango API specs used to authorize & sync data with external APIs.
+# Delete
+(*delete*)
 
 ### Available Operations
 
-* [getEnvironmentVariables](#getenvironmentvariables) - Retrieve the environment variables as added in the Nango dashboard.
+* [deletes](#deletes) - Make a DELETE request with the Proxy.
 
-## getEnvironmentVariables
+## deletes
 
-Retrieve the environment variables as added in the Nango dashboard
+Make a DELETE request with the Proxy.
 
 ### Example Usage
 
@@ -21,7 +17,12 @@ import { Nango } from "@nango/sdk";
 async function run() {
   const sdk = new Nango();
 
-  const result = await sdk.getEnvironmentVariables();
+  const result = await sdk.delete.deletes({
+    anyPath: "<value>",
+    dollarANYQUERYPARAMS: "<value>",
+    connectionId: "<value>",
+    providerConfigKey: "<value>",
+  });
 
   // Handle the result
   console.log(result)
@@ -34,13 +35,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteProxyRequest](../../models/operations/deleteproxyrequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetEnvironmentVariableResponse](../../models/operations/getenvironmentvariableresponse.md)>**
+**Promise<[operations.DeleteProxyResponse](../../models/operations/deleteproxyresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

@@ -49,7 +49,7 @@ import { Nango } from "@nango/sdk";
 async function run() {
     const sdk = new Nango();
 
-    const result = await sdk.listIntegrations();
+    const result = await sdk.getEnvironmentVariables();
 
     // Handle the result
     console.log(result);
@@ -65,31 +65,52 @@ run();
 
 ### [Nango SDK](docs/sdks/nango/README.md)
 
-* [listIntegrations](docs/sdks/nango/README.md#listintegrations) - Returns a list of integrations including their unique keys and providers as configured in the Nango API.
-* [createIntegration](docs/sdks/nango/README.md#createintegration) - Create a new integration including its provider configuration, OAuth details if applicable, and associated integration ID.
-* [updateIntegration](docs/sdks/nango/README.md#updateintegration) - Edit an integration, specifically tailored for OAuth APIs, updating the provider configuration along with OAuth client ID and secret.
-* [getIntegration](docs/sdks/nango/README.md#getintegration) - Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
-* [deleteIntegration](docs/sdks/nango/README.md#deleteintegration) - Deletes a specific integration identified by its provider configuration key.
-* [listConnections](docs/sdks/nango/README.md#listconnections) - Returns a list of connections, optionally filtered by connection ID.
-* [createConnections](docs/sdks/nango/README.md#createconnections) - Adds a connection using an existing access token, along with optional OAuth or basic authentication credentials, and additional metadata or configuration.
-* [getConnections](docs/sdks/nango/README.md#getconnections) - Returns details of a specific connection identified by its connection ID, associated with the specified integration, with optional parameters for force refresh and returning the refresh token.
-* [deleteConnections](docs/sdks/nango/README.md#deleteconnections) - Deletes a specific connection identified by its connection ID, associated with the specified integration.
-* [createMetadata](docs/sdks/nango/README.md#createmetadata) - Set custom metadata for the specified connection.
-* [updateMetadata](docs/sdks/nango/README.md#updatemetadata) - Update custom metadata for the specified connection.
-* [getRecord](docs/sdks/nango/README.md#getrecord) - Returns data synced with Nango Sync, filtered by specified parameters.
-* [getSyncRecord](docs/sdks/nango/README.md#getsyncrecord) - Returns data synced with Nango Sync, allowing for advanced filtering, sorting, and pagination options.
-* [createSyncTrigger](docs/sdks/nango/README.md#createsynctrigger) - Triggers an additional, one-off execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [createSyncStart](docs/sdks/nango/README.md#createsyncstart) - Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [createSyncPause](docs/sdks/nango/README.md#createsyncpause) - Pauses the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [getSyncStatus](docs/sdks/nango/README.md#getsyncstatus) - Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [updateConnectionFrequency](docs/sdks/nango/README.md#updateconnectionfrequency) - Override a sync's default frequency for a specific connection or revert to the default frequency.
-* [createActionTrigger](docs/sdks/nango/README.md#createactiontrigger) - Triggers an action for a connection.
-* [getEnvironmentVariable](docs/sdks/nango/README.md#getenvironmentvariable) - Retrieve the environment variables as added in the Nango dashboard.
-* [getProxy](docs/sdks/nango/README.md#getproxy) - Make a GET request with the Proxy.
-* [createProxy](docs/sdks/nango/README.md#createproxy) - Make a POST request with the Proxy.
-* [putProxy](docs/sdks/nango/README.md#putproxy) - Make a PUT request with the Proxy.
-* [patchProxy](docs/sdks/nango/README.md#patchproxy) - Make a PATCH request with the Proxy.
-* [deleteProxy](docs/sdks/nango/README.md#deleteproxy) - Make a DELETE request with the Proxy.
+* [getEnvironmentVariables](docs/sdks/nango/README.md#getenvironmentvariables) - Retrieve the environment variables as added in the Nango dashboard.
+
+### [integrations](docs/sdks/integrations/README.md)
+
+* [list](docs/sdks/integrations/README.md#list) - Returns a list of integrations including their unique keys and providers as configured in the Nango API.
+* [create](docs/sdks/integrations/README.md#create) - Create a new integration including its provider configuration, OAuth details if applicable, and associated integration ID.
+* [update](docs/sdks/integrations/README.md#update) - Edit an integration, specifically tailored for OAuth APIs, updating the provider configuration along with OAuth client ID and secret.
+* [fetch](docs/sdks/integrations/README.md#fetch) - Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
+* [delete](docs/sdks/integrations/README.md#delete) - Deletes a specific integration identified by its provider configuration key.
+
+### [connections](docs/sdks/connections/README.md)
+
+* [list](docs/sdks/connections/README.md#list) - Returns a list of connections, optionally filtered by connection ID.
+* [create](docs/sdks/connections/README.md#create) - Adds a connection using an existing access token, along with optional OAuth or basic authentication credentials, and additional metadata or configuration.
+* [get](docs/sdks/connections/README.md#get) - Returns details of a specific connection identified by its connection ID, associated with the specified integration, with optional parameters for force refresh and returning the refresh token.
+* [delete](docs/sdks/connections/README.md#delete) - Deletes a specific connection identified by its connection ID, associated with the specified integration.
+* [createMetadata](docs/sdks/connections/README.md#createmetadata) - Set custom metadata for the specified connection.
+* [update](docs/sdks/connections/README.md#update) - Update custom metadata for the specified connection.
+
+### [records](docs/sdks/records/README.md)
+
+* [get](docs/sdks/records/README.md#get) - Returns data synced with Nango Sync, filtered by specified parameters.
+
+### [sync](docs/sdks/sync/README.md)
+
+* [getRecord](docs/sdks/sync/README.md#getrecord) - Returns data synced with Nango Sync, allowing for advanced filtering, sorting, and pagination options.
+* [createTrigger](docs/sdks/sync/README.md#createtrigger) - Triggers an additional, one-off execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [createSyncStart](docs/sdks/sync/README.md#createsyncstart) - Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [pause](docs/sdks/sync/README.md#pause) - Pauses the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [status](docs/sdks/sync/README.md#status) - Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [updateConnectionFrequency](docs/sdks/sync/README.md#updateconnectionfrequency) - Override a sync's default frequency for a specific connection or revert to the default frequency.
+
+### [action](docs/sdks/action/README.md)
+
+* [createTrigger](docs/sdks/action/README.md#createtrigger) - Triggers an action for a connection.
+
+### [proxy](docs/sdks/proxy/README.md)
+
+* [get](docs/sdks/proxy/README.md#get) - Make a GET request with the Proxy.
+* [create](docs/sdks/proxy/README.md#create) - Make a POST request with the Proxy.
+* [update](docs/sdks/proxy/README.md#update) - Make a PUT request with the Proxy.
+* [patch](docs/sdks/proxy/README.md#patch) - Make a PATCH request with the Proxy.
+
+### [delete](docs/sdks/delete/README.md)
+
+* [deletes](docs/sdks/delete/README.md#deletes) - Make a DELETE request with the Proxy.
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -112,7 +133,7 @@ async function run() {
 
     let result;
     try {
-        result = await sdk.createIntegration({});
+        result = await sdk.integrations.create({});
     } catch (err) {
         switch (true) {
             case err instanceof errors.Response400: {
@@ -137,24 +158,24 @@ run();
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Select Server by Index
+### Select Server by Name
 
-You can override the default server globally by passing a server index to the `serverIdx` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
+You can override the default server globally by passing a server name to the `server` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
 
-| # | Server | Variables |
-| - | ------ | --------- |
-| 0 | `https://api.nango.dev` | None |
-| 1 | `http://localhost:3003` | None |
+| Name | Server | Variables |
+| ----- | ------ | --------- |
+| `prod` | `https://api.nango.dev` | None |
+| `local` | `http://localhost:3003` | None |
 
 ```typescript
 import { Nango } from "@nango/sdk";
 
 async function run() {
     const sdk = new Nango({
-        serverIdx: 1,
+        server: "local",
     });
 
-    const result = await sdk.listIntegrations();
+    const result = await sdk.getEnvironmentVariables();
 
     // Handle the result
     console.log(result);
@@ -177,7 +198,7 @@ async function run() {
         serverURL: "https://api.nango.dev",
     });
 
-    const result = await sdk.listIntegrations();
+    const result = await sdk.getEnvironmentVariables();
 
     // Handle the result
     console.log(result);

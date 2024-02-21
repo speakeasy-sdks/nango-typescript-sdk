@@ -1,6 +1,6 @@
 {
   "name": "@nango/sdk",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "author": "Nango",
   "main": "./index.js",
   "sideEffects": false,

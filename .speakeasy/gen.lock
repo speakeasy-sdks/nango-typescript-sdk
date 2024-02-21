@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 0115721b-c5d5-4598-9754-02eb24f100a8
 management:
-  docChecksum: 8dcfca611f3fa086ae6ad904c58c9d8e
+  docChecksum: 02aca09fdd6ad0e4facdf49a238ad893
   docVersion: 1.0.0
   speakeasyVersion: internal
   generationVersion: 2.263.3
-  releaseVersion: 0.0.2
-  configChecksum: 44966854e6c2c590c5f18641d66f7139
+  releaseVersion: 0.1.0
+  configChecksum: a6bce30bfe6a08afe8215623505efb52
   repoURL: https://github.com/speakeasy-sdks/Nango-sample-sdk.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/Nango-sample-sdk
@@ -16,7 +16,15 @@ features:
     flattening: 2.81.1
     globalServerURLs: 2.82.3
     nameOverrides: 2.81.1
+    serverIDs: 2.81.2
 generatedFiles:
+  - src/sdk/integrations.ts
+  - src/sdk/connections.ts
+  - src/sdk/records.ts
+  - src/sdk/sync.ts
+  - src/sdk/action.ts
+  - src/sdk/proxy.ts
+  - src/sdk/delete.ts
   - src/sdk/sdk.ts
   - .eslintrc.js
   - .npmignore
@@ -40,6 +48,7 @@ generatedFiles:
   - src/types/operations.ts
   - src/types/rfcdate.ts
   - tsconfig.json
+  - src/models/operations/getenvironmentvariable.ts
   - src/models/operations/listintegrations.ts
   - src/models/operations/createintegrations.ts
   - src/models/operations/updateintegration.ts
@@ -59,12 +68,12 @@ generatedFiles:
   - src/models/operations/getsyncstatus.ts
   - src/models/operations/updateconnectionfrequency.ts
   - src/models/operations/createactiontrigger.ts
-  - src/models/operations/getenvironmentvariable.ts
   - src/models/operations/getproxy.ts
   - src/models/operations/createproxy.ts
   - src/models/operations/putproxy.ts
   - src/models/operations/patchproxy.ts
   - src/models/operations/deleteproxy.ts
+  - src/models/components/getenvironmentvariableresponse.ts
   - src/models/components/integrationsresponse200.ts
   - src/models/components/listintegrationsrequest.ts
   - src/models/components/updateintegrationrequest.ts
@@ -81,7 +90,6 @@ generatedFiles:
   - src/models/components/updateconnectionfrequencyrequest.ts
   - src/models/components/createactiontriggerresponse.ts
   - src/models/components/createactiontriggerrequest.ts
-  - src/models/components/getenvironmentvariableresponse.ts
   - src/models/components/createproxyrequest.ts
   - src/models/components/putproxyrequest.ts
   - src/models/components/patchproxyrequest.ts
@@ -90,6 +98,7 @@ generatedFiles:
   - src/models/errors/index.ts
   - src/models/operations/index.ts
   - src/models/components/index.ts
+  - docs/models/operations/getenvironmentvariableresponse.md
   - docs/models/operations/listintegrationsresponse.md
   - docs/models/operations/createintegrationsresponse.md
   - docs/models/operations/updateintegrationresponse.md
@@ -127,7 +136,6 @@ generatedFiles:
   - docs/models/operations/updateconnectionfrequencyresponse.md
   - docs/models/operations/createactiontriggerrequest.md
   - docs/models/operations/createactiontriggerresponse.md
-  - docs/models/operations/getenvironmentvariableresponse.md
   - docs/models/operations/getproxyrequest.md
   - docs/models/operations/getproxyresponse.md
   - docs/models/operations/createproxyrequest.md
@@ -138,6 +146,7 @@ generatedFiles:
   - docs/models/operations/patchproxyresponse.md
   - docs/models/operations/deleteproxyrequest.md
   - docs/models/operations/deleteproxyresponse.md
+  - docs/models/components/getenvironmentvariableresponse.md
   - docs/models/components/items.md
   - docs/models/components/integrationsresponse200.md
   - docs/models/components/listintegrationsrequest.md
@@ -167,13 +176,19 @@ generatedFiles:
   - docs/models/components/createactiontriggerresponse.md
   - docs/models/components/input.md
   - docs/models/components/createactiontriggerrequest.md
-  - docs/models/components/getenvironmentvariableresponse.md
   - docs/models/components/createproxyrequest.md
   - docs/models/components/putproxyrequest.md
   - docs/models/components/patchproxyrequest.md
   - docs/models/errors/response400.md
   - docs/models/errors/response404.md
   - docs/sdks/nango/README.md
+  - docs/sdks/integrations/README.md
+  - docs/sdks/connections/README.md
+  - docs/sdks/records/README.md
+  - docs/sdks/sync/README.md
+  - docs/sdks/action/README.md
+  - docs/sdks/proxy/README.md
+  - docs/sdks/delete/README.md
   - USAGE.md
   - .gitattributes
   - src/hooks/hooks.ts
