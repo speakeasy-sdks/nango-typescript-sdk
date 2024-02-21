@@ -15,7 +15,7 @@ typescript:
     dependencies: {}
     devDependencies: {}
     peerDependencies: {}
-  author: Nango
+  author: Speakeasy
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true
   imports:
@@ -29,5 +29,5 @@ typescript:
   inputModelSuffix: input
   maxMethodParams: 4
   outputModelSuffix: output
-  packageName: '@speakeasy-sdks/nango'
+  packageName: '@simplesagar92/nango'
   templateVersion: v2
