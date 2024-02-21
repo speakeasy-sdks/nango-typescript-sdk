@@ -6,15 +6,19 @@ info:
 servers:
   - url: https://api.nango.dev
     description: Production server
+    x-speakeasy-server-id: prod
   - url: http://localhost:3003
     description: Local server
+    x-speakeasy-server-id: local
 paths:
   /config:
     get:
+      tags: 
+      - integrations
       description: Returns a list of integrations
       summary: Returns a list of integrations including their unique keys and providers as configured in the Nango API.
       operationId: listIntegrations
-      x-speakeasy-name-override: list_integrations
+      x-speakeasy-name-override: list
       responses:
         "200":
           description: Successfully returned a list of integrations
@@ -23,10 +27,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/IntegrationsResponse200"
     post:
+      tags: 
+      - integrations
       description: Create a new integration
       summary: Create a new integration including its provider configuration, OAuth details if applicable, and associated integration ID.
       operationId: createIntegrations
-      x-speakeasy-name-override: create_integration
+      x-speakeasy-name-override: create
       requestBody:
         required: true
         content:
@@ -47,10 +53,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/Response400"
     put:
+      tags: 
+      - integrations
       description: Edit an integration (only for OAuth APIs)
       summary: Edit an integration, specifically tailored for OAuth APIs, updating the provider configuration along with OAuth client ID and secret.
       operationId: updateIntegration
-      x-speakeasy-name-override: update_integration
+      x-speakeasy-name-override: update
       requestBody:
         required: true
         content:
@@ -78,10 +86,12 @@ paths:
                 $ref: "#/components/schemas/Response404"
   /config/{providerConfigKey}:
     get:
+      tags: 
+      - integrations
       description: Returns a specific integration
       summary: Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
       operationId: getIntegration
-      x-speakeasy-name-override: get_integration
+      x-speakeasy-name-override: fetch
       parameters:
         - name: providerConfigKey
           in: path
@@ -115,10 +125,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/Response404"
     delete:
+      tags: 
+      - integrations
       description: Deletes a specific integration
       summary: Deletes a specific integration identified by its provider configuration key.
       operationId: deleteIntegration
-      x-speakeasy-name-override: delete_integration
+      x-speakeasy-name-override: delete
       parameters:
         - name: providerConfigKey
           in: path
@@ -143,10 +155,12 @@ paths:
                 $ref: "#/components/schemas/Response404"
   /connection:
     get:
+      tags: 
+        - connections
       description: Returns a list of connections
       summary: Returns a list of connections, optionally filtered by connection ID.
       operationId: listConnections
-      x-speakeasy-name-override: list_connections
+      x-speakeasy-name-override: list
       parameters:
         - name: connectionId
           in: query
@@ -161,10 +175,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/GetConnectionResponse"
     post:
+      tags: 
+        - connections
       description: Adds a connection for which you already have an access token
       summary: Adds a connection using an existing access token, along with optional OAuth or basic authentication credentials, and additional metadata or configuration.
       operationId: createConnection
-      x-speakeasy-name-override: create_connections
+      x-speakeasy-name-override: create
       requestBody:
         required: true
         content:
@@ -183,10 +199,12 @@ paths:
 
   /connection/{connectionId}:
     get:
+      tags: 
+        - connections
       description: Returns a specific connection
       summary: Returns details of a specific connection identified by its connection ID, associated with the specified integration, with optional parameters for force refresh and returning the refresh token.
       operationId: getConnections
-      x-speakeasy-name-override: get_connections
+      x-speakeasy-name-override: get
       parameters:
         - name: connectionId
           in: path
@@ -226,10 +244,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/Response404"
     delete:
+      tags: 
+        - connections
       description: Deletes a specific connection
       summary: Deletes a specific connection identified by its connection ID, associated with the specified integration.
       operationId: deleteConnections
-      x-speakeasy-name-override: delete_connections
+      x-speakeasy-name-override: delete
       parameters:
         - name: connectionId
           in: path
@@ -260,10 +280,12 @@ paths:
                 $ref: "#/components/schemas/Response404"
   /connection/{connectionId}/metadata:
     post:
+      tags: 
+        - connections
       description: Set custom metadata for the connection.
       summary: Set custom metadata for the specified connection.
       operationId: createMetadata
-      x-speakeasy-name-override: create_metadata
+      x-speakeasy-name-override: createMetadata
       parameters:
         - name: connectionId
           in: path
@@ -294,10 +316,12 @@ paths:
                 $ref: "#/components/schemas/Response400"
 
     patch:
+      tags: 
+        - connections
       description: Update custom metadata for the connection.
       summary: Update custom metadata for the specified connection.
       operationId: updateMetadata
-      x-speakeasy-name-override: update_metadata
+      x-speakeasy-name-override: update
       parameters:
         - name: connectionId
           in: path
@@ -333,10 +357,12 @@ paths:
 
   /records:
     get:
+      tags: 
+        - records
       description: Returns data synced with Nango Sync
       summary: Returns data synced with Nango Sync, filtered by specified parameters.
       operationId: getRecord
-      x-speakeasy-name-override: get_record
+      x-speakeasy-name-override: get
       parameters:
         - name: model
           in: query
@@ -397,10 +423,12 @@ paths:
                 $ref: "#/components/schemas/Response400"
   /sync/records:
     get:
+      tags: 
+        - sync
       description: Returns data synced with Nango Sync
       summary: Returns data synced with Nango Sync, allowing for advanced filtering, sorting, and pagination options.
       operationId: getSyncRecord
-      x-speakeasy-name-override: get_sync_record
+      x-speakeasy-name-override: getRecord
       parameters:
         - name: model
           in: query
@@ -474,10 +502,12 @@ paths:
                 $ref: "#/components/schemas/Response400"
   /sync/trigger:
     post:
+      tags:
+        - sync
       description: Triggers an additional, one-off execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
       summary: Triggers an additional, one-off execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
       operationId: createSyncTrigger
-      x-speakeasy-name-override: create_sync_trigger
+      x-speakeasy-name-override: createTrigger
       requestBody:
         content:
           application/json:
@@ -495,10 +525,12 @@ paths:
 
   /sync/start:
     post:
+      tags:
+        - sync
       description: Starts the continuous execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
       summary: Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
       operationId: createSyncStart
-      x-speakeasy-name-override: create_sync_start
+      x-speakeasy-name-override: createSyncStart
       requestBody:
         content:
           application/json:
@@ -515,10 +547,12 @@ paths:
                 $ref: "#/components/schemas/Response400"
   /sync/pause:
     post:
+      tags:
+        - sync
       description: Pauses the continuous execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
       summary: Pauses the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
       operationId: createSyncPause
-      x-speakeasy-name-override: create_sync_pause
+      x-speakeasy-name-override: pause
       requestBody:
         content:
           application/json:
@@ -536,10 +570,12 @@ paths:
 
   /sync/status:
     get:
+      tags:
+        - sync
       description: Get the status of specified sync(s) (for a given connection or all applicable connections if no connection is specified)
       summary: Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
       operationId: getSyncStatus
-      x-speakeasy-name-override: get_sync_status
+      x-speakeasy-name-override: status
       parameters:
         - name: provider_config_key
           in: query
@@ -575,10 +611,12 @@ paths:
 
   /sync/update-connection-frequency:
     put:
+      tags:
+        - sync
       description: Override a sync's default frequency for a specific connection, or revert to the default frequency.
       summary: Override a sync's default frequency for a specific connection or revert to the default frequency.
       operationId: updateConnectionFrequency
-      x-speakeasy-name-override: update_connection_frequency
+      x-speakeasy-name-override: updateConnectionFrequency
       requestBody:
         required: true
         content:
@@ -600,10 +638,12 @@ paths:
                 $ref: "#/components/schemas/Response400"
   /action/trigger:
     post:
+      tags:
+        - action
       description: Triggers an action for a connection
       summary: Triggers an action for a connection.
       operationId: createActionTrigger
-      x-speakeasy-name-override: create_action_trigger
+      x-speakeasy-name-override: createTrigger
       parameters:
         - name: Connection-Id
           in: header
@@ -644,7 +684,7 @@ paths:
       description: Retrieve the environment variables as added in the Nango dashboard
       summary: Retrieve the environment variables as added in the Nango dashboard.
       operationId: getEnvironmentVariable
-      x-speakeasy-name-override: get_environment_variable
+      x-speakeasy-name-override: getEnvironmentVariables
       responses:
         "200":
           description: Retrieve the environment variables as added in the Nango dashboard
@@ -655,10 +695,12 @@ paths:
 
   /proxy/{anyPath}:
     get:
+      tags:
+        - proxy
       description: Make a GET request with the Proxy.
       summary: Make a GET request with the Proxy.
       operationId: getProxy
-      x-speakeasy-name-override: get_proxy
+      x-speakeasy-name-override: get
       parameters:
         - name: anyPath
           in: path
@@ -706,10 +748,12 @@ paths:
         "200":
           description: The response exactly as returned by the external API
     post:
+      tags:
+        - proxy
       description: Make a POST request with the Proxy.
       summary: Make a POST request with the Proxy.
       operationId: createProxy
-      x-speakeasy-name-override: create_proxy
+      x-speakeasy-name-override: create
       parameters:
         - name: anyPath
           in: path
@@ -757,10 +801,12 @@ paths:
         "200":
           description: The response exactly as returned by the external API
     put:
+      tags:
+        - proxy
       description: Make a PUT request with the Proxy.
       summary: Make a PUT request with the Proxy.
       operationId: putProxy
-      x-speakeasy-name-override: put_proxy
+      x-speakeasy-name-override: update
       parameters:
         - name: anyPath
           in: path
@@ -808,10 +854,12 @@ paths:
         "200":
           description: The response exactly as returned by the external API
     patch:
+      tags:
+        - proxy
       description: Make a PATCH request with the Proxy.
       summary: Make a PATCH request with the Proxy.
       operationId: patchProxy
-      x-speakeasy-name-override: patch_proxy
+      x-speakeasy-name-override: patch
       parameters:
         - name: anyPath
           in: path
@@ -859,10 +907,12 @@ paths:
         "200":
           description: The response exactly as returned by the external API
     delete:
+      tags:
+        - delete
       description: Make a DELETE request with the Proxy.
       summary: Make a DELETE request with the Proxy.
       operationId: deleteProxy
-      x-speakeasy-name-override: delete_proxy
+      x-speakeasy-name-override: deletes
       parameters:
         - name: anyPath
           in: path
