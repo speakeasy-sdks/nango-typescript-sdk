@@ -1,0 +1,9 @@
+# GetRecordResponse
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                | Example                                                                                    |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `records`                                                                                  | [components.Records](../../models/components/records.md)[]                                 | :heavy_minus_sign:                                                                         | N/A                                                                                        |                                                                                            |
+| `nextCursor`                                                                               | *string*                                                                                   | :heavy_minus_sign:                                                                         | The base64-encoded cursor for pagination                                                   | MjAyMy0xMS0xN1QxMTo0NzoxNC40NDcrMDI6MDB8fDAzZTA1NzIxLWNiZmQtNGYxNS1iYTNhLWFlNjM2Y2MwNmEw== |

@@ -1,0 +1,10 @@
+# CreateSyncTriggerRequest
+
+
+## Fields
+
+| Field                                                                                           | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `providerConfigKey`                                                                             | *string*                                                                                        | :heavy_check_mark:                                                                              | The ID of the integration that you established within Nango.                                    |
+| `connectionId`                                                                                  | *string*                                                                                        | :heavy_minus_sign:                                                                              | The ID of the connection. If omitted, the syncs will be triggered for all relevant connections. |
+| `syncs`                                                                                         | *string*[]                                                                                      | :heavy_check_mark:                                                                              | A list of sync names that you wish to trigger.                                                  |

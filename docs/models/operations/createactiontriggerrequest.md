@@ -1,0 +1,10 @@
+# CreateActionTriggerRequest
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `connectionId`                                                                                 | *string*                                                                                       | :heavy_check_mark:                                                                             | The connection ID used to create the connection.                                               |
+| `providerConfigKey`                                                                            | *string*                                                                                       | :heavy_check_mark:                                                                             | The integration ID used to create the connection (aka Unique Key).                             |
+| `createActionTriggerRequest`                                                                   | [components.CreateActionTriggerRequest](../../models/components/createactiontriggerrequest.md) | :heavy_check_mark:                                                                             | N/A                                                                                            |

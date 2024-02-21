@@ -1,0 +1,11 @@
+# UpdateConnectionFrequencyRequest
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `providerConfigKey`                                                                           | *string*                                                                                      | :heavy_check_mark:                                                                            | The ID of the integration you established within Nango                                        |
+| `connectionId`                                                                                | *string*                                                                                      | :heavy_check_mark:                                                                            | The ID of the connection                                                                      |
+| `syncName`                                                                                    | *string*                                                                                      | :heavy_check_mark:                                                                            | The name of the sync you want to update                                                       |
+| `frequency`                                                                                   | *string*                                                                                      | :heavy_check_mark:                                                                            | The frequency you want to set (ex: 'every hour'). Set null to revert to the default frequency |

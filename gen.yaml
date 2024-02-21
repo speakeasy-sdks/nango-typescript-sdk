@@ -11,6 +11,10 @@ generation:
     requestResponseComponentNamesFeb2024: false
 typescript:
   version: 0.0.1
+  additionalDependencies:
+    dependencies: {}
+    devDependencies: {}
+    peerDependencies: {}
   author: Nango
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true

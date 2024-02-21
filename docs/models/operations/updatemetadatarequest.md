@@ -1,0 +1,10 @@
+# UpdateMetadataRequest
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `connectionId`                                                                               | *string*                                                                                     | :heavy_check_mark:                                                                           | The connection ID used to create the connection.                                             |
+| `providerConfigKey`                                                                          | *string*                                                                                     | :heavy_check_mark:                                                                           | The integration ID used to create the connection (aka Unique Key).                           |
+| `requestBody`                                                                                | [operations.UpdateMetadataRequestBody](../../models/operations/updatemetadatarequestbody.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |

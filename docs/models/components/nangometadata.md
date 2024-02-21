@@ -1,0 +1,11 @@
+# NangoMetadata
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        | Example                                                            |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `deletedAt`                                                        | *string*                                                           | :heavy_minus_sign:                                                 | The timestamp at which Nango detected the record as deleted        |                                                                    |
+| `lastAction`                                                       | [components.LastAction](../../models/components/lastaction.md)     | :heavy_minus_sign:                                                 | The last action seen on this record                                |                                                                    |
+| `firstSeenAt`                                                      | *string*                                                           | :heavy_minus_sign:                                                 | The timestamp at which Nango first saw this record                 | 2023-09-18T15:20:35.941305+00:00                                   |
+| `lastModifiedAt`                                                   | *string*                                                           | :heavy_minus_sign:                                                 | The timestamp at which Nango last detected a change to this record | 2023-09-18T15:20:35.941305+00:00                                   |
