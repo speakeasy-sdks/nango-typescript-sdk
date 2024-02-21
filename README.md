@@ -44,10 +44,10 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-    const sdk = new NangoAPI();
+    const sdk = new Nango();
 
     const result = await sdk.listIntegrations();
 
@@ -63,33 +63,33 @@ run();
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
-### [NangoAPI SDK](docs/sdks/nangoapi/README.md)
+### [Nango SDK](docs/sdks/nango/README.md)
 
-* [listIntegrations](docs/sdks/nangoapi/README.md#listintegrations) - Returns a list of integrations including their unique keys and providers as configured in the Nango API.
-* [createIntegration](docs/sdks/nangoapi/README.md#createintegration) - Create a new integration including its provider configuration, OAuth details if applicable, and associated integration ID.
-* [updateIntegration](docs/sdks/nangoapi/README.md#updateintegration) - Edit an integration, specifically tailored for OAuth APIs, updating the provider configuration along with OAuth client ID and secret.
-* [getIntegration](docs/sdks/nangoapi/README.md#getintegration) - Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
-* [deleteIntegration](docs/sdks/nangoapi/README.md#deleteintegration) - Deletes a specific integration identified by its provider configuration key.
-* [listConnections](docs/sdks/nangoapi/README.md#listconnections) - Returns a list of connections, optionally filtered by connection ID.
-* [createConnections](docs/sdks/nangoapi/README.md#createconnections) - Adds a connection using an existing access token, along with optional OAuth or basic authentication credentials, and additional metadata or configuration.
-* [getConnections](docs/sdks/nangoapi/README.md#getconnections) - Returns details of a specific connection identified by its connection ID, associated with the specified integration, with optional parameters for force refresh and returning the refresh token.
-* [deleteConnections](docs/sdks/nangoapi/README.md#deleteconnections) - Deletes a specific connection identified by its connection ID, associated with the specified integration.
-* [createMetadata](docs/sdks/nangoapi/README.md#createmetadata) - Set custom metadata for the specified connection.
-* [updateMetadata](docs/sdks/nangoapi/README.md#updatemetadata) - Update custom metadata for the specified connection.
-* [getRecord](docs/sdks/nangoapi/README.md#getrecord) - Returns data synced with Nango Sync, filtered by specified parameters.
-* [getSyncRecord](docs/sdks/nangoapi/README.md#getsyncrecord) - Returns data synced with Nango Sync, allowing for advanced filtering, sorting, and pagination options.
-* [createSyncTrigger](docs/sdks/nangoapi/README.md#createsynctrigger) - Triggers an additional, one-off execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [createSyncStart](docs/sdks/nangoapi/README.md#createsyncstart) - Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [createSyncPause](docs/sdks/nangoapi/README.md#createsyncpause) - Pauses the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [getSyncStatus](docs/sdks/nangoapi/README.md#getsyncstatus) - Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [updateConnectionFrequency](docs/sdks/nangoapi/README.md#updateconnectionfrequency) - Override a sync's default frequency for a specific connection or revert to the default frequency.
-* [createActionTrigger](docs/sdks/nangoapi/README.md#createactiontrigger) - Triggers an action for a connection.
-* [getEnvironmentVariable](docs/sdks/nangoapi/README.md#getenvironmentvariable) - Retrieve the environment variables as added in the Nango dashboard.
-* [getProxy](docs/sdks/nangoapi/README.md#getproxy) - Make a GET request with the Proxy.
-* [createProxy](docs/sdks/nangoapi/README.md#createproxy) - Make a POST request with the Proxy.
-* [putProxy](docs/sdks/nangoapi/README.md#putproxy) - Make a PUT request with the Proxy.
-* [patchProxy](docs/sdks/nangoapi/README.md#patchproxy) - Make a PATCH request with the Proxy.
-* [deleteProxy](docs/sdks/nangoapi/README.md#deleteproxy) - Make a DELETE request with the Proxy.
+* [listIntegrations](docs/sdks/nango/README.md#listintegrations) - Returns a list of integrations including their unique keys and providers as configured in the Nango API.
+* [createIntegration](docs/sdks/nango/README.md#createintegration) - Create a new integration including its provider configuration, OAuth details if applicable, and associated integration ID.
+* [updateIntegration](docs/sdks/nango/README.md#updateintegration) - Edit an integration, specifically tailored for OAuth APIs, updating the provider configuration along with OAuth client ID and secret.
+* [getIntegration](docs/sdks/nango/README.md#getintegration) - Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
+* [deleteIntegration](docs/sdks/nango/README.md#deleteintegration) - Deletes a specific integration identified by its provider configuration key.
+* [listConnections](docs/sdks/nango/README.md#listconnections) - Returns a list of connections, optionally filtered by connection ID.
+* [createConnections](docs/sdks/nango/README.md#createconnections) - Adds a connection using an existing access token, along with optional OAuth or basic authentication credentials, and additional metadata or configuration.
+* [getConnections](docs/sdks/nango/README.md#getconnections) - Returns details of a specific connection identified by its connection ID, associated with the specified integration, with optional parameters for force refresh and returning the refresh token.
+* [deleteConnections](docs/sdks/nango/README.md#deleteconnections) - Deletes a specific connection identified by its connection ID, associated with the specified integration.
+* [createMetadata](docs/sdks/nango/README.md#createmetadata) - Set custom metadata for the specified connection.
+* [updateMetadata](docs/sdks/nango/README.md#updatemetadata) - Update custom metadata for the specified connection.
+* [getRecord](docs/sdks/nango/README.md#getrecord) - Returns data synced with Nango Sync, filtered by specified parameters.
+* [getSyncRecord](docs/sdks/nango/README.md#getsyncrecord) - Returns data synced with Nango Sync, allowing for advanced filtering, sorting, and pagination options.
+* [createSyncTrigger](docs/sdks/nango/README.md#createsynctrigger) - Triggers an additional, one-off execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [createSyncStart](docs/sdks/nango/README.md#createsyncstart) - Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [createSyncPause](docs/sdks/nango/README.md#createsyncpause) - Pauses the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [getSyncStatus](docs/sdks/nango/README.md#getsyncstatus) - Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [updateConnectionFrequency](docs/sdks/nango/README.md#updateconnectionfrequency) - Override a sync's default frequency for a specific connection or revert to the default frequency.
+* [createActionTrigger](docs/sdks/nango/README.md#createactiontrigger) - Triggers an action for a connection.
+* [getEnvironmentVariable](docs/sdks/nango/README.md#getenvironmentvariable) - Retrieve the environment variables as added in the Nango dashboard.
+* [getProxy](docs/sdks/nango/README.md#getproxy) - Make a GET request with the Proxy.
+* [createProxy](docs/sdks/nango/README.md#createproxy) - Make a POST request with the Proxy.
+* [putProxy](docs/sdks/nango/README.md#putproxy) - Make a PUT request with the Proxy.
+* [patchProxy](docs/sdks/nango/README.md#patchproxy) - Make a PATCH request with the Proxy.
+* [deleteProxy](docs/sdks/nango/README.md#deleteproxy) - Make a DELETE request with the Proxy.
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -105,10 +105,10 @@ All SDK methods return a response object or throw an error. If Error objects are
 Example
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-    const sdk = new NangoAPI();
+    const sdk = new Nango();
 
     let result;
     try {
@@ -147,10 +147,10 @@ You can override the default server globally by passing a server index to the `s
 | 1 | `http://localhost:3003` | None |
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-    const sdk = new NangoAPI({
+    const sdk = new Nango({
         serverIdx: 1,
     });
 
@@ -170,10 +170,10 @@ run();
 The default server can also be overridden globally by passing a URL to the `serverURL` optional parameter when initializing the SDK client instance. For example:
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-    const sdk = new NangoAPI({
+    const sdk = new Nango({
         serverURL: "https://api.nango.dev",
     });
 
@@ -206,8 +206,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { NangoAPI } from "Nango-API";
-import { HTTPClient } from "Nango-API/lib/http";
+import { Nango } from "@nango/sdk";
+import { HTTPClient } from "@nango/sdk/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.
@@ -233,7 +233,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new NangoAPI({ httpClient });
+const sdk = new Nango({ httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 

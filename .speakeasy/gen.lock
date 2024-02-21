@@ -5,8 +5,8 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: internal
   generationVersion: 2.263.3
-  releaseVersion: 0.0.1
-  configChecksum: 53708d97a88c02a12e2c7a7bcb818b8b
+  releaseVersion: 0.0.2
+  configChecksum: 44966854e6c2c590c5f18641d66f7139
   repoURL: https://github.com/speakeasy-sdks/Nango-sample-sdk.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/Nango-sample-sdk
@@ -173,7 +173,7 @@ generatedFiles:
   - docs/models/components/patchproxyrequest.md
   - docs/models/errors/response400.md
   - docs/models/errors/response404.md
-  - docs/sdks/nangoapi/README.md
+  - docs/sdks/nango/README.md
   - USAGE.md
   - .gitattributes
   - src/hooks/hooks.ts

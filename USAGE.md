@@ -1,9 +1,9 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-    const sdk = new NangoAPI();
+    const sdk = new Nango();
 
     const result = await sdk.listIntegrations();
 

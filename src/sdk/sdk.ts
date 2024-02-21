@@ -11,7 +11,7 @@ import * as components from "../models/components";
 import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
-export class NangoAPI extends ClientSDK {
+export class Nango extends ClientSDK {
     private readonly options$: SDKOptions & { hooks?: SDKHooks };
 
     constructor(options: SDKOptions = {}) {

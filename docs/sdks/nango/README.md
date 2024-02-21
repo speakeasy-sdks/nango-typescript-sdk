@@ -1,4 +1,4 @@
-# NangoAPI SDK
+# Nango SDK
 
 
 ## Overview
@@ -40,10 +40,10 @@ Returns a list of integrations
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.listIntegrations();
 
@@ -78,10 +78,10 @@ Create a new integration
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.createIntegration({});
 
@@ -118,10 +118,10 @@ Edit an integration (only for OAuth APIs)
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.updateIntegration({});
 
@@ -159,10 +159,10 @@ Returns a specific integration
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const providerConfigKey = "<value>";
   const includeCreds = false;
@@ -204,10 +204,10 @@ Deletes a specific integration
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const providerConfigKey = "<value>";
   
@@ -247,10 +247,10 @@ Returns a list of connections
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const connectionId = "<value>";
   
@@ -288,10 +288,10 @@ Adds a connection for which you already have an access token
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.createConnections({});
 
@@ -328,10 +328,10 @@ Returns a specific connection
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const connectionId = "<value>";
   const providerConfigKey = "<value>";
@@ -377,10 +377,10 @@ Deletes a specific connection
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const connectionId = "<value>";
   const providerConfigKey = "<value>";
@@ -422,10 +422,10 @@ Set custom metadata for the connection.
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const connectionId = "<value>";
   const providerConfigKey = "<value>";
@@ -468,10 +468,10 @@ Update custom metadata for the connection.
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const connectionId = "<value>";
   const providerConfigKey = "<value>";
@@ -514,10 +514,10 @@ Returns data synced with Nango Sync
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.getRecord({
     model: "Model 3",
@@ -558,10 +558,10 @@ Returns data synced with Nango Sync
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.getSyncRecord({
     model: "2",
@@ -602,10 +602,10 @@ Triggers an additional, one-off execution of specified sync(s) (for a given conn
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.createSyncTrigger({
     providerConfigKey: "<value>",
@@ -647,10 +647,10 @@ Starts the continuous execution of specified sync(s) (for a given connection or 
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.createSyncStart({
     providerConfigKey: "<value>",
@@ -692,10 +692,10 @@ Pauses the continuous execution of specified sync(s) (for a given connection or 
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.createSyncPause({
     providerConfigKey: "<value>",
@@ -737,10 +737,10 @@ Get the status of specified sync(s) (for a given connection or all applicable co
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const providerConfigKey = "<value>";
   const syncs = "<value>";
@@ -783,10 +783,10 @@ Override a sync's default frequency for a specific connection, or revert to the 
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.updateConnectionFrequency({
     providerConfigKey: "<value>",
@@ -828,10 +828,10 @@ Triggers an action for a connection
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const connectionId = "<value>";
   const providerConfigKey = "<value>";
@@ -877,10 +877,10 @@ Retrieve the environment variables as added in the Nango dashboard
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.getEnvironmentVariable();
 
@@ -915,10 +915,10 @@ Make a GET request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.getProxy({
     anyPath: "<value>",
@@ -959,10 +959,10 @@ Make a POST request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.createProxy({
     anyPath: "<value>",
@@ -1003,10 +1003,10 @@ Make a PUT request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.putProxy({
     anyPath: "<value>",
@@ -1047,10 +1047,10 @@ Make a PATCH request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.patchProxy({
     anyPath: "<value>",
@@ -1091,10 +1091,10 @@ Make a DELETE request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { NangoAPI } from "Nango-API";
+import { Nango } from "@nango/sdk";
 
 async function run() {
-  const sdk = new NangoAPI();
+  const sdk = new Nango();
 
   const result = await sdk.deleteProxy({
     anyPath: "<value>",

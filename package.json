@@ -1,6 +1,6 @@
 {
-  "name": "Nango-API",
-  "version": "0.0.1",
+  "name": "@nango/sdk",
+  "version": "0.0.2",
   "author": "Nango",
   "main": "./index.js",
   "sideEffects": false,

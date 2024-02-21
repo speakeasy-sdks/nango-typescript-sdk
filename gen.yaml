@@ -10,7 +10,7 @@ generation:
     parameterOrderingFeb2024: false
     requestResponseComponentNamesFeb2024: false
 typescript:
-  version: 0.0.1
+  version: 0.0.2
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -29,5 +29,5 @@ typescript:
   inputModelSuffix: input
   maxMethodParams: 4
   outputModelSuffix: output
-  packageName: "@nango/sdk"
+  packageName: '@nango/sdk'
   templateVersion: v2
