@@ -366,7 +366,6 @@ export class Connections extends ClientSDK {
         headers$.set("Accept", "application/json");
 
         const payload$ = operations.CreateMetadataRequest$.outboundSchema.parse(input$);
-
         const body$ = enc$.encodeJSON("body", payload$.RequestBody, { explode: true });
 
         const pathParams$ = {
@@ -449,7 +448,6 @@ export class Connections extends ClientSDK {
         headers$.set("Accept", "application/json");
 
         const payload$ = operations.UpdateMetadataRequest$.outboundSchema.parse(input$);
-
         const body$ = enc$.encodeJSON("body", payload$.RequestBody, { explode: true });
 
         const pathParams$ = {

@@ -159,7 +159,6 @@ export class Proxy extends ClientSDK {
         headers$.set("Accept", "*/*");
 
         const payload$ = operations.CreateProxyRequest$.outboundSchema.parse(input);
-
         const body$ = enc$.encodeJSON("body", payload$.CreateProxyRequest, { explode: true });
 
         const pathParams$ = {
@@ -260,7 +259,6 @@ export class Proxy extends ClientSDK {
         headers$.set("Accept", "*/*");
 
         const payload$ = operations.PutProxyRequest$.outboundSchema.parse(input);
-
         const body$ = enc$.encodeJSON("body", payload$.PutProxyRequest, { explode: true });
 
         const pathParams$ = {
@@ -361,7 +359,6 @@ export class Proxy extends ClientSDK {
         headers$.set("Accept", "*/*");
 
         const payload$ = operations.PatchProxyRequest$.outboundSchema.parse(input);
-
         const body$ = enc$.encodeJSON("body", payload$.PatchProxyRequest, { explode: true });
 
         const pathParams$ = {

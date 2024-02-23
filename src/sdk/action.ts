@@ -61,7 +61,6 @@ export class Action extends ClientSDK {
         headers$.set("Accept", "application/json");
 
         const payload$ = operations.CreateActionTriggerRequest$.outboundSchema.parse(input$);
-
         const body$ = enc$.encodeJSON("body", payload$.CreateActionTriggerRequest, {
             explode: true,
         });
