@@ -5,3 +5,4 @@
 export * from "./response400";
 export * from "./response404";
 export * from "./sdkerror";
+export * from "./sdkvalidationerror";
