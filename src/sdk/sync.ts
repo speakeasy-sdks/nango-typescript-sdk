@@ -91,8 +91,8 @@ export class Sync extends ClientSDK {
                 charEncoding: "none",
             })
         );
+        const context = { operationID: "getSyncRecord", oAuth2Scopes: [], securitySource: null };
 
-        const context = { operationID: "getSyncRecord" };
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
@@ -167,7 +167,12 @@ export class Sync extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "createSyncTrigger" };
+        const context = {
+            operationID: "createSyncTrigger",
+            oAuth2Scopes: [],
+            securitySource: null,
+        };
+
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
@@ -236,7 +241,8 @@ export class Sync extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "createSyncStart" };
+        const context = { operationID: "createSyncStart", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
@@ -305,7 +311,8 @@ export class Sync extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "createSyncPause" };
+        const context = { operationID: "createSyncPause", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
@@ -391,7 +398,8 @@ export class Sync extends ClientSDK {
             .filter(Boolean)
             .join("&");
 
-        const context = { operationID: "getSyncStatus" };
+        const context = { operationID: "getSyncStatus", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
@@ -464,7 +472,12 @@ export class Sync extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "updateConnectionFrequency" };
+        const context = {
+            operationID: "updateConnectionFrequency",
+            oAuth2Scopes: [],
+            securitySource: null,
+        };
+
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "PUT", path: path$, headers: headers$, query: query$, body: body$ },

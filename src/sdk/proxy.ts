@@ -115,8 +115,8 @@ export class Proxy extends ClientSDK {
                 charEncoding: "none",
             })
         );
+        const context = { operationID: "getProxy", oAuth2Scopes: [], securitySource: null };
 
-        const context = { operationID: "getProxy" };
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
@@ -216,8 +216,8 @@ export class Proxy extends ClientSDK {
                 charEncoding: "none",
             })
         );
+        const context = { operationID: "createProxy", oAuth2Scopes: [], securitySource: null };
 
-        const context = { operationID: "createProxy" };
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
@@ -317,8 +317,8 @@ export class Proxy extends ClientSDK {
                 charEncoding: "none",
             })
         );
+        const context = { operationID: "putProxy", oAuth2Scopes: [], securitySource: null };
 
-        const context = { operationID: "putProxy" };
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "PUT", path: path$, headers: headers$, query: query$, body: body$ },
@@ -418,8 +418,8 @@ export class Proxy extends ClientSDK {
                 charEncoding: "none",
             })
         );
+        const context = { operationID: "patchProxy", oAuth2Scopes: [], securitySource: null };
 
-        const context = { operationID: "patchProxy" };
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "PATCH", path: path$, headers: headers$, query: query$, body: body$ },
@@ -525,8 +525,8 @@ export class Proxy extends ClientSDK {
                 charEncoding: "none",
             })
         );
+        const context = { operationID: "deleteProxy", oAuth2Scopes: [], securitySource: null };
 
-        const context = { operationID: "deleteProxy" };
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "DELETE", path: path$, headers: headers$, query: query$, body: body$ },

@@ -74,7 +74,8 @@ export class Connections extends ClientSDK {
             .filter(Boolean)
             .join("&");
 
-        const context = { operationID: "listConnections" };
+        const context = { operationID: "listConnections", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
@@ -127,7 +128,8 @@ export class Connections extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "createConnection" };
+        const context = { operationID: "createConnection", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "POST", path: path$, headers: headers$, query: query$ },
@@ -224,7 +226,8 @@ export class Connections extends ClientSDK {
             .filter(Boolean)
             .join("&");
 
-        const context = { operationID: "getConnections" };
+        const context = { operationID: "getConnections", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
@@ -322,7 +325,12 @@ export class Connections extends ClientSDK {
             .filter(Boolean)
             .join("&");
 
-        const context = { operationID: "deleteConnections" };
+        const context = {
+            operationID: "deleteConnections",
+            oAuth2Scopes: [],
+            securitySource: null,
+        };
+
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "DELETE", path: path$, headers: headers$, query: query$, body: body$ },
@@ -423,8 +431,8 @@ export class Connections extends ClientSDK {
                 charEncoding: "none",
             })
         );
+        const context = { operationID: "createMetadata", oAuth2Scopes: [], securitySource: null };
 
-        const context = { operationID: "createMetadata" };
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
@@ -512,8 +520,8 @@ export class Connections extends ClientSDK {
                 charEncoding: "none",
             })
         );
+        const context = { operationID: "updateMetadata", oAuth2Scopes: [], securitySource: null };
 
-        const context = { operationID: "updateMetadata" };
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "PATCH", path: path$, headers: headers$, query: query$, body: body$ },

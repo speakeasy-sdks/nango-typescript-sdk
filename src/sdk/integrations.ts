@@ -54,7 +54,8 @@ export class Integrations extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "listIntegrations" };
+        const context = { operationID: "listIntegrations", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "GET", path: path$, headers: headers$, query: query$ },
@@ -107,7 +108,12 @@ export class Integrations extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "createIntegrations" };
+        const context = {
+            operationID: "createIntegrations",
+            oAuth2Scopes: [],
+            securitySource: null,
+        };
+
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "POST", path: path$, headers: headers$, query: query$ },
@@ -173,7 +179,12 @@ export class Integrations extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "updateIntegration" };
+        const context = {
+            operationID: "updateIntegration",
+            oAuth2Scopes: [],
+            securitySource: null,
+        };
+
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "PUT", path: path$, headers: headers$, query: query$ },
@@ -276,7 +287,8 @@ export class Integrations extends ClientSDK {
             .filter(Boolean)
             .join("&");
 
-        const context = { operationID: "getIntegration" };
+        const context = { operationID: "getIntegration", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
@@ -370,7 +382,12 @@ export class Integrations extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "deleteIntegration" };
+        const context = {
+            operationID: "deleteIntegration",
+            oAuth2Scopes: [],
+            securitySource: null,
+        };
+
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "DELETE", path: path$, headers: headers$, query: query$, body: body$ },

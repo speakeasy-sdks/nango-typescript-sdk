@@ -88,8 +88,12 @@ export class Action extends ClientSDK {
                 charEncoding: "none",
             })
         );
+        const context = {
+            operationID: "createActionTrigger",
+            oAuth2Scopes: [],
+            securitySource: null,
+        };
 
-        const context = { operationID: "createActionTrigger" };
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request = this.createRequest$(
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
