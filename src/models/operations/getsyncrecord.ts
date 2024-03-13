@@ -3,7 +3,7 @@
  */
 
 import * as components from "../../models/components";
-import { z } from "zod";
+import * as z from "zod";
 
 /**
  * Set how the records are sorted. The default is id. The options are 'created_at', 'updated_at', 'id'.

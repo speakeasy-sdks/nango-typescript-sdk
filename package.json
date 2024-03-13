@@ -1,6 +1,6 @@
 {
   "name": "@simplesagar92/nango",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "Speakeasy",
   "main": "./index.js",
   "sideEffects": false,
@@ -29,7 +29,6 @@
     "zod": "^3.22.4"
   },
   "dependencies": {
-    "decimal.js": "^10.4.3",
-    "jsonpath": "^1.1.1"
+    
   }
 }

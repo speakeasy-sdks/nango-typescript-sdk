@@ -3,10 +3,10 @@ id: 0115721b-c5d5-4598-9754-02eb24f100a8
 management:
   docChecksum: 794be081c1e1074ca901da6ab16f4b6b
   docVersion: 1.0.0
-  speakeasyVersion: 1.204.1
-  generationVersion: 2.279.1
-  releaseVersion: 0.4.0
-  configChecksum: 458c02f7cc4b6de52a3a7440dbd71314
+  speakeasyVersion: 1.207.1
+  generationVersion: 2.280.6
+  releaseVersion: 0.4.1
+  configChecksum: f7a27731181d0aafc617a4b32388e7b4
   repoURL: https://github.com/speakeasy-sdks/nango-typescript-sdk.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/nango-typescript-sdk
@@ -15,9 +15,9 @@ features:
   typescript:
     core: 3.6.1
     flattening: 2.81.1
-    globalServerURLs: 2.82.3
+    globalServerURLs: 2.82.4
     nameOverrides: 2.81.1
-    responseFormat: 0.2.0
+    responseFormat: 0.2.1
     serverIDs: 2.81.2
 generatedFiles:
   - src/sdk/integrations.ts
@@ -35,7 +35,6 @@ generatedFiles:
   - src/lib/base64.ts
   - src/lib/config.ts
   - src/lib/encodings.ts
-  - src/lib/event-streams.ts
   - src/lib/http.ts
   - src/lib/retries.ts
   - src/lib/schemas.ts
@@ -46,7 +45,6 @@ generatedFiles:
   - src/models/errors/sdkerror.ts
   - src/models/errors/sdkvalidationerror.ts
   - src/types/blobs.ts
-  - src/types/decimal.ts
   - src/types/index.ts
   - src/types/operations.ts
   - src/types/rfcdate.ts

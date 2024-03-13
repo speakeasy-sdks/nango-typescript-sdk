@@ -3,7 +3,7 @@
  */
 
 import * as components from "../../models/components";
-import { z } from "zod";
+import * as z from "zod";
 
 /**
  * Filter to only show results that have been added or updated or deleted. Helpful when used in conjuction with the delta parameter to retrieve a subset or records that were added, updated, or deleted with the latest sync.
