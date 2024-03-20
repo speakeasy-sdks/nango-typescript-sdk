@@ -3,17 +3,17 @@ id: 0115721b-c5d5-4598-9754-02eb24f100a8
 management:
   docChecksum: 794be081c1e1074ca901da6ab16f4b6b
   docVersion: 1.0.0
-  speakeasyVersion: 1.209.2
-  generationVersion: 2.281.2
-  releaseVersion: 0.4.2
-  configChecksum: 8f3af753803d4e6c585cabe16fa73d0a
+  speakeasyVersion: 1.213.0
+  generationVersion: 2.283.1
+  releaseVersion: 0.4.3
+  configChecksum: b2732fdc98242af65410477f8a3982f8
   repoURL: https://github.com/speakeasy-sdks/nango-typescript-sdk.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/nango-typescript-sdk
   published: true
 features:
   typescript:
-    core: 3.6.1
+    core: 3.6.3
     flattening: 2.81.1
     globalServerURLs: 2.82.4
     nameOverrides: 2.81.1

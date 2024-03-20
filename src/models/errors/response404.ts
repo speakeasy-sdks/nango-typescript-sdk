@@ -46,6 +46,7 @@ export namespace Response404$ {
                 ...(v.message === undefined ? null : { message: v.message }),
             });
         });
+
     export type Outbound = {
         message?: string | undefined;
     };
