@@ -33,18 +33,12 @@ export class Response404 extends Error {
 
 /** @internal */
 export namespace Response404$ {
-    export type Inbound = {
-        message?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Response404, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Response404, z.ZodTypeDef, unknown> = z
         .object({
             message: z.string().optional(),
         })
         .transform((v) => {
-            return new Response404({
-                ...(v.message === undefined ? null : { message: v.message }),
-            });
+            return new Response404(v);
         });
 
     export type Outbound = {
@@ -55,14 +49,8 @@ export namespace Response404$ {
         .instanceof(Response404)
         .transform((v) => v.data$)
         .pipe(
-            z
-                .object({
-                    message: z.string().optional(),
-                })
-                .transform((v) => {
-                    return {
-                        ...(v.message === undefined ? null : { message: v.message }),
-                    };
-                })
+            z.object({
+                message: z.string().optional(),
+            })
         );
 }

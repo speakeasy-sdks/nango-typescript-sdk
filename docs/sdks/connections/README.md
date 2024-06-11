@@ -19,12 +19,10 @@ Returns a list of connections
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const connectionId = "<value>";
-  
-  const result = await sdk.connections.list(connectionId);
+async function run() {
+  const result = await nango.connections.list("<value>");
 
   // Handle the result
   console.log(result)
@@ -44,7 +42,7 @@ run();
 
 ### Response
 
-**Promise<[operations.ListConnectionsResponse](../../models/operations/listconnectionsresponse.md)>**
+**Promise\<[operations.ListConnectionsResponse](../../models/operations/listconnectionsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -60,10 +58,10 @@ Adds a connection for which you already have an access token
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.connections.create({});
+async function run() {
+  const result = await nango.connections.create({});
 
   // Handle the result
   console.log(result)
@@ -83,7 +81,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateConnectionResponse](../../models/operations/createconnectionresponse.md)>**
+**Promise\<[operations.CreateConnectionResponse](../../models/operations/createconnectionresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -100,15 +98,10 @@ Returns a specific connection
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const connectionId = "<value>";
-  const providerConfigKey = "<value>";
-  const forceRefresh = false;
-  const refreshToken = false;
-  
-  const result = await sdk.connections.get(connectionId, providerConfigKey, forceRefresh, refreshToken);
+async function run() {
+  const result = await nango.connections.get("<value>", "<value>", false, false);
 
   // Handle the result
   console.log(result)
@@ -131,7 +124,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetConnectionsResponse](../../models/operations/getconnectionsresponse.md)>**
+**Promise\<[operations.GetConnectionsResponse](../../models/operations/getconnectionsresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -149,13 +142,10 @@ Deletes a specific connection
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const connectionId = "<value>";
-  const providerConfigKey = "<value>";
-  
-  const result = await sdk.connections.delete(connectionId, providerConfigKey);
+async function run() {
+  const result = await nango.connections.delete("<value>", "<value>");
 
   // Handle the result
   console.log(result)
@@ -176,7 +166,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteConnectionsResponse](../../models/operations/deleteconnectionsresponse.md)>**
+**Promise\<[operations.DeleteConnectionsResponse](../../models/operations/deleteconnectionsresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -194,14 +184,10 @@ Set custom metadata for the connection.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const connectionId = "<value>";
-  const providerConfigKey = "<value>";
-  const requestBody = {};
-  
-  const result = await sdk.connections.createMetadata(connectionId, providerConfigKey, requestBody);
+async function run() {
+  const result = await nango.connections.createMetadata("<value>", "<value>", {});
 
   // Handle the result
   console.log(result)
@@ -223,7 +209,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateMetadataResponse](../../models/operations/createmetadataresponse.md)>**
+**Promise\<[operations.CreateMetadataResponse](../../models/operations/createmetadataresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -240,14 +226,10 @@ Update custom metadata for the connection.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const connectionId = "<value>";
-  const providerConfigKey = "<value>";
-  const requestBody = {};
-  
-  const result = await sdk.connections.update(connectionId, providerConfigKey, requestBody);
+async function run() {
+  const result = await nango.connections.update("<value>", "<value>", {});
 
   // Handle the result
   console.log(result)
@@ -269,7 +251,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UpdateMetadataResponse](../../models/operations/updatemetadataresponse.md)>**
+**Promise\<[operations.UpdateMetadataResponse](../../models/operations/updatemetadataresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

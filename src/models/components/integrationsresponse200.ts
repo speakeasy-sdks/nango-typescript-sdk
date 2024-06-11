@@ -13,9 +13,7 @@ export type IntegrationsResponse200 = {
 
 /** @internal */
 export namespace Items$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<Items, z.ZodTypeDef, Inbound> = z.object({});
+    export const inboundSchema: z.ZodType<Items, z.ZodTypeDef, unknown> = z.object({});
 
     export type Outbound = {};
 
@@ -24,21 +22,10 @@ export namespace Items$ {
 
 /** @internal */
 export namespace IntegrationsResponse200$ {
-    export type Inbound = {
-        configs: Array<any>;
-        items?: Items$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<IntegrationsResponse200, z.ZodTypeDef, Inbound> = z
-        .object({
+    export const inboundSchema: z.ZodType<IntegrationsResponse200, z.ZodTypeDef, unknown> =
+        z.object({
             configs: z.array(z.any()),
             items: z.lazy(() => Items$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                configs: v.configs,
-                ...(v.items === undefined ? null : { items: v.items }),
-            };
         });
 
     export type Outbound = {
@@ -46,15 +33,9 @@ export namespace IntegrationsResponse200$ {
         items?: Items$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, IntegrationsResponse200> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, IntegrationsResponse200> =
+        z.object({
             configs: z.array(z.any()),
             items: z.lazy(() => Items$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                configs: v.configs,
-                ...(v.items === undefined ? null : { items: v.items }),
-            };
         });
 }

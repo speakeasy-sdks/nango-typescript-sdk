@@ -2,10 +2,10 @@
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-    const sdk = new Nango();
+const nango = new Nango();
 
-    const result = await sdk.getEnvironmentVariables();
+async function run() {
+    const result = await nango.getEnvironmentVariables();
 
     // Handle the result
     console.log(result);

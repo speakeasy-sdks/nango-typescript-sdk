@@ -13,9 +13,7 @@ export type GetConnectionResponse = {
 
 /** @internal */
 export namespace GetConnectionResponseItems$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<GetConnectionResponseItems, z.ZodTypeDef, Inbound> =
+    export const inboundSchema: z.ZodType<GetConnectionResponseItems, z.ZodTypeDef, unknown> =
         z.object({});
 
     export type Outbound = {};
@@ -26,37 +24,19 @@ export namespace GetConnectionResponseItems$ {
 
 /** @internal */
 export namespace GetConnectionResponse$ {
-    export type Inbound = {
-        configs: Array<any>;
-        items?: GetConnectionResponseItems$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetConnectionResponse, z.ZodTypeDef, Inbound> = z
-        .object({
-            configs: z.array(z.any()),
-            items: z.lazy(() => GetConnectionResponseItems$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                configs: v.configs,
-                ...(v.items === undefined ? null : { items: v.items }),
-            };
-        });
+    export const inboundSchema: z.ZodType<GetConnectionResponse, z.ZodTypeDef, unknown> = z.object({
+        configs: z.array(z.any()),
+        items: z.lazy(() => GetConnectionResponseItems$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         configs: Array<any>;
         items?: GetConnectionResponseItems$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetConnectionResponse> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetConnectionResponse> =
+        z.object({
             configs: z.array(z.any()),
             items: z.lazy(() => GetConnectionResponseItems$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                configs: v.configs,
-                ...(v.items === undefined ? null : { items: v.items }),
-            };
         });
 }

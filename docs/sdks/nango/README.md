@@ -18,10 +18,10 @@ Retrieve the environment variables as added in the Nango dashboard
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.getEnvironmentVariables();
+async function run() {
+  const result = await nango.getEnvironmentVariables();
 
   // Handle the result
   console.log(result)
@@ -40,7 +40,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetEnvironmentVariableResponse](../../models/operations/getenvironmentvariableresponse.md)>**
+**Promise\<[operations.GetEnvironmentVariableResponse](../../models/operations/getenvironmentvariableresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

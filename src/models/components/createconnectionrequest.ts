@@ -8,9 +8,7 @@ export type CreateConnectionRequest = {};
 
 /** @internal */
 export namespace CreateConnectionRequest$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<CreateConnectionRequest, z.ZodTypeDef, Inbound> =
+    export const inboundSchema: z.ZodType<CreateConnectionRequest, z.ZodTypeDef, unknown> =
         z.object({});
 
     export type Outbound = {};

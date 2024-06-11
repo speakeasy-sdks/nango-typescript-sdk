@@ -14,17 +14,12 @@ Triggers an action for a connection
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const connectionId = "<value>";
-  const providerConfigKey = "<value>";
-  const createActionTriggerRequest = {
+async function run() {
+  const result = await nango.action.createTrigger("<value>", "<value>", {
     actionName: "<value>",
-    input: {},
-  };
-  
-  const result = await sdk.action.createTrigger(connectionId, providerConfigKey, createActionTriggerRequest);
+  });
 
   // Handle the result
   console.log(result)
@@ -46,7 +41,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateActionTriggerResponse](../../models/operations/createactiontriggerresponse.md)>**
+**Promise\<[operations.CreateActionTriggerResponse](../../models/operations/createactiontriggerresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

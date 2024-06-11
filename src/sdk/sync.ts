@@ -4,7 +4,11 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import {
+    encodeFormQuery as encodeFormQuery$,
+    encodeJSON as encodeJSON$,
+    encodeSimple as encodeSimple$,
+} from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -46,15 +50,16 @@ export class Sync extends ClientSDK {
      * Returns data synced with Nango Sync
      */
     async getRecord(
-        input: operations.GetSyncRecordRequest,
+        request: operations.GetSyncRecordRequest,
         options?: RequestOptions
     ): Promise<operations.GetSyncRecordResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => operations.GetSyncRecordRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
@@ -62,31 +67,26 @@ export class Sync extends ClientSDK {
 
         const path$ = this.templateURLComponent("/sync/records")();
 
-        const query$ = [
-            enc$.encodeForm("delta", payload$.delta, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("filter", payload$.filter, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("limit", payload$.limit, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("model", payload$.model, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("offset", payload$.offset, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("order", payload$.order, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("sort_by", payload$.sort_by, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            offset: payload$.offset,
+            sort_by: payload$.sort_by,
+            order: payload$.order,
+            filter: payload$.filter,
+            model: payload$.model,
+            delta: payload$.delta,
+            limit: payload$.limit,
+        });
 
         headers$.set(
             "Connection-Id",
-            enc$.encodeSimple("Connection-Id", payload$["Connection-Id"], {
+            encodeSimple$("Connection-Id", payload$["Connection-Id"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -94,49 +94,28 @@ export class Sync extends ClientSDK {
         const context = { operationID: "getSyncRecord", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSyncRecordResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        GetSyncRecordResponse: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.GetSyncRecordResponse>()
+            .json(200, operations.GetSyncRecordResponse$, { key: "GetSyncRecordResponse" })
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -146,22 +125,23 @@ export class Sync extends ClientSDK {
      * Triggers an additional, one-off execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
      */
     async createTrigger(
-        input: components.CreateSyncTriggerRequest | undefined,
+        request?: components.CreateSyncTriggerRequest | undefined,
         options?: RequestOptions
     ): Promise<operations.CreateSyncTriggerResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) =>
                 components.CreateSyncTriggerRequest$.outboundSchema.optional().parse(value$),
             "Input validation failed"
         );
         const body$ =
-            payload$ === undefined ? null : enc$.encodeJSON("body", payload$, { explode: true });
+            payload$ === undefined ? null : encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/sync/trigger")();
 
@@ -174,44 +154,28 @@ export class Sync extends ClientSDK {
         };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.CreateSyncTriggerResponse>()
+            .void(200, operations.CreateSyncTriggerResponse$)
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.CreateSyncTriggerResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -221,21 +185,22 @@ export class Sync extends ClientSDK {
      * Starts the continuous execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
      */
     async createSyncStart(
-        input: components.CreateSyncStartRequest | undefined,
+        request?: components.CreateSyncStartRequest | undefined,
         options?: RequestOptions
     ): Promise<operations.CreateSyncStartResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => components.CreateSyncStartRequest$.outboundSchema.optional().parse(value$),
             "Input validation failed"
         );
         const body$ =
-            payload$ === undefined ? null : enc$.encodeJSON("body", payload$, { explode: true });
+            payload$ === undefined ? null : encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/sync/start")();
 
@@ -244,44 +209,28 @@ export class Sync extends ClientSDK {
         const context = { operationID: "createSyncStart", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.CreateSyncStartResponse>()
+            .void(200, operations.CreateSyncStartResponse$)
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.CreateSyncStartResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -291,21 +240,22 @@ export class Sync extends ClientSDK {
      * Pauses the continuous execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
      */
     async pause(
-        input: components.CreateSyncPauseRequest | undefined,
+        request?: components.CreateSyncPauseRequest | undefined,
         options?: RequestOptions
     ): Promise<operations.CreateSyncPauseResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => components.CreateSyncPauseRequest$.outboundSchema.optional().parse(value$),
             "Input validation failed"
         );
         const body$ =
-            payload$ === undefined ? null : enc$.encodeJSON("body", payload$, { explode: true });
+            payload$ === undefined ? null : encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/sync/pause")();
 
@@ -314,44 +264,28 @@ export class Sync extends ClientSDK {
         const context = { operationID: "createSyncPause", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.CreateSyncPauseResponse>()
+            .void(200, operations.CreateSyncPauseResponse$)
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.CreateSyncPauseResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -384,66 +318,37 @@ export class Sync extends ClientSDK {
 
         const path$ = this.templateURLComponent("/sync/status")();
 
-        const query$ = [
-            enc$.encodeForm("connection_id", payload$.connection_id, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("provider_config_key", payload$.provider_config_key, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("syncs", payload$.syncs, { explode: true, charEncoding: "percent" }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            provider_config_key: payload$.provider_config_key,
+            syncs: payload$.syncs,
+            connection_id: payload$.connection_id,
+        });
 
         const context = { operationID: "getSyncStatus", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSyncStatusResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        GetSyncStatusResponse: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.GetSyncStatusResponse>()
+            .json(200, operations.GetSyncStatusResponse$, { key: "GetSyncStatusResponse" })
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -453,20 +358,21 @@ export class Sync extends ClientSDK {
      * Override a sync's default frequency for a specific connection, or revert to the default frequency.
      */
     async updateConnectionFrequency(
-        input: components.UpdateConnectionFrequencyRequest,
+        request: components.UpdateConnectionFrequencyRequest,
         options?: RequestOptions
     ): Promise<operations.UpdateConnectionFrequencyResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => components.UpdateConnectionFrequencyRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$, { explode: true });
+        const body$ = encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/sync/update-connection-frequency")();
 
@@ -479,48 +385,29 @@ export class Sync extends ClientSDK {
         };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "PUT", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.UpdateConnectionFrequencyResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        UpdateConnectionFrequencyResponse: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.UpdateConnectionFrequencyResponse>()
+            .json(200, operations.UpdateConnectionFrequencyResponse$, {
+                key: "UpdateConnectionFrequencyResponse",
+            })
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 }

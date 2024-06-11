@@ -19,10 +19,10 @@ Returns data synced with Nango Sync
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.sync.getRecord({
+async function run() {
+  const result = await nango.sync.getRecord({
     model: "Expedition",
     connectionId: "<value>",
     providerConfigKey: "<value>",
@@ -46,7 +46,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetSyncRecordResponse](../../models/operations/getsyncrecordresponse.md)>**
+**Promise\<[operations.GetSyncRecordResponse](../../models/operations/getsyncrecordresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -63,10 +63,10 @@ Triggers an additional, one-off execution of specified sync(s) (for a given conn
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.sync.createTrigger({
+async function run() {
+  const result = await nango.sync.createTrigger({
     providerConfigKey: "<value>",
     syncs: [
       "<value>",
@@ -91,7 +91,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateSyncTriggerResponse](../../models/operations/createsynctriggerresponse.md)>**
+**Promise\<[operations.CreateSyncTriggerResponse](../../models/operations/createsynctriggerresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -108,10 +108,10 @@ Starts the continuous execution of specified sync(s) (for a given connection or 
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.sync.createSyncStart({
+async function run() {
+  const result = await nango.sync.createSyncStart({
     providerConfigKey: "<value>",
     syncs: [
       "<value>",
@@ -136,7 +136,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateSyncStartResponse](../../models/operations/createsyncstartresponse.md)>**
+**Promise\<[operations.CreateSyncStartResponse](../../models/operations/createsyncstartresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -153,10 +153,10 @@ Pauses the continuous execution of specified sync(s) (for a given connection or 
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.sync.pause({
+async function run() {
+  const result = await nango.sync.pause({
     providerConfigKey: "<value>",
     syncs: [
       "<value>",
@@ -181,7 +181,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateSyncPauseResponse](../../models/operations/createsyncpauseresponse.md)>**
+**Promise\<[operations.CreateSyncPauseResponse](../../models/operations/createsyncpauseresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -198,14 +198,10 @@ Get the status of specified sync(s) (for a given connection or all applicable co
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const providerConfigKey = "<value>";
-  const syncs = "<value>";
-  const connectionId = "<value>";
-  
-  const result = await sdk.sync.status(providerConfigKey, syncs, connectionId);
+async function run() {
+  const result = await nango.sync.status("<value>", "<value>", "<value>");
 
   // Handle the result
   console.log(result)
@@ -227,7 +223,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetSyncStatusResponse](../../models/operations/getsyncstatusresponse.md)>**
+**Promise\<[operations.GetSyncStatusResponse](../../models/operations/getsyncstatusresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -244,10 +240,10 @@ Override a sync's default frequency for a specific connection, or revert to the 
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.sync.updateConnectionFrequency({
+async function run() {
+  const result = await nango.sync.updateConnectionFrequency({
     providerConfigKey: "<value>",
     connectionId: "<value>",
     syncName: "<value>",
@@ -272,7 +268,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UpdateConnectionFrequencyResponse](../../models/operations/updateconnectionfrequencyresponse.md)>**
+**Promise\<[operations.UpdateConnectionFrequencyResponse](../../models/operations/updateconnectionfrequencyresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

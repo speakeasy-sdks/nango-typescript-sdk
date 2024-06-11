@@ -33,18 +33,12 @@ export class Response400 extends Error {
 
 /** @internal */
 export namespace Response400$ {
-    export type Inbound = {
-        message?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Response400, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Response400, z.ZodTypeDef, unknown> = z
         .object({
             message: z.string().optional(),
         })
         .transform((v) => {
-            return new Response400({
-                ...(v.message === undefined ? null : { message: v.message }),
-            });
+            return new Response400(v);
         });
 
     export type Outbound = {
@@ -55,14 +49,8 @@ export namespace Response400$ {
         .instanceof(Response400)
         .transform((v) => v.data$)
         .pipe(
-            z
-                .object({
-                    message: z.string().optional(),
-                })
-                .transform((v) => {
-                    return {
-                        ...(v.message === undefined ? null : { message: v.message }),
-                    };
-                })
+            z.object({
+                message: z.string().optional(),
+            })
         );
 }

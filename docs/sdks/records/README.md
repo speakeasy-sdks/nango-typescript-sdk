@@ -14,10 +14,10 @@ Returns data synced with Nango Sync
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.records.get({
+async function run() {
+  const result = await nango.records.get({
     model: "Sentra",
     connectionId: "<value>",
     providerConfigKey: "<value>",
@@ -41,7 +41,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetRecordResponse](../../models/operations/getrecordresponse.md)>**
+**Promise\<[operations.GetRecordResponse](../../models/operations/getrecordresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

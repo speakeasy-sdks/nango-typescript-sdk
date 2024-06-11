@@ -4,7 +4,7 @@
 
 import { HTTPClient } from "./http";
 import { RetryConfig } from "./retries";
-import { pathToFunc } from "./url";
+import { Params, pathToFunc } from "./url";
 
 /**
  * Production server
@@ -41,7 +41,7 @@ export type SDKOptions = {
 export function serverURLFromOptions(options: SDKOptions): URL | null {
     let serverURL = options.serverURL;
 
-    const params: Record<string, string> = {};
+    const params: Params = {};
 
     if (!serverURL) {
         const server = options.server ?? ServerProd;
@@ -52,10 +52,10 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
     return new URL(u);
 }
 
-export const SDK_METADATA = Object.freeze({
+export const SDK_METADATA = {
     language: "typescript",
     openapiDocVersion: "1.0.0",
-    sdkVersion: "0.5.1",
-    genVersion: "2.295.1",
-    userAgent: "speakeasy-sdk/typescript 0.5.1 2.295.1 1.0.0 @simplesagar92/nango",
-});
+    sdkVersion: "0.6.0",
+    genVersion: "2.340.3",
+    userAgent: "speakeasy-sdk/typescript 0.6.0 2.340.3 1.0.0 @simplesagar92/nango",
+} as const;

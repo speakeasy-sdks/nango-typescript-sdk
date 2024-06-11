@@ -8,9 +8,7 @@ export type ListIntegrationsRequest = {};
 
 /** @internal */
 export namespace ListIntegrationsRequest$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<ListIntegrationsRequest, z.ZodTypeDef, Inbound> =
+    export const inboundSchema: z.ZodType<ListIntegrationsRequest, z.ZodTypeDef, unknown> =
         z.object({});
 
     export type Outbound = {};

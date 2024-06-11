@@ -18,10 +18,10 @@ Make a GET request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.proxy.get({
+async function run() {
+  const result = await nango.proxy.get({
     anyPath: "<value>",
     dollarANYQUERYPARAMS: "<value>",
     connectionId: "<value>",
@@ -46,7 +46,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetProxyResponse](../../models/operations/getproxyresponse.md)>**
+**Promise\<[operations.GetProxyResponse](../../models/operations/getproxyresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -62,14 +62,13 @@ Make a POST request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.proxy.create({
+async function run() {
+  const result = await nango.proxy.create({
     anyPath: "<value>",
     connectionId: "<value>",
     providerConfigKey: "<value>",
-    createProxyRequest: {},
   });
 
   // Handle the result
@@ -90,7 +89,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateProxyResponse](../../models/operations/createproxyresponse.md)>**
+**Promise\<[operations.CreateProxyResponse](../../models/operations/createproxyresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -106,14 +105,13 @@ Make a PUT request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.proxy.update({
+async function run() {
+  const result = await nango.proxy.update({
     anyPath: "<value>",
     connectionId: "<value>",
     providerConfigKey: "<value>",
-    putProxyRequest: {},
   });
 
   // Handle the result
@@ -134,7 +132,7 @@ run();
 
 ### Response
 
-**Promise<[operations.PutProxyResponse](../../models/operations/putproxyresponse.md)>**
+**Promise\<[operations.PutProxyResponse](../../models/operations/putproxyresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -150,14 +148,13 @@ Make a PATCH request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.proxy.patch({
+async function run() {
+  const result = await nango.proxy.patch({
     anyPath: "<value>",
     connectionId: "<value>",
     providerConfigKey: "<value>",
-    patchProxyRequest: {},
   });
 
   // Handle the result
@@ -178,7 +175,7 @@ run();
 
 ### Response
 
-**Promise<[operations.PatchProxyResponse](../../models/operations/patchproxyresponse.md)>**
+**Promise\<[operations.PatchProxyResponse](../../models/operations/patchproxyresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -194,10 +191,10 @@ Make a DELETE request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.proxy.deletes({
+async function run() {
+  const result = await nango.proxy.deletes({
     anyPath: "<value>",
     dollarANYQUERYPARAMS: "<value>",
     connectionId: "<value>",
@@ -222,7 +219,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteProxyResponse](../../models/operations/deleteproxyresponse.md)>**
+**Promise\<[operations.DeleteProxyResponse](../../models/operations/deleteproxyresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

@@ -13,23 +13,13 @@ export type UpdateConnectionFrequencyResponse = {
 
 /** @internal */
 export namespace UpdateConnectionFrequencyResponse$ {
-    export type Inbound = {
-        frequency?: string | undefined;
-    };
-
     export const inboundSchema: z.ZodType<
         UpdateConnectionFrequencyResponse,
         z.ZodTypeDef,
-        Inbound
-    > = z
-        .object({
-            frequency: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.frequency === undefined ? null : { frequency: v.frequency }),
-            };
-        });
+        unknown
+    > = z.object({
+        frequency: z.string().optional(),
+    });
 
     export type Outbound = {
         frequency?: string | undefined;
@@ -39,13 +29,7 @@ export namespace UpdateConnectionFrequencyResponse$ {
         Outbound,
         z.ZodTypeDef,
         UpdateConnectionFrequencyResponse
-    > = z
-        .object({
-            frequency: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.frequency === undefined ? null : { frequency: v.frequency }),
-            };
-        });
+    > = z.object({
+        frequency: z.string().optional(),
+    });
 }

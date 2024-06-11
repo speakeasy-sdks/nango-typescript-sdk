@@ -4,11 +4,14 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import {
+    encodeFormQuery as encodeFormQuery$,
+    encodeJSON as encodeJSON$,
+    encodeSimple as encodeSimple$,
+} from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
-import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
 export class Proxy extends ClientSDK {
@@ -45,72 +48,68 @@ export class Proxy extends ClientSDK {
      * Make a GET request with the Proxy.
      */
     async get(
-        input: operations.GetProxyRequest,
+        request: operations.GetProxyRequest,
         options?: RequestOptions
     ): Promise<operations.GetProxyResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Accept", "*/*");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => operations.GetProxyRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
         const body$ = null;
 
         const pathParams$ = {
-            anyPath: enc$.encodeSimple("anyPath", payload$.anyPath, {
+            anyPath: encodeSimple$("anyPath", payload$.anyPath, {
                 explode: false,
                 charEncoding: "percent",
             }),
         };
         const path$ = this.templateURLComponent("/proxy/{anyPath}")(pathParams$);
 
-        const query$ = [
-            enc$.encodeForm("$ANY_QUERY_PARAMS", payload$.$ANY_QUERY_PARAMS, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            $ANY_QUERY_PARAMS: payload$.$ANY_QUERY_PARAMS,
+        });
 
         headers$.set(
             "Base-Url-Override",
-            enc$.encodeSimple("Base-Url-Override", payload$["Base-Url-Override"], {
+            encodeSimple$("Base-Url-Override", payload$["Base-Url-Override"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Connection-Id",
-            enc$.encodeSimple("Connection-Id", payload$["Connection-Id"], {
+            encodeSimple$("Connection-Id", payload$["Connection-Id"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Decompress",
-            enc$.encodeSimple("Decompress", payload$.Decompress, {
+            encodeSimple$("Decompress", payload$.Decompress, {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Retries",
-            enc$.encodeSimple("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
+            encodeSimple$("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
         );
         headers$.set(
             "nango-proxy-$ANY_HEADER",
-            enc$.encodeSimple("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
+            encodeSimple$("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -118,31 +117,27 @@ export class Proxy extends ClientSDK {
         const context = { operationID: "getProxy", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.GetProxyResponse>()
+            .void(200, operations.GetProxyResponse$)
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.GetProxyResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -152,23 +147,24 @@ export class Proxy extends ClientSDK {
      * Make a POST request with the Proxy.
      */
     async create(
-        input: operations.CreateProxyRequest,
+        request: operations.CreateProxyRequest,
         options?: RequestOptions
     ): Promise<operations.CreateProxyResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "*/*");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => operations.CreateProxyRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$.CreateProxyRequest, { explode: true });
+        const body$ = encodeJSON$("body", payload$.CreateProxyRequest, { explode: true });
 
         const pathParams$ = {
-            anyPath: enc$.encodeSimple("anyPath", payload$.anyPath, {
+            anyPath: encodeSimple$("anyPath", payload$.anyPath, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -179,39 +175,39 @@ export class Proxy extends ClientSDK {
 
         headers$.set(
             "Base-Url-Override",
-            enc$.encodeSimple("Base-Url-Override", payload$["Base-Url-Override"], {
+            encodeSimple$("Base-Url-Override", payload$["Base-Url-Override"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Connection-Id",
-            enc$.encodeSimple("Connection-Id", payload$["Connection-Id"], {
+            encodeSimple$("Connection-Id", payload$["Connection-Id"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Decompress",
-            enc$.encodeSimple("Decompress", payload$.Decompress, {
+            encodeSimple$("Decompress", payload$.Decompress, {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Retries",
-            enc$.encodeSimple("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
+            encodeSimple$("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
         );
         headers$.set(
             "nango-proxy-$ANY_HEADER",
-            enc$.encodeSimple("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
+            encodeSimple$("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -219,31 +215,27 @@ export class Proxy extends ClientSDK {
         const context = { operationID: "createProxy", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.CreateProxyResponse>()
+            .void(200, operations.CreateProxyResponse$)
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.CreateProxyResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -253,23 +245,24 @@ export class Proxy extends ClientSDK {
      * Make a PUT request with the Proxy.
      */
     async update(
-        input: operations.PutProxyRequest,
+        request: operations.PutProxyRequest,
         options?: RequestOptions
     ): Promise<operations.PutProxyResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "*/*");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => operations.PutProxyRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$.PutProxyRequest, { explode: true });
+        const body$ = encodeJSON$("body", payload$.PutProxyRequest, { explode: true });
 
         const pathParams$ = {
-            anyPath: enc$.encodeSimple("anyPath", payload$.anyPath, {
+            anyPath: encodeSimple$("anyPath", payload$.anyPath, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -280,39 +273,39 @@ export class Proxy extends ClientSDK {
 
         headers$.set(
             "Base-Url-Override",
-            enc$.encodeSimple("Base-Url-Override", payload$["Base-Url-Override"], {
+            encodeSimple$("Base-Url-Override", payload$["Base-Url-Override"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Connection-Id",
-            enc$.encodeSimple("Connection-Id", payload$["Connection-Id"], {
+            encodeSimple$("Connection-Id", payload$["Connection-Id"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Decompress",
-            enc$.encodeSimple("Decompress", payload$.Decompress, {
+            encodeSimple$("Decompress", payload$.Decompress, {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Retries",
-            enc$.encodeSimple("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
+            encodeSimple$("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
         );
         headers$.set(
             "nango-proxy-$ANY_HEADER",
-            enc$.encodeSimple("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
+            encodeSimple$("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -320,31 +313,27 @@ export class Proxy extends ClientSDK {
         const context = { operationID: "putProxy", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "PUT", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.PutProxyResponse>()
+            .void(200, operations.PutProxyResponse$)
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.PutProxyResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -354,23 +343,24 @@ export class Proxy extends ClientSDK {
      * Make a PATCH request with the Proxy.
      */
     async patch(
-        input: operations.PatchProxyRequest,
+        request: operations.PatchProxyRequest,
         options?: RequestOptions
     ): Promise<operations.PatchProxyResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "*/*");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => operations.PatchProxyRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$.PatchProxyRequest, { explode: true });
+        const body$ = encodeJSON$("body", payload$.PatchProxyRequest, { explode: true });
 
         const pathParams$ = {
-            anyPath: enc$.encodeSimple("anyPath", payload$.anyPath, {
+            anyPath: encodeSimple$("anyPath", payload$.anyPath, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -381,39 +371,39 @@ export class Proxy extends ClientSDK {
 
         headers$.set(
             "Base-Url-Override",
-            enc$.encodeSimple("Base-Url-Override", payload$["Base-Url-Override"], {
+            encodeSimple$("Base-Url-Override", payload$["Base-Url-Override"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Connection-Id",
-            enc$.encodeSimple("Connection-Id", payload$["Connection-Id"], {
+            encodeSimple$("Connection-Id", payload$["Connection-Id"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Decompress",
-            enc$.encodeSimple("Decompress", payload$.Decompress, {
+            encodeSimple$("Decompress", payload$.Decompress, {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Retries",
-            enc$.encodeSimple("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
+            encodeSimple$("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
         );
         headers$.set(
             "nango-proxy-$ANY_HEADER",
-            enc$.encodeSimple("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
+            encodeSimple$("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -421,31 +411,27 @@ export class Proxy extends ClientSDK {
         const context = { operationID: "patchProxy", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "PATCH", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.PatchProxyResponse>()
+            .void(200, operations.PatchProxyResponse$)
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.PatchProxyResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -455,72 +441,68 @@ export class Proxy extends ClientSDK {
      * Make a DELETE request with the Proxy.
      */
     async deletes(
-        input: operations.DeleteProxyRequest,
+        request: operations.DeleteProxyRequest,
         options?: RequestOptions
     ): Promise<operations.DeleteProxyResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Accept", "*/*");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => operations.DeleteProxyRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
         const body$ = null;
 
         const pathParams$ = {
-            anyPath: enc$.encodeSimple("anyPath", payload$.anyPath, {
+            anyPath: encodeSimple$("anyPath", payload$.anyPath, {
                 explode: false,
                 charEncoding: "percent",
             }),
         };
         const path$ = this.templateURLComponent("/proxy/{anyPath}")(pathParams$);
 
-        const query$ = [
-            enc$.encodeForm("$ANY_QUERY_PARAMS", payload$.$ANY_QUERY_PARAMS, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            $ANY_QUERY_PARAMS: payload$.$ANY_QUERY_PARAMS,
+        });
 
         headers$.set(
             "Base-Url-Override",
-            enc$.encodeSimple("Base-Url-Override", payload$["Base-Url-Override"], {
+            encodeSimple$("Base-Url-Override", payload$["Base-Url-Override"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Connection-Id",
-            enc$.encodeSimple("Connection-Id", payload$["Connection-Id"], {
+            encodeSimple$("Connection-Id", payload$["Connection-Id"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Decompress",
-            enc$.encodeSimple("Decompress", payload$.Decompress, {
+            encodeSimple$("Decompress", payload$.Decompress, {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Retries",
-            enc$.encodeSimple("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
+            encodeSimple$("Retries", payload$.Retries, { explode: false, charEncoding: "none" })
         );
         headers$.set(
             "nango-proxy-$ANY_HEADER",
-            enc$.encodeSimple("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
+            encodeSimple$("nango-proxy-$ANY_HEADER", payload$["nango-proxy-$ANY_HEADER"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -528,30 +510,26 @@ export class Proxy extends ClientSDK {
         const context = { operationID: "deleteProxy", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "DELETE", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.DeleteProxyResponse>()
+            .void(200, operations.DeleteProxyResponse$)
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.DeleteProxyResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 }

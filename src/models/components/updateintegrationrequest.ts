@@ -8,9 +8,7 @@ export type UpdateIntegrationRequest = {};
 
 /** @internal */
 export namespace UpdateIntegrationRequest$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<UpdateIntegrationRequest, z.ZodTypeDef, Inbound> =
+    export const inboundSchema: z.ZodType<UpdateIntegrationRequest, z.ZodTypeDef, unknown> =
         z.object({});
 
     export type Outbound = {};

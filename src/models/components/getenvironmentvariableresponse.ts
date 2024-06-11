@@ -17,21 +17,10 @@ export type GetEnvironmentVariableResponse = {
 
 /** @internal */
 export namespace GetEnvironmentVariableResponse$ {
-    export type Inbound = {
-        name?: string | undefined;
-        value?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetEnvironmentVariableResponse, z.ZodTypeDef, Inbound> = z
-        .object({
+    export const inboundSchema: z.ZodType<GetEnvironmentVariableResponse, z.ZodTypeDef, unknown> =
+        z.object({
             name: z.string().optional(),
             value: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.value === undefined ? null : { value: v.value }),
-            };
         });
 
     export type Outbound = {
@@ -40,15 +29,8 @@ export namespace GetEnvironmentVariableResponse$ {
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetEnvironmentVariableResponse> =
-        z
-            .object({
-                name: z.string().optional(),
-                value: z.string().optional(),
-            })
-            .transform((v) => {
-                return {
-                    ...(v.name === undefined ? null : { name: v.name }),
-                    ...(v.value === undefined ? null : { value: v.value }),
-                };
-            });
+        z.object({
+            name: z.string().optional(),
+            value: z.string().optional(),
+        });
 }

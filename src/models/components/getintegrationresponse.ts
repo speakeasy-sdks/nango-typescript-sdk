@@ -13,9 +13,7 @@ export type GetIntegrationResponse = {
 
 /** @internal */
 export namespace Config$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<Config, z.ZodTypeDef, Inbound> = z.object({});
+    export const inboundSchema: z.ZodType<Config, z.ZodTypeDef, unknown> = z.object({});
 
     export type Outbound = {};
 
@@ -24,37 +22,21 @@ export namespace Config$ {
 
 /** @internal */
 export namespace GetIntegrationResponse$ {
-    export type Inbound = {
-        config: Config$.Inbound;
-        properties?: any | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetIntegrationResponse, z.ZodTypeDef, Inbound> = z
-        .object({
+    export const inboundSchema: z.ZodType<GetIntegrationResponse, z.ZodTypeDef, unknown> = z.object(
+        {
             config: z.lazy(() => Config$.inboundSchema),
             properties: z.any().optional(),
-        })
-        .transform((v) => {
-            return {
-                config: v.config,
-                ...(v.properties === undefined ? null : { properties: v.properties }),
-            };
-        });
+        }
+    );
 
     export type Outbound = {
         config: Config$.Outbound;
         properties?: any | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetIntegrationResponse> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetIntegrationResponse> =
+        z.object({
             config: z.lazy(() => Config$.outboundSchema),
             properties: z.any().optional(),
-        })
-        .transform((v) => {
-            return {
-                config: v.config,
-                ...(v.properties === undefined ? null : { properties: v.properties }),
-            };
         });
 }

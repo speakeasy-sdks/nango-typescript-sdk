@@ -68,16 +68,20 @@ export type GetSyncStatusResponse = {
 };
 
 /** @internal */
-export const Status$ = z.nativeEnum(Status);
+export namespace Status$ {
+    export const inboundSchema = z.nativeEnum(Status);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const Type$ = z.nativeEnum(Type);
+export namespace Type$ {
+    export const inboundSchema = z.nativeEnum(Type);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace LatestResult$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<LatestResult, z.ZodTypeDef, Inbound> = z.object({});
+    export const inboundSchema: z.ZodType<LatestResult, z.ZodTypeDef, unknown> = z.object({});
 
     export type Outbound = {};
 
@@ -86,108 +90,52 @@ export namespace LatestResult$ {
 
 /** @internal */
 export namespace Syncs$ {
-    export type Inbound = {
-        id?: string | undefined;
-        name?: string | undefined;
-        status?: Status | undefined;
-        type?: Type | undefined;
-        finishedAt?: string | undefined;
-        nextScheduledSyncAt?: string | undefined;
-        frequency?: string | undefined;
-        latestResult?: LatestResult$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Syncs, z.ZodTypeDef, Inbound> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string().optional(),
-            status: Status$.optional(),
-            type: Type$.optional(),
-            finishedAt: z.string().optional(),
-            nextScheduledSyncAt: z.string().optional(),
-            frequency: z.string().optional(),
-            latestResult: z.lazy(() => LatestResult$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.status === undefined ? null : { status: v.status }),
-                ...(v.type === undefined ? null : { type: v.type }),
-                ...(v.finishedAt === undefined ? null : { finishedAt: v.finishedAt }),
-                ...(v.nextScheduledSyncAt === undefined
-                    ? null
-                    : { nextScheduledSyncAt: v.nextScheduledSyncAt }),
-                ...(v.frequency === undefined ? null : { frequency: v.frequency }),
-                ...(v.latestResult === undefined ? null : { latestResult: v.latestResult }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Syncs, z.ZodTypeDef, unknown> = z.object({
+        id: z.string().optional(),
+        name: z.string().optional(),
+        status: Status$.inboundSchema.optional(),
+        type: Type$.inboundSchema.optional(),
+        finishedAt: z.string().optional(),
+        nextScheduledSyncAt: z.string().optional(),
+        frequency: z.string().optional(),
+        latestResult: z.lazy(() => LatestResult$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         id?: string | undefined;
         name?: string | undefined;
-        status?: Status | undefined;
-        type?: Type | undefined;
+        status?: string | undefined;
+        type?: string | undefined;
         finishedAt?: string | undefined;
         nextScheduledSyncAt?: string | undefined;
         frequency?: string | undefined;
         latestResult?: LatestResult$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Syncs> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string().optional(),
-            status: Status$.optional(),
-            type: Type$.optional(),
-            finishedAt: z.string().optional(),
-            nextScheduledSyncAt: z.string().optional(),
-            frequency: z.string().optional(),
-            latestResult: z.lazy(() => LatestResult$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.status === undefined ? null : { status: v.status }),
-                ...(v.type === undefined ? null : { type: v.type }),
-                ...(v.finishedAt === undefined ? null : { finishedAt: v.finishedAt }),
-                ...(v.nextScheduledSyncAt === undefined
-                    ? null
-                    : { nextScheduledSyncAt: v.nextScheduledSyncAt }),
-                ...(v.frequency === undefined ? null : { frequency: v.frequency }),
-                ...(v.latestResult === undefined ? null : { latestResult: v.latestResult }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Syncs> = z.object({
+        id: z.string().optional(),
+        name: z.string().optional(),
+        status: Status$.outboundSchema.optional(),
+        type: Type$.outboundSchema.optional(),
+        finishedAt: z.string().optional(),
+        nextScheduledSyncAt: z.string().optional(),
+        frequency: z.string().optional(),
+        latestResult: z.lazy(() => LatestResult$.outboundSchema).optional(),
+    });
 }
 
 /** @internal */
 export namespace GetSyncStatusResponse$ {
-    export type Inbound = {
-        syncs?: Array<Syncs$.Inbound> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetSyncStatusResponse, z.ZodTypeDef, Inbound> = z
-        .object({
-            syncs: z.array(z.lazy(() => Syncs$.inboundSchema)).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.syncs === undefined ? null : { syncs: v.syncs }),
-            };
-        });
+    export const inboundSchema: z.ZodType<GetSyncStatusResponse, z.ZodTypeDef, unknown> = z.object({
+        syncs: z.array(z.lazy(() => Syncs$.inboundSchema)).optional(),
+    });
 
     export type Outbound = {
         syncs?: Array<Syncs$.Outbound> | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetSyncStatusResponse> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetSyncStatusResponse> =
+        z.object({
             syncs: z.array(z.lazy(() => Syncs$.outboundSchema)).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.syncs === undefined ? null : { syncs: v.syncs }),
-            };
         });
 }

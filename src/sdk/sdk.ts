@@ -5,9 +5,7 @@
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
 import { HTTPClient } from "../lib/http";
-import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
-import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 import { Action } from "./action";
 import { Connections } from "./connections";
@@ -44,32 +42,32 @@ export class Nango extends ClientSDK {
     }
 
     private _integrations?: Integrations;
-    get integrations() {
+    get integrations(): Integrations {
         return (this._integrations ??= new Integrations(this.options$));
     }
 
     private _connections?: Connections;
-    get connections() {
+    get connections(): Connections {
         return (this._connections ??= new Connections(this.options$));
     }
 
     private _records?: Records;
-    get records() {
+    get records(): Records {
         return (this._records ??= new Records(this.options$));
     }
 
     private _sync?: Sync;
-    get sync() {
+    get sync(): Sync {
         return (this._sync ??= new Sync(this.options$));
     }
 
     private _action?: Action;
-    get action() {
+    get action(): Action {
         return (this._action ??= new Action(this.options$));
     }
 
     private _proxy?: Proxy;
-    get proxy() {
+    get proxy(): Proxy {
         return (this._proxy ??= new Proxy(this.options$));
     }
 
@@ -97,35 +95,28 @@ export class Nango extends ClientSDK {
         };
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "GET", path: path$, headers: headers$, query: query$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetEnvironmentVariableResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        GetEnvironmentVariableResponse: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.GetEnvironmentVariableResponse>()
+            .json(200, operations.GetEnvironmentVariableResponse$, {
+                key: "GetEnvironmentVariableResponse",
+            })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 }

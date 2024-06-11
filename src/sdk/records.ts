@@ -4,7 +4,10 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import {
+    encodeFormQuery as encodeFormQuery$,
+    encodeSimple as encodeSimple$,
+} from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -45,15 +48,16 @@ export class Records extends ClientSDK {
      * Returns data synced with Nango Sync
      */
     async get(
-        input: operations.GetRecordRequest,
+        request: operations.GetRecordRequest,
         options?: RequestOptions
     ): Promise<operations.GetRecordResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => operations.GetRecordRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
@@ -61,26 +65,24 @@ export class Records extends ClientSDK {
 
         const path$ = this.templateURLComponent("/records")();
 
-        const query$ = [
-            enc$.encodeForm("cursor", payload$.cursor, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("delta", payload$.delta, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("filter", payload$.filter, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("limit", payload$.limit, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("model", payload$.model, { explode: true, charEncoding: "percent" }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            model: payload$.model,
+            delta: payload$.delta,
+            limit: payload$.limit,
+            cursor: payload$.cursor,
+            filter: payload$.filter,
+        });
 
         headers$.set(
             "Connection-Id",
-            enc$.encodeSimple("Connection-Id", payload$["Connection-Id"], {
+            encodeSimple$("Connection-Id", payload$["Connection-Id"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -88,48 +90,27 @@ export class Records extends ClientSDK {
         const context = { operationID: "getRecord", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetRecordResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        GetRecordResponse: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.GetRecordResponse>()
+            .json(200, operations.GetRecordResponse$, { key: "GetRecordResponse" })
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 }

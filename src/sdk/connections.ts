@@ -4,7 +4,11 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import {
+    encodeFormQuery as encodeFormQuery$,
+    encodeJSON as encodeJSON$,
+    encodeSimple as encodeSimple$,
+} from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -65,48 +69,34 @@ export class Connections extends ClientSDK {
 
         const path$ = this.templateURLComponent("/connection")();
 
-        const query$ = [
-            enc$.encodeForm("connectionId", payload$.connectionId, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            connectionId: payload$.connectionId,
+        });
 
         const context = { operationID: "listConnections", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.ListConnectionsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        GetConnectionResponse: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.ListConnectionsResponse>()
+            .json(200, operations.ListConnectionsResponse$, { key: "GetConnectionResponse" })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -116,9 +106,11 @@ export class Connections extends ClientSDK {
      * Adds a connection for which you already have an access token
      */
     async create(
-        _input: components.CreateConnectionRequest,
+        request: components.CreateConnectionRequest,
         options?: RequestOptions
     ): Promise<operations.CreateConnectionResponse> {
+        const input$ = request;
+        void input$; // request input is unused
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
@@ -131,44 +123,28 @@ export class Connections extends ClientSDK {
         const context = { operationID: "createConnection", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "POST", path: path$, headers: headers$, query: query$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.CreateConnectionResponse>()
+            .void(200, operations.CreateConnectionResponse$)
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.CreateConnectionResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -202,84 +178,45 @@ export class Connections extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            connectionId: enc$.encodeSimple("connectionId", payload$.connectionId, {
+            connectionId: encodeSimple$("connectionId", payload$.connectionId, {
                 explode: false,
                 charEncoding: "percent",
             }),
         };
         const path$ = this.templateURLComponent("/connection/{connectionId}")(pathParams$);
 
-        const query$ = [
-            enc$.encodeForm("force_refresh", payload$.force_refresh, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("provider_config_key", payload$.provider_config_key, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("refresh_token", payload$.refresh_token, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            provider_config_key: payload$.provider_config_key,
+            force_refresh: payload$.force_refresh,
+            refresh_token: payload$.refresh_token,
+        });
 
         const context = { operationID: "getConnections", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 200)) {
-            // fallthrough
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else if (this.matchResponse(response, 404, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response404$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.GetConnectionsResponse>()
+            .void(200, operations.GetConnectionsResponse$)
+            .json(400, errors.Response400$, { err: true })
+            .json(404, errors.Response404$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.GetConnectionsResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -309,21 +246,16 @@ export class Connections extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            connectionId: enc$.encodeSimple("connectionId", payload$.connectionId, {
+            connectionId: encodeSimple$("connectionId", payload$.connectionId, {
                 explode: false,
                 charEncoding: "percent",
             }),
         };
         const path$ = this.templateURLComponent("/connection/{connectionId}")(pathParams$);
 
-        const query$ = [
-            enc$.encodeForm("provider_config_key", payload$.provider_config_key, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            provider_config_key: payload$.provider_config_key,
+        });
 
         const context = {
             operationID: "deleteConnections",
@@ -332,57 +264,29 @@ export class Connections extends ClientSDK {
         };
 
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "DELETE", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 204)) {
-            // fallthrough
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else if (this.matchResponse(response, 404, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response404$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.DeleteConnectionsResponse>()
+            .void(204, operations.DeleteConnectionsResponse$)
+            .json(400, errors.Response400$, { err: true })
+            .json(404, errors.Response404$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.DeleteConnectionsResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -412,10 +316,10 @@ export class Connections extends ClientSDK {
             (value$) => operations.CreateMetadataRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$.RequestBody, { explode: true });
+        const body$ = encodeJSON$("body", payload$.RequestBody, { explode: true });
 
         const pathParams$ = {
-            connectionId: enc$.encodeSimple("connectionId", payload$.connectionId, {
+            connectionId: encodeSimple$("connectionId", payload$.connectionId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -426,7 +330,7 @@ export class Connections extends ClientSDK {
 
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -434,44 +338,28 @@ export class Connections extends ClientSDK {
         const context = { operationID: "createMetadata", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchStatusCode(response, 201)) {
-            // fallthrough
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.CreateMetadataResponse>()
+            .void(201, operations.CreateMetadataResponse$)
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.CreateMetadataResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -501,10 +389,10 @@ export class Connections extends ClientSDK {
             (value$) => operations.UpdateMetadataRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$.RequestBody, { explode: true });
+        const body$ = encodeJSON$("body", payload$.RequestBody, { explode: true });
 
         const pathParams$ = {
-            connectionId: enc$.encodeSimple("connectionId", payload$.connectionId, {
+            connectionId: encodeSimple$("connectionId", payload$.connectionId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -515,7 +403,7 @@ export class Connections extends ClientSDK {
 
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -523,48 +411,27 @@ export class Connections extends ClientSDK {
         const context = { operationID: "updateMetadata", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "PATCH", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.UpdateMetadataResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        object: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.UpdateMetadataResponse>()
+            .json(200, operations.UpdateMetadataResponse$, { key: "object" })
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 }

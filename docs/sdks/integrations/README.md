@@ -18,10 +18,10 @@ Returns a list of integrations
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.integrations.list();
+async function run() {
+  const result = await nango.integrations.list();
 
   // Handle the result
   console.log(result)
@@ -40,7 +40,7 @@ run();
 
 ### Response
 
-**Promise<[operations.ListIntegrationsResponse](../../models/operations/listintegrationsresponse.md)>**
+**Promise\<[operations.ListIntegrationsResponse](../../models/operations/listintegrationsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -56,10 +56,10 @@ Create a new integration
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.integrations.create({});
+async function run() {
+  const result = await nango.integrations.create({});
 
   // Handle the result
   console.log(result)
@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateIntegrationsResponse](../../models/operations/createintegrationsresponse.md)>**
+**Promise\<[operations.CreateIntegrationsResponse](../../models/operations/createintegrationsresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -96,10 +96,10 @@ Edit an integration (only for OAuth APIs)
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const result = await sdk.integrations.update({});
+async function run() {
+  const result = await nango.integrations.update({});
 
   // Handle the result
   console.log(result)
@@ -119,7 +119,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UpdateIntegrationResponse](../../models/operations/updateintegrationresponse.md)>**
+**Promise\<[operations.UpdateIntegrationResponse](../../models/operations/updateintegrationresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -137,13 +137,10 @@ Returns a specific integration
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const providerConfigKey = "<value>";
-  const includeCreds = false;
-  
-  const result = await sdk.integrations.fetch(providerConfigKey, includeCreds);
+async function run() {
+  const result = await nango.integrations.fetch("<value>", false);
 
   // Handle the result
   console.log(result)
@@ -164,7 +161,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetIntegrationResponse](../../models/operations/getintegrationresponse.md)>**
+**Promise\<[operations.GetIntegrationResponse](../../models/operations/getintegrationresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -182,12 +179,10 @@ Deletes a specific integration
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-  const sdk = new Nango();
+const nango = new Nango();
 
-  const providerConfigKey = "<value>";
-  
-  const result = await sdk.integrations.delete(providerConfigKey);
+async function run() {
+  const result = await nango.integrations.delete("<value>");
 
   // Handle the result
   console.log(result)
@@ -207,7 +202,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteIntegrationResponse](../../models/operations/deleteintegrationresponse.md)>**
+**Promise\<[operations.DeleteIntegrationResponse](../../models/operations/deleteintegrationresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

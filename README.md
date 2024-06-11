@@ -30,10 +30,10 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-    const sdk = new Nango();
+const nango = new Nango();
 
-    const result = await sdk.getEnvironmentVariables();
+async function run() {
+    const result = await nango.getEnvironmentVariables();
 
     // Handle the result
     console.log(result);
@@ -111,12 +111,12 @@ Validation errors can also occur when either method arguments or data returned f
 import { Nango } from "@simplesagar92/nango";
 import * as errors from "@simplesagar92/nango/models/errors";
 
-async function run() {
-    const sdk = new Nango();
+const nango = new Nango();
 
+async function run() {
     let result;
     try {
-        result = await sdk.integrations.create({});
+        result = await nango.integrations.create({});
     } catch (err) {
         switch (true) {
             case err instanceof errors.SDKValidationError: {
@@ -160,12 +160,12 @@ You can override the default server globally by passing a server name to the `se
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-    const sdk = new Nango({
-        server: "local",
-    });
+const nango = new Nango({
+    server: "local",
+});
 
-    const result = await sdk.getEnvironmentVariables();
+async function run() {
+    const result = await nango.getEnvironmentVariables();
 
     // Handle the result
     console.log(result);
@@ -183,12 +183,12 @@ The default server can also be overridden globally by passing a URL to the `serv
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-async function run() {
-    const sdk = new Nango({
-        serverURL: "https://api.nango.dev",
-    });
+const nango = new Nango({
+    serverURL: "https://api.nango.dev",
+});
 
-    const result = await sdk.getEnvironmentVariables();
+async function run() {
+    const result = await nango.getEnvironmentVariables();
 
     // Handle the result
     console.log(result);
@@ -229,7 +229,7 @@ const httpClient = new HTTPClient({
 
 httpClient.addHook("beforeRequest", (request) => {
   const nextRequest = new Request(request, {
-    signal: request.signal || AbortSignal.timeout(5000);
+    signal: request.signal || AbortSignal.timeout(5000)
   });
 
   nextRequest.headers.set("x-custom-header", "custom value");

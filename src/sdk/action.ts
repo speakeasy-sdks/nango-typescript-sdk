@@ -4,7 +4,7 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import { encodeJSON as encodeJSON$, encodeSimple as encodeSimple$ } from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -66,9 +66,7 @@ export class Action extends ClientSDK {
             (value$) => operations.CreateActionTriggerRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$.CreateActionTriggerRequest, {
-            explode: true,
-        });
+        const body$ = encodeJSON$("body", payload$.CreateActionTriggerRequest, { explode: true });
 
         const path$ = this.templateURLComponent("/action/trigger")();
 
@@ -76,14 +74,14 @@ export class Action extends ClientSDK {
 
         headers$.set(
             "Connection-Id",
-            enc$.encodeSimple("Connection-Id", payload$["Connection-Id"], {
+            encodeSimple$("Connection-Id", payload$["Connection-Id"], {
                 explode: false,
                 charEncoding: "none",
             })
         );
         headers$.set(
             "Provider-Config-Key",
-            enc$.encodeSimple("Provider-Config-Key", payload$["Provider-Config-Key"], {
+            encodeSimple$("Provider-Config-Key", payload$["Provider-Config-Key"], {
                 explode: false,
                 charEncoding: "none",
             })
@@ -95,48 +93,29 @@ export class Action extends ClientSDK {
         };
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.CreateActionTriggerResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        CreateActionTriggerResponse: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, 400, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return errors.Response400$.inboundSchema.parse({
-                        ...responseFields$,
-                        ...val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            throw result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
-        }
+        const [result$] = await this.matcher<operations.CreateActionTriggerResponse>()
+            .json(200, operations.CreateActionTriggerResponse$, {
+                key: "CreateActionTriggerResponse",
+            })
+            .json(400, errors.Response400$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 }
