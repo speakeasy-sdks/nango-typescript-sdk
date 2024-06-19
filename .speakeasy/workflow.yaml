@@ -3,7 +3,7 @@ speakeasyVersion: latest
 sources:
     my-source:
         inputs:
-            - location: ./openapi.yaml
+            - location: ./openapi_improved.yaml
         registry:
             location: registry.speakeasyapi.dev/nango/nango/my-source
 targets:

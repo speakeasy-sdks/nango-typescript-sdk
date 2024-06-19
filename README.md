@@ -30,12 +30,10 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-    apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
-    const result = await nango.getEnvironmentVariables();
+    const result = await nango.integrations.list();
 
     // Handle the result
     console.log(result);
@@ -49,16 +47,12 @@ run();
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
-### [Nango SDK](docs/sdks/nango/README.md)
-
-* [getEnvironmentVariables](docs/sdks/nango/README.md#getenvironmentvariables) - Retrieve the environment variables as added in the Nango dashboard.
-
 ### [integrations](docs/sdks/integrations/README.md)
 
 * [list](docs/sdks/integrations/README.md#list) - Returns a list of integrations including their unique keys and providers as configured in the Nango API.
 * [create](docs/sdks/integrations/README.md#create) - Create a new integration including its provider configuration, OAuth details if applicable, and associated integration ID.
 * [update](docs/sdks/integrations/README.md#update) - Edit an integration, specifically tailored for OAuth APIs, updating the provider configuration along with OAuth client ID and secret.
-* [fetch](docs/sdks/integrations/README.md#fetch) - Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
+* [get](docs/sdks/integrations/README.md#get) - Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
 * [delete](docs/sdks/integrations/README.md#delete) - Deletes a specific integration identified by its provider configuration key.
 
 ### [connections](docs/sdks/connections/README.md)
@@ -78,22 +72,26 @@ run();
 
 * [getRecord](docs/sdks/sync/README.md#getrecord) - Returns data synced with Nango Sync, allowing for advanced filtering, sorting, and pagination options.
 * [createTrigger](docs/sdks/sync/README.md#createtrigger) - Triggers an additional, one-off execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [createSyncStart](docs/sdks/sync/README.md#createsyncstart) - Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [start](docs/sdks/sync/README.md#start) - Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
 * [pause](docs/sdks/sync/README.md#pause) - Pauses the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [status](docs/sdks/sync/README.md#status) - Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [updateConnectionFrequency](docs/sdks/sync/README.md#updateconnectionfrequency) - Override a sync's default frequency for a specific connection or revert to the default frequency.
+* [getStatus](docs/sdks/sync/README.md#getstatus) - Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [updateFrequency](docs/sdks/sync/README.md#updatefrequency) - Override a sync's default frequency for a specific connection or revert to the default frequency.
 
-### [action](docs/sdks/action/README.md)
+### [actions](docs/sdks/actions/README.md)
 
-* [createTrigger](docs/sdks/action/README.md#createtrigger) - Triggers an action for a connection.
+* [createTrigger](docs/sdks/actions/README.md#createtrigger) - Triggers an action for a connection.
+
+### [environment](docs/sdks/environment/README.md)
+
+* [get](docs/sdks/environment/README.md#get) - Retrieve the environment variables as added in the Nango dashboard.
 
 ### [proxy](docs/sdks/proxy/README.md)
 
 * [get](docs/sdks/proxy/README.md#get) - Make a GET request with the Proxy.
 * [create](docs/sdks/proxy/README.md#create) - Make a POST request with the Proxy.
 * [update](docs/sdks/proxy/README.md#update) - Make a PUT request with the Proxy.
-* [patch](docs/sdks/proxy/README.md#patch) - Make a PATCH request with the Proxy.
-* [deletes](docs/sdks/proxy/README.md#deletes) - Make a DELETE request with the Proxy.
+* [modify](docs/sdks/proxy/README.md#modify) - Make a PATCH request with the Proxy.
+* [delete](docs/sdks/proxy/README.md#delete) - Make a DELETE request with the Proxy.
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -113,9 +111,7 @@ Validation errors can also occur when either method arguments or data returned f
 import { Nango } from "@simplesagar92/nango";
 import * as errors from "@simplesagar92/nango/models/errors";
 
-const nango = new Nango({
-    apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
     let result;
@@ -166,11 +162,10 @@ import { Nango } from "@simplesagar92/nango";
 
 const nango = new Nango({
     server: "local",
-    apiKey: "<YOUR_API_KEY_HERE>",
 });
 
 async function run() {
-    const result = await nango.getEnvironmentVariables();
+    const result = await nango.integrations.list();
 
     // Handle the result
     console.log(result);
@@ -190,11 +185,10 @@ import { Nango } from "@simplesagar92/nango";
 
 const nango = new Nango({
     serverURL: "https://api.nango.dev",
-    apiKey: "<YOUR_API_KEY_HERE>",
 });
 
 async function run() {
-    const result = await nango.getEnvironmentVariables();
+    const result = await nango.integrations.list();
 
     // Handle the result
     console.log(result);
@@ -253,37 +247,6 @@ httpClient.addHook("requestError", (error, request) => {
 const sdk = new Nango({ httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
-
-<!-- Start Authentication [security] -->
-## Authentication
-
-### Per-Client Security Schemes
-
-This SDK supports the following security scheme globally:
-
-| Name     | Type     | Scheme   |
-| -------- | -------- | -------- |
-| `apiKey` | apiKey   | API key  |
-
-To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
-```typescript
-import { Nango } from "@simplesagar92/nango";
-
-const nango = new Nango({
-    apiKey: "<YOUR_API_KEY_HERE>",
-});
-
-async function run() {
-    const result = await nango.getEnvironmentVariables();
-
-    // Handle the result
-    console.log(result);
-}
-
-run();
-
-```
-<!-- End Authentication [security] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

@@ -2,16 +2,16 @@ speakeasyVersion: 1.308.2
 sources:
     my-source:
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:e1805105aef1abc68b27670d252f58e210ebe93378c877de9b7ba3ff1bb213c1
-        sourceBlobDigest: sha256:c8f35fb13bd1b39f87100a9337702cfb360003e518b76404cdcad21f3cb9b489
+        sourceRevisionDigest: sha256:9eeb73f72464e0427d3082d33e84c3de5e838d1cf9fa1ba6b75d36c4a12f2fd1
+        sourceBlobDigest: sha256:efa987571d8346ba36b22ab4746cdde4b9470314c134765f1b925c8d4bf07dae
         tags:
             - latest
 targets:
     nango-ts:
         source: my-source
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:e1805105aef1abc68b27670d252f58e210ebe93378c877de9b7ba3ff1bb213c1
-        sourceBlobDigest: sha256:c8f35fb13bd1b39f87100a9337702cfb360003e518b76404cdcad21f3cb9b489
+        sourceRevisionDigest: sha256:9eeb73f72464e0427d3082d33e84c3de5e838d1cf9fa1ba6b75d36c4a12f2fd1
+        sourceBlobDigest: sha256:efa987571d8346ba36b22ab4746cdde4b9470314c134765f1b925c8d4bf07dae
         outLocation: /Users/sagar/go/src/Nango-sample-sdk
 workflow:
     workflowVersion: 1.0.0
@@ -19,7 +19,7 @@ workflow:
     sources:
         my-source:
             inputs:
-                - location: ./openapi.yaml
+                - location: ./openapi_improved.yaml
             registry:
                 location: registry.speakeasyapi.dev/nango/nango/my-source
     targets:

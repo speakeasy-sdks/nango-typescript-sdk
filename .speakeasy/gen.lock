@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 0115721b-c5d5-4598-9754-02eb24f100a8
 management:
-  docChecksum: fd304620011a21a4ae81e229171ce2eb
+  docChecksum: 108d5939aa1f55ecaef7b1e04e7745b6
   docVersion: 1.0.0
   speakeasyVersion: 1.308.2
   generationVersion: 2.342.6
-  releaseVersion: 0.7.0
-  configChecksum: 0870c3b6a7e1911e9d83ddf2fd27da5d
+  releaseVersion: 0.8.0
+  configChecksum: 053e7ddeff17b0da2d5842a8f771fd17
   repoURL: https://github.com/speakeasy-sdks/nango-typescript-sdk.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/nango-typescript-sdk
@@ -16,10 +16,9 @@ features:
     additionalDependencies: 0.1.0
     core: 3.9.14
     flattening: 2.81.1
-    globalSecurity: 2.82.9
     globalSecurityCallbacks: 0.1.0
-    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.4
+    groups: 2.81.2
     nameOverrides: 2.81.2
     responseFormat: 0.2.3
     sdkHooks: 0.1.0
@@ -29,7 +28,8 @@ generatedFiles:
   - src/sdk/connections.ts
   - src/sdk/records.ts
   - src/sdk/sync.ts
-  - src/sdk/action.ts
+  - src/sdk/actions.ts
+  - src/sdk/environment.ts
   - src/sdk/proxy.ts
   - src/sdk/sdk.ts
   - .eslintrc.js
@@ -58,7 +58,6 @@ generatedFiles:
   - src/types/operations.ts
   - src/types/rfcdate.ts
   - tsconfig.json
-  - src/models/operations/getenvironmentvariable.ts
   - src/models/operations/listintegrations.ts
   - src/models/operations/createintegrations.ts
   - src/models/operations/updateintegration.ts
@@ -78,12 +77,12 @@ generatedFiles:
   - src/models/operations/getsyncstatus.ts
   - src/models/operations/updateconnectionfrequency.ts
   - src/models/operations/createactiontrigger.ts
+  - src/models/operations/getenvironmentvariable.ts
   - src/models/operations/getproxy.ts
   - src/models/operations/createproxy.ts
   - src/models/operations/putproxy.ts
   - src/models/operations/patchproxy.ts
   - src/models/operations/deleteproxy.ts
-  - src/models/components/getenvironmentvariableresponse.ts
   - src/models/components/integrationsresponse200.ts
   - src/models/components/listintegrationsrequest.ts
   - src/models/components/updateintegrationrequest.ts
@@ -100,16 +99,15 @@ generatedFiles:
   - src/models/components/updateconnectionfrequencyrequest.ts
   - src/models/components/createactiontriggerresponse.ts
   - src/models/components/createactiontriggerrequest.ts
+  - src/models/components/getenvironmentvariableresponse.ts
   - src/models/components/createproxyrequest.ts
   - src/models/components/putproxyrequest.ts
   - src/models/components/patchproxyrequest.ts
-  - src/models/components/security.ts
   - src/models/errors/response400.ts
   - src/models/errors/response404.ts
   - src/models/errors/index.ts
   - src/models/operations/index.ts
   - src/models/components/index.ts
-  - docs/models/operations/getenvironmentvariableresponse.md
   - docs/models/operations/listintegrationsresponse.md
   - docs/models/operations/createintegrationsresponse.md
   - docs/models/operations/updateintegrationresponse.md
@@ -147,6 +145,7 @@ generatedFiles:
   - docs/models/operations/updateconnectionfrequencyresponse.md
   - docs/models/operations/createactiontriggerrequest.md
   - docs/models/operations/createactiontriggerresponse.md
+  - docs/models/operations/getenvironmentvariableresponse.md
   - docs/models/operations/getproxyrequest.md
   - docs/models/operations/getproxyresponse.md
   - docs/models/operations/createproxyrequest.md
@@ -157,7 +156,6 @@ generatedFiles:
   - docs/models/operations/patchproxyresponse.md
   - docs/models/operations/deleteproxyrequest.md
   - docs/models/operations/deleteproxyresponse.md
-  - docs/models/components/getenvironmentvariableresponse.md
   - docs/models/components/items.md
   - docs/models/components/integrationsresponse200.md
   - docs/models/components/listintegrationsrequest.md
@@ -187,10 +185,10 @@ generatedFiles:
   - docs/models/components/createactiontriggerresponse.md
   - docs/models/components/input.md
   - docs/models/components/createactiontriggerrequest.md
+  - docs/models/components/getenvironmentvariableresponse.md
   - docs/models/components/createproxyrequest.md
   - docs/models/components/putproxyrequest.md
   - docs/models/components/patchproxyrequest.md
-  - docs/models/components/security.md
   - docs/models/errors/response400.md
   - docs/models/errors/response404.md
   - docs/sdks/nango/README.md
@@ -198,7 +196,8 @@ generatedFiles:
   - docs/sdks/connections/README.md
   - docs/sdks/records/README.md
   - docs/sdks/sync/README.md
-  - docs/sdks/action/README.md
+  - docs/sdks/actions/README.md
+  - docs/sdks/environment/README.md
   - docs/sdks/proxy/README.md
   - USAGE.md
   - .gitattributes

@@ -1,27 +1,23 @@
-# Action
-(*action*)
+# Environment
+(*environment*)
 
 ### Available Operations
 
-* [createTrigger](#createtrigger) - Triggers an action for a connection.
+* [get](#get) - Retrieve the environment variables as added in the Nango dashboard.
 
-## createTrigger
+## get
 
-Triggers an action for a connection
+Retrieve the environment variables as added in the Nango dashboard
 
 ### Example Usage
 
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
-  const result = await nango.action.createTrigger("<value>", "<value>", {
-    actionName: "<value>",
-  });
+  const result = await nango.environment.get();
 
   // Handle the result
   console.log(result)
@@ -34,19 +30,15 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `connectionId`                                                                                                                                                                 | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The connection ID used to create the connection.                                                                                                                               |
-| `providerConfigKey`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The integration ID used to create the connection (aka Unique Key).                                                                                                             |
-| `createActionTriggerRequest`                                                                                                                                                   | [components.CreateActionTriggerRequest](../../models/components/createactiontriggerrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise\<[operations.CreateActionTriggerResponse](../../models/operations/createactiontriggerresponse.md)\>**
+**Promise\<[operations.GetEnvironmentVariableResponse](../../models/operations/getenvironmentvariableresponse.md)\>**
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| errors.Response400 | 400                | application/json   |
-| errors.SDKError    | 4xx-5xx            | */*                |
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4xx-5xx         | */*             |

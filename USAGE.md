@@ -2,12 +2,10 @@
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-    apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
-    const result = await nango.getEnvironmentVariables();
+    const result = await nango.integrations.list();
 
     // Handle the result
     console.log(result);

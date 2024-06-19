@@ -5,10 +5,10 @@
 
 * [getRecord](#getrecord) - Returns data synced with Nango Sync, allowing for advanced filtering, sorting, and pagination options.
 * [createTrigger](#createtrigger) - Triggers an additional, one-off execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [createSyncStart](#createsyncstart) - Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [start](#start) - Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
 * [pause](#pause) - Pauses the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [status](#status) - Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
-* [updateConnectionFrequency](#updateconnectionfrequency) - Override a sync's default frequency for a specific connection or revert to the default frequency.
+* [getStatus](#getstatus) - Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+* [updateFrequency](#updatefrequency) - Override a sync's default frequency for a specific connection or revert to the default frequency.
 
 ## getRecord
 
@@ -19,9 +19,7 @@ Returns data synced with Nango Sync
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
   const result = await nango.sync.getRecord({
@@ -65,9 +63,7 @@ Triggers an additional, one-off execution of specified sync(s) (for a given conn
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
   const result = await nango.sync.createTrigger({
@@ -103,7 +99,7 @@ run();
 | errors.Response400 | 400                | application/json   |
 | errors.SDKError    | 4xx-5xx            | */*                |
 
-## createSyncStart
+## start
 
 Starts the continuous execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
 
@@ -112,12 +108,10 @@ Starts the continuous execution of specified sync(s) (for a given connection or 
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
-  const result = await nango.sync.createSyncStart({
+  const result = await nango.sync.start({
     providerConfigKey: "<value>",
     syncs: [
       "<value>",
@@ -159,9 +153,7 @@ Pauses the continuous execution of specified sync(s) (for a given connection or 
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
   const result = await nango.sync.pause({
@@ -197,7 +189,7 @@ run();
 | errors.Response400 | 400                | application/json   |
 | errors.SDKError    | 4xx-5xx            | */*                |
 
-## status
+## getStatus
 
 Get the status of specified sync(s) (for a given connection or all applicable connections if no connection is specified)
 
@@ -206,12 +198,10 @@ Get the status of specified sync(s) (for a given connection or all applicable co
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
-  const result = await nango.sync.status("<value>", "<value>", "<value>");
+  const result = await nango.sync.getStatus("<value>", "<value>", "<value>");
 
   // Handle the result
   console.log(result)
@@ -241,7 +231,7 @@ run();
 | errors.Response400 | 400                | application/json   |
 | errors.SDKError    | 4xx-5xx            | */*                |
 
-## updateConnectionFrequency
+## updateFrequency
 
 Override a sync's default frequency for a specific connection, or revert to the default frequency.
 
@@ -250,12 +240,10 @@ Override a sync's default frequency for a specific connection, or revert to the 
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
-  const result = await nango.sync.updateConnectionFrequency({
+  const result = await nango.sync.updateFrequency({
     providerConfigKey: "<value>",
     connectionId: "<value>",
     syncName: "<value>",

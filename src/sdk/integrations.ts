@@ -57,31 +57,12 @@ export class Integrations extends ClientSDK {
 
         const query$ = "";
 
-        let security$;
-        if (typeof this.options$.apiKey === "function") {
-            security$ = { apiKey: await this.options$.apiKey() };
-        } else if (this.options$.apiKey) {
-            security$ = { apiKey: this.options$.apiKey };
-        } else {
-            security$ = {};
-        }
-        const context = {
-            operationID: "listIntegrations",
-            oAuth2Scopes: [],
-            securitySource: this.options$.apiKey,
-        };
-        const securitySettings$ = this.resolveGlobalSecurity(security$);
+        const context = { operationID: "listIntegrations", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            {
-                security: securitySettings$,
-                method: "GET",
-                path: path$,
-                headers: headers$,
-                query: query$,
-            },
+            { method: "GET", path: path$, headers: headers$, query: query$ },
             options
         );
 
@@ -123,31 +104,16 @@ export class Integrations extends ClientSDK {
 
         const query$ = "";
 
-        let security$;
-        if (typeof this.options$.apiKey === "function") {
-            security$ = { apiKey: await this.options$.apiKey() };
-        } else if (this.options$.apiKey) {
-            security$ = { apiKey: this.options$.apiKey };
-        } else {
-            security$ = {};
-        }
         const context = {
             operationID: "createIntegrations",
             oAuth2Scopes: [],
-            securitySource: this.options$.apiKey,
+            securitySource: null,
         };
-        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            {
-                security: securitySettings$,
-                method: "POST",
-                path: path$,
-                headers: headers$,
-                query: query$,
-            },
+            { method: "POST", path: path$, headers: headers$, query: query$ },
             options
         );
 
@@ -190,31 +156,16 @@ export class Integrations extends ClientSDK {
 
         const query$ = "";
 
-        let security$;
-        if (typeof this.options$.apiKey === "function") {
-            security$ = { apiKey: await this.options$.apiKey() };
-        } else if (this.options$.apiKey) {
-            security$ = { apiKey: this.options$.apiKey };
-        } else {
-            security$ = {};
-        }
         const context = {
             operationID: "updateIntegration",
             oAuth2Scopes: [],
-            securitySource: this.options$.apiKey,
+            securitySource: null,
         };
-        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            {
-                security: securitySettings$,
-                method: "PUT",
-                path: path$,
-                headers: headers$,
-                query: query$,
-            },
+            { method: "PUT", path: path$, headers: headers$, query: query$ },
             options
         );
 
@@ -243,7 +194,7 @@ export class Integrations extends ClientSDK {
      * @remarks
      * Returns a specific integration
      */
-    async fetch(
+    async get(
         providerConfigKey: string,
         includeCreds?: boolean | undefined,
         options?: RequestOptions
@@ -275,32 +226,12 @@ export class Integrations extends ClientSDK {
             include_creds: payload$.include_creds,
         });
 
-        let security$;
-        if (typeof this.options$.apiKey === "function") {
-            security$ = { apiKey: await this.options$.apiKey() };
-        } else if (this.options$.apiKey) {
-            security$ = { apiKey: this.options$.apiKey };
-        } else {
-            security$ = {};
-        }
-        const context = {
-            operationID: "getIntegration",
-            oAuth2Scopes: [],
-            securitySource: this.options$.apiKey,
-        };
-        const securitySettings$ = this.resolveGlobalSecurity(security$);
+        const context = { operationID: "getIntegration", oAuth2Scopes: [], securitySource: null };
 
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            {
-                security: securitySettings$,
-                method: "GET",
-                path: path$,
-                headers: headers$,
-                query: query$,
-                body: body$,
-            },
+            { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
@@ -357,32 +288,16 @@ export class Integrations extends ClientSDK {
 
         const query$ = "";
 
-        let security$;
-        if (typeof this.options$.apiKey === "function") {
-            security$ = { apiKey: await this.options$.apiKey() };
-        } else if (this.options$.apiKey) {
-            security$ = { apiKey: this.options$.apiKey };
-        } else {
-            security$ = {};
-        }
         const context = {
             operationID: "deleteIntegration",
             oAuth2Scopes: [],
-            securitySource: this.options$.apiKey,
+            securitySource: null,
         };
-        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "404", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            {
-                security: securitySettings$,
-                method: "DELETE",
-                path: path$,
-                headers: headers$,
-                query: query$,
-                body: body$,
-            },
+            { method: "DELETE", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 

@@ -6,7 +6,7 @@
 * [list](#list) - Returns a list of integrations including their unique keys and providers as configured in the Nango API.
 * [create](#create) - Create a new integration including its provider configuration, OAuth details if applicable, and associated integration ID.
 * [update](#update) - Edit an integration, specifically tailored for OAuth APIs, updating the provider configuration along with OAuth client ID and secret.
-* [fetch](#fetch) - Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
+* [get](#get) - Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
 * [delete](#delete) - Deletes a specific integration identified by its provider configuration key.
 
 ## list
@@ -18,9 +18,7 @@ Returns a list of integrations
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
   const result = await nango.integrations.list();
@@ -58,9 +56,7 @@ Create a new integration
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
   const result = await nango.integrations.create({});
@@ -100,9 +96,7 @@ Edit an integration (only for OAuth APIs)
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
   const result = await nango.integrations.update({});
@@ -134,7 +128,7 @@ run();
 | errors.Response404 | 404                | application/json   |
 | errors.SDKError    | 4xx-5xx            | */*                |
 
-## fetch
+## get
 
 Returns a specific integration
 
@@ -143,12 +137,10 @@ Returns a specific integration
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
-  const result = await nango.integrations.fetch("<value>", false);
+  const result = await nango.integrations.get("<value>", false);
 
   // Handle the result
   console.log(result)
@@ -187,9 +179,7 @@ Deletes a specific integration
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango({
-  apiKey: "<YOUR_API_KEY_HERE>",
-});
+const nango = new Nango();
 
 async function run() {
   const result = await nango.integrations.delete("<value>");

@@ -12,7 +12,7 @@ import * as components from "../models/components";
 import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
-export class Action extends ClientSDK {
+export class Actions extends ClientSDK {
     private readonly options$: SDKOptions & { hooks?: SDKHooks };
 
     constructor(options: SDKOptions = {}) {
@@ -86,33 +86,16 @@ export class Action extends ClientSDK {
                 charEncoding: "none",
             })
         );
-
-        let security$;
-        if (typeof this.options$.apiKey === "function") {
-            security$ = { apiKey: await this.options$.apiKey() };
-        } else if (this.options$.apiKey) {
-            security$ = { apiKey: this.options$.apiKey };
-        } else {
-            security$ = {};
-        }
         const context = {
             operationID: "createActionTrigger",
             oAuth2Scopes: [],
-            securitySource: this.options$.apiKey,
+            securitySource: null,
         };
-        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            {
-                security: securitySettings$,
-                method: "POST",
-                path: path$,
-                headers: headers$,
-                query: query$,
-                body: body$,
-            },
+            { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 

@@ -3,12 +3,12 @@
  */
 
 import { SDKHooks } from "../hooks";
-import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
+import { SDKOptions, serverURLFromOptions } from "../lib/config";
 import { HTTPClient } from "../lib/http";
-import { ClientSDK, RequestOptions } from "../lib/sdks";
-import * as operations from "../models/operations";
-import { Action } from "./action";
+import { ClientSDK } from "../lib/sdks";
+import { Actions } from "./actions";
 import { Connections } from "./connections";
+import { Environment } from "./environment";
 import { Integrations } from "./integrations";
 import { Proxy } from "./proxy";
 import { Records } from "./records";
@@ -61,77 +61,18 @@ export class Nango extends ClientSDK {
         return (this._sync ??= new Sync(this.options$));
     }
 
-    private _action?: Action;
-    get action(): Action {
-        return (this._action ??= new Action(this.options$));
+    private _actions?: Actions;
+    get actions(): Actions {
+        return (this._actions ??= new Actions(this.options$));
+    }
+
+    private _environment?: Environment;
+    get environment(): Environment {
+        return (this._environment ??= new Environment(this.options$));
     }
 
     private _proxy?: Proxy;
     get proxy(): Proxy {
         return (this._proxy ??= new Proxy(this.options$));
-    }
-
-    /**
-     * Retrieve the environment variables as added in the Nango dashboard.
-     *
-     * @remarks
-     * Retrieve the environment variables as added in the Nango dashboard
-     */
-    async getEnvironmentVariables(
-        options?: RequestOptions
-    ): Promise<operations.GetEnvironmentVariableResponse> {
-        const headers$ = new Headers();
-        headers$.set("user-agent", SDK_METADATA.userAgent);
-        headers$.set("Accept", "application/json");
-
-        const path$ = this.templateURLComponent("/environment-variables")();
-
-        const query$ = "";
-
-        let security$;
-        if (typeof this.options$.apiKey === "function") {
-            security$ = { apiKey: await this.options$.apiKey() };
-        } else if (this.options$.apiKey) {
-            security$ = { apiKey: this.options$.apiKey };
-        } else {
-            security$ = {};
-        }
-        const context = {
-            operationID: "getEnvironmentVariable",
-            oAuth2Scopes: [],
-            securitySource: this.options$.apiKey,
-        };
-        const securitySettings$ = this.resolveGlobalSecurity(security$);
-
-        const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request$ = this.createRequest$(
-            context,
-            {
-                security: securitySettings$,
-                method: "GET",
-                path: path$,
-                headers: headers$,
-                query: query$,
-            },
-            options
-        );
-
-        const response = await this.do$(request$, doOptions);
-
-        const responseFields$ = {
-            ContentType: response.headers.get("content-type") ?? "application/octet-stream",
-            StatusCode: response.status,
-            RawResponse: response,
-            Headers: {},
-        };
-
-        const [result$] = await this.matcher<operations.GetEnvironmentVariableResponse>()
-            .json(200, operations.GetEnvironmentVariableResponse$, {
-                key: "GetEnvironmentVariableResponse",
-            })
-            .fail(["4XX", "5XX"])
-            .match(response, { extraFields: responseFields$ });
-
-        return result$;
     }
 }
