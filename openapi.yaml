@@ -1368,6 +1368,7 @@ components:
         message:
           type: string
     Response400:
+      title: BadRequest
       type: object
       properties:
         message:
