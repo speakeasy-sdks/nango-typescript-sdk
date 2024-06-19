@@ -12,7 +12,7 @@ Triggers an action for a connection
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
@@ -41,7 +41,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateActionTriggerResponse](../../models/operations/createactiontriggerresponse.md)\>**
+**Promise\<[components.CreateActionTriggerResponse](../../models/components/createactiontriggerresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

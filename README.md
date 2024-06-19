@@ -18,13 +18,28 @@ The Nango Typescript library provides convenient access to the Nango REST API fr
 ### NPM
 
 ```bash
-npm add @simplesagar92/nango
+npm add @speakeasy-sdks/nango
+```
+
+### PNPM
+
+```bash
+pnpm add @speakeasy-sdks/nango
+```
+
+### Bun
+
+```bash
+bun add @speakeasy-sdks/nango
 ```
 
 ### Yarn
 
 ```bash
-yarn add @simplesagar92/nango
+yarn add @speakeasy-sdks/nango zod
+
+# Note that Yarn does not install peer dependencies automatically. You will need
+# to install zod as shown above.
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -40,7 +55,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
@@ -120,8 +135,8 @@ Validation errors can also occur when either method arguments or data returned f
 
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
-import * as errors from "@simplesagar92/nango/models/errors";
+import { Nango } from "@speakeasy-sdks/nango";
+import { SDKValidationError } from "@speakeasy-sdks/nango/models/errors";
 
 const nango = new Nango();
 
@@ -131,7 +146,7 @@ async function run() {
         result = await nango.integrations.create({});
     } catch (err) {
         switch (true) {
-            case err instanceof errors.SDKValidationError: {
+            case err instanceof SDKValidationError: {
                 // Validation errors can be pretty-printed
                 console.error(err.pretty());
                 // Raw value may also be inspected
@@ -170,7 +185,7 @@ You can override the default server globally by passing a server name to the `se
 | `local` | `http://localhost:3003` | None |
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango({
     server: "local",
@@ -193,7 +208,7 @@ run();
 The default server can also be overridden globally by passing a URL to the `serverURL` optional parameter when initializing the SDK client instance. For example:
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango({
     serverURL: "https://api.nango.dev",
@@ -229,8 +244,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
-import { HTTPClient } from "@simplesagar92/nango/lib/http";
+import { Nango } from "@speakeasy-sdks/nango";
+import { HTTPClient } from "@speakeasy-sdks/nango/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.

@@ -12,7 +12,7 @@ Returns data synced with Nango Sync
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
@@ -41,7 +41,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetRecordResponse](../../models/operations/getrecordresponse.md)\>**
+**Promise\<[components.GetRecordResponse](../../models/components/getrecordresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

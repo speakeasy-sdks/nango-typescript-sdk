@@ -17,7 +17,7 @@ Returns a list of connections
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
@@ -42,7 +42,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListConnectionsResponse](../../models/operations/listconnectionsresponse.md)\>**
+**Promise\<[components.GetConnectionResponse](../../models/components/getconnectionresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -56,15 +56,14 @@ Adds a connection for which you already have an access token
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.connections.create({});
+  await nango.connections.create({});
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -81,7 +80,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateConnectionResponse](../../models/operations/createconnectionresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -96,15 +95,14 @@ Returns a specific connection
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.connections.get("<value>", "<value>", false, false);
+  await nango.connections.get("<value>", "<value>", false, false);
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -124,7 +122,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetConnectionsResponse](../../models/operations/getconnectionsresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -140,15 +138,14 @@ Deletes a specific connection
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.connections.delete("<value>", "<value>");
+  await nango.connections.delete("<value>", "<value>");
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -166,7 +163,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteConnectionsResponse](../../models/operations/deleteconnectionsresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -182,15 +179,14 @@ Set custom metadata for the connection.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.connections.createMetadata("<value>", "<value>", {});
+  await nango.connections.createMetadata("<value>", "<value>", {});
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -209,7 +205,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateMetadataResponse](../../models/operations/createmetadataresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -224,7 +220,7 @@ Update custom metadata for the connection.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
@@ -251,7 +247,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateMetadataResponse](../../models/operations/updatemetadataresponse.md)\>**
+**Promise\<[operations.UpdateMetadataResponseBody](../../models/operations/updatemetadataresponsebody.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

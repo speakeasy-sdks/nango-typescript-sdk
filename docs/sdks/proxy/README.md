@@ -16,20 +16,19 @@ Make a GET request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.proxy.get({
+  await nango.proxy.get({
     anyPath: "<value>",
     dollarANYQUERYPARAMS: "<value>",
     connectionId: "<value>",
     providerConfigKey: "<value>",
   });
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -46,7 +45,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetProxyResponse](../../models/operations/getproxyresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -60,19 +59,18 @@ Make a POST request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.proxy.create({
+  await nango.proxy.create({
     anyPath: "<value>",
     connectionId: "<value>",
     providerConfigKey: "<value>",
   });
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -89,7 +87,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateProxyResponse](../../models/operations/createproxyresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -103,19 +101,18 @@ Make a PUT request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.proxy.update({
+  await nango.proxy.update({
     anyPath: "<value>",
     connectionId: "<value>",
     providerConfigKey: "<value>",
   });
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -132,7 +129,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.PutProxyResponse](../../models/operations/putproxyresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -146,19 +143,18 @@ Make a PATCH request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.proxy.modify({
+  await nango.proxy.modify({
     anyPath: "<value>",
     connectionId: "<value>",
     providerConfigKey: "<value>",
   });
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -175,7 +171,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.PatchProxyResponse](../../models/operations/patchproxyresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -189,20 +185,19 @@ Make a DELETE request with the Proxy.
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.proxy.delete({
+  await nango.proxy.delete({
     anyPath: "<value>",
     dollarANYQUERYPARAMS: "<value>",
     connectionId: "<value>",
     providerConfigKey: "<value>",
   });
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -219,7 +214,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteProxyResponse](../../models/operations/deleteproxyresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

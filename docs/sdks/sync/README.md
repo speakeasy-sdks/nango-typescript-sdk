@@ -17,7 +17,7 @@ Returns data synced with Nango Sync
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
@@ -46,7 +46,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetSyncRecordResponse](../../models/operations/getsyncrecordresponse.md)\>**
+**Promise\<[components.GetSyncRecordResponse[]](../../models/.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -61,20 +61,19 @@ Triggers an additional, one-off execution of specified sync(s) (for a given conn
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.sync.createTrigger({
+  await nango.sync.createTrigger({
     providerConfigKey: "<value>",
     syncs: [
       "<value>",
     ],
   });
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -91,7 +90,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateSyncTriggerResponse](../../models/operations/createsynctriggerresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -106,20 +105,19 @@ Starts the continuous execution of specified sync(s) (for a given connection or 
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.sync.start({
+  await nango.sync.start({
     providerConfigKey: "<value>",
     syncs: [
       "<value>",
     ],
   });
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -136,7 +134,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateSyncStartResponse](../../models/operations/createsyncstartresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -151,20 +149,19 @@ Pauses the continuous execution of specified sync(s) (for a given connection or 
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
 async function run() {
-  const result = await nango.sync.pause({
+  await nango.sync.pause({
     providerConfigKey: "<value>",
     syncs: [
       "<value>",
     ],
   });
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -181,7 +178,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateSyncPauseResponse](../../models/operations/createsyncpauseresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -196,7 +193,7 @@ Get the status of specified sync(s) (for a given connection or all applicable co
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
@@ -223,7 +220,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetSyncStatusResponse](../../models/operations/getsyncstatusresponse.md)\>**
+**Promise\<[components.GetSyncStatusResponse](../../models/components/getsyncstatusresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -238,7 +235,7 @@ Override a sync's default frequency for a specific connection, or revert to the 
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango";
 
 const nango = new Nango();
 
@@ -268,7 +265,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateConnectionFrequencyResponse](../../models/operations/updateconnectionfrequencyresponse.md)\>**
+**Promise\<[components.UpdateConnectionFrequencyResponse](../../models/components/updateconnectionfrequencyresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

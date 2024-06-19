@@ -1,6 +1,6 @@
 {
-  "name": "@simplesagar92/nango",
-  "version": "0.8.0",
+  "name": "@speakeasy-sdks/nango",
+  "version": "0.9.1",
   "author": "Speakeasy",  
   "main": "./index.js",
   "sideEffects": false,
