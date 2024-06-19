@@ -12,9 +12,11 @@ Retrieve the environment variables as added in the Nango dashboard
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango-ts";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.environment.get();
@@ -36,7 +38,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetEnvironmentVariableResponse](../../models/operations/getenvironmentvariableresponse.md)\>**
+**Promise\<[components.GetEnvironmentVariableResponse[]](../../models/.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

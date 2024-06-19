@@ -12,9 +12,11 @@ Returns data synced with Nango Sync
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango-ts";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.records.get({
@@ -41,7 +43,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetRecordResponse](../../models/operations/getrecordresponse.md)\>**
+**Promise\<[components.GetRecordResponse](../../models/components/getrecordresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

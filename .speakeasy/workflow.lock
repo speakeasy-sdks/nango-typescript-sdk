@@ -1,17 +1,17 @@
-speakeasyVersion: 1.308.2
+speakeasyVersion: 1.309.1
 sources:
     my-source:
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:d1032f6a4fbade2d625aa27c934a70e10f99718d669144a3a044da150d5592b8
-        sourceBlobDigest: sha256:efa987571d8346ba36b22ab4746cdde4b9470314c134765f1b925c8d4bf07dae
+        sourceRevisionDigest: sha256:4c21de82504b1687cc9fe8f437233c16be220b054a6dc555e8f0ec271e56a3b5
+        sourceBlobDigest: sha256:0ea48f4e50cb136e6427761d46cef16900926510989ec0fea465d24c52489346
         tags:
             - latest
 targets:
     nango-ts:
         source: my-source
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:d1032f6a4fbade2d625aa27c934a70e10f99718d669144a3a044da150d5592b8
-        sourceBlobDigest: sha256:efa987571d8346ba36b22ab4746cdde4b9470314c134765f1b925c8d4bf07dae
+        sourceRevisionDigest: sha256:4c21de82504b1687cc9fe8f437233c16be220b054a6dc555e8f0ec271e56a3b5
+        sourceBlobDigest: sha256:0ea48f4e50cb136e6427761d46cef16900926510989ec0fea465d24c52489346
         outLocation: /Users/sagar/go/src/Nango-sample-sdk
 workflow:
     workflowVersion: 1.0.0
@@ -26,6 +26,3 @@ workflow:
         nango-ts:
             target: typescript
             source: my-source
-            publish:
-                npm:
-                    token: $NPM_TOKEN

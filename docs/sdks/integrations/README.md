@@ -16,9 +16,11 @@ Returns a list of integrations
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango-ts";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.integrations.list();
@@ -40,7 +42,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListIntegrationsResponse](../../models/operations/listintegrationsresponse.md)\>**
+**Promise\<[components.IntegrationsResponse200](../../models/components/integrationsresponse200.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -54,9 +56,11 @@ Create a new integration
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango-ts";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.integrations.create({});
@@ -79,7 +83,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateIntegrationsResponse](../../models/operations/createintegrationsresponse.md)\>**
+**Promise\<[components.IntegrationsResponse200](../../models/components/integrationsresponse200.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -94,9 +98,11 @@ Edit an integration (only for OAuth APIs)
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango-ts";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.integrations.update({});
@@ -119,7 +125,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateIntegrationResponse](../../models/operations/updateintegrationresponse.md)\>**
+**Promise\<[components.IntegrationsResponse200](../../models/components/integrationsresponse200.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -135,9 +141,11 @@ Returns a specific integration
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango-ts";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.integrations.get("<value>", false);
@@ -161,7 +169,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetIntegrationResponse](../../models/operations/getintegrationresponse.md)\>**
+**Promise\<[components.GetIntegrationResponse](../../models/components/getintegrationresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |
@@ -177,15 +185,16 @@ Deletes a specific integration
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango-ts";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
-  const result = await nango.integrations.delete("<value>");
+  await nango.integrations.delete("<value>");
 
-  // Handle the result
-  console.log(result)
+  
 }
 
 run();
@@ -202,7 +211,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteIntegrationResponse](../../models/operations/deleteintegrationresponse.md)\>**
+**Promise\<void\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

@@ -12,9 +12,11 @@ Triggers an action for a connection
 ### Example Usage
 
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango-ts";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.actions.createTrigger("<value>", "<value>", {
@@ -41,7 +43,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateActionTriggerResponse](../../models/operations/createactiontriggerresponse.md)\>**
+**Promise\<[components.CreateActionTriggerResponse](../../models/components/createactiontriggerresponse.md)\>**
 ### Errors
 
 | Error Object       | Status Code        | Content Type       |

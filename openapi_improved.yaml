@@ -10,6 +10,8 @@ servers:
     - url: http://localhost:3003
       description: Local server
       x-speakeasy-server-id: local
+security:
+  - api_key: []
 paths:
     /config:
         get:
@@ -963,6 +965,11 @@ paths:
                 "200":
                     description: The response exactly as returned by the external API
 components:
+    securitySchemes:
+        api_key:
+            type: apiKey
+            name: api_key
+            in: header
     schemas:
         GetRecordResponse:
             type: object

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 0115721b-c5d5-4598-9754-02eb24f100a8
 management:
-  docChecksum: 108d5939aa1f55ecaef7b1e04e7745b6
+  docChecksum: dab24f9c73228354ec3e2dd23594cdae
   docVersion: 1.0.0
-  speakeasyVersion: 1.308.2
-  generationVersion: 2.342.6
-  releaseVersion: 0.8.0
-  configChecksum: 053e7ddeff17b0da2d5842a8f771fd17
+  speakeasyVersion: 1.309.1
+  generationVersion: 2.347.4
+  releaseVersion: 0.9.2
+  configChecksum: 0d24e0ab059ad4f6a7246f663f3ccea4
   repoURL: https://github.com/speakeasy-sdks/nango-typescript-sdk.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/nango-typescript-sdk
@@ -14,9 +14,11 @@ management:
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.9.14
+    core: 3.10.0
     flattening: 2.81.1
+    globalSecurity: 2.82.9
     globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.4
     groups: 2.81.2
     nameOverrides: 2.81.2
@@ -32,7 +34,7 @@ generatedFiles:
   - src/sdk/environment.ts
   - src/sdk/proxy.ts
   - src/sdk/sdk.ts
-  - .eslintrc.js
+  - .eslintrc.cjs
   - .npmignore
   - RUNTIMES.md
   - jsr.json
@@ -58,31 +60,6 @@ generatedFiles:
   - src/types/operations.ts
   - src/types/rfcdate.ts
   - tsconfig.json
-  - src/models/operations/listintegrations.ts
-  - src/models/operations/createintegrations.ts
-  - src/models/operations/updateintegration.ts
-  - src/models/operations/getintegration.ts
-  - src/models/operations/deleteintegration.ts
-  - src/models/operations/listconnections.ts
-  - src/models/operations/createconnection.ts
-  - src/models/operations/getconnections.ts
-  - src/models/operations/deleteconnections.ts
-  - src/models/operations/createmetadata.ts
-  - src/models/operations/updatemetadata.ts
-  - src/models/operations/getrecord.ts
-  - src/models/operations/getsyncrecord.ts
-  - src/models/operations/createsynctrigger.ts
-  - src/models/operations/createsyncstart.ts
-  - src/models/operations/createsyncpause.ts
-  - src/models/operations/getsyncstatus.ts
-  - src/models/operations/updateconnectionfrequency.ts
-  - src/models/operations/createactiontrigger.ts
-  - src/models/operations/getenvironmentvariable.ts
-  - src/models/operations/getproxy.ts
-  - src/models/operations/createproxy.ts
-  - src/models/operations/putproxy.ts
-  - src/models/operations/patchproxy.ts
-  - src/models/operations/deleteproxy.ts
   - src/models/components/integrationsresponse200.ts
   - src/models/components/listintegrationsrequest.ts
   - src/models/components/updateintegrationrequest.ts
@@ -103,59 +80,28 @@ generatedFiles:
   - src/models/components/createproxyrequest.ts
   - src/models/components/putproxyrequest.ts
   - src/models/components/patchproxyrequest.ts
+  - src/models/components/security.ts
   - src/models/errors/response400.ts
   - src/models/errors/response404.ts
+  - src/models/operations/getintegration.ts
+  - src/models/operations/deleteintegration.ts
+  - src/models/operations/listconnections.ts
+  - src/models/operations/getconnections.ts
+  - src/models/operations/deleteconnections.ts
+  - src/models/operations/createmetadata.ts
+  - src/models/operations/updatemetadata.ts
+  - src/models/operations/getrecord.ts
+  - src/models/operations/getsyncrecord.ts
+  - src/models/operations/getsyncstatus.ts
+  - src/models/operations/createactiontrigger.ts
+  - src/models/operations/getproxy.ts
+  - src/models/operations/createproxy.ts
+  - src/models/operations/putproxy.ts
+  - src/models/operations/patchproxy.ts
+  - src/models/operations/deleteproxy.ts
   - src/models/errors/index.ts
-  - src/models/operations/index.ts
   - src/models/components/index.ts
-  - docs/models/operations/listintegrationsresponse.md
-  - docs/models/operations/createintegrationsresponse.md
-  - docs/models/operations/updateintegrationresponse.md
-  - docs/models/operations/getintegrationrequest.md
-  - docs/models/operations/getintegrationresponse.md
-  - docs/models/operations/deleteintegrationrequest.md
-  - docs/models/operations/deleteintegrationresponse.md
-  - docs/models/operations/listconnectionsrequest.md
-  - docs/models/operations/listconnectionsresponse.md
-  - docs/models/operations/createconnectionresponse.md
-  - docs/models/operations/getconnectionsrequest.md
-  - docs/models/operations/getconnectionsresponse.md
-  - docs/models/operations/deleteconnectionsrequest.md
-  - docs/models/operations/deleteconnectionsresponse.md
-  - docs/models/operations/createmetadatarequestbody.md
-  - docs/models/operations/createmetadatarequest.md
-  - docs/models/operations/createmetadataresponse.md
-  - docs/models/operations/updatemetadatarequestbody.md
-  - docs/models/operations/updatemetadatarequest.md
-  - docs/models/operations/updatemetadataresponsebody.md
-  - docs/models/operations/updatemetadataresponse.md
-  - docs/models/operations/filter.md
-  - docs/models/operations/getrecordrequest.md
-  - docs/models/operations/getrecordresponse.md
-  - docs/models/operations/sortby.md
-  - docs/models/operations/order.md
-  - docs/models/operations/queryparamfilter.md
-  - docs/models/operations/getsyncrecordrequest.md
-  - docs/models/operations/getsyncrecordresponse.md
-  - docs/models/operations/createsynctriggerresponse.md
-  - docs/models/operations/createsyncstartresponse.md
-  - docs/models/operations/createsyncpauseresponse.md
-  - docs/models/operations/getsyncstatusrequest.md
-  - docs/models/operations/getsyncstatusresponse.md
-  - docs/models/operations/updateconnectionfrequencyresponse.md
-  - docs/models/operations/createactiontriggerrequest.md
-  - docs/models/operations/createactiontriggerresponse.md
-  - docs/models/operations/getenvironmentvariableresponse.md
-  - docs/models/operations/getproxyrequest.md
-  - docs/models/operations/getproxyresponse.md
-  - docs/models/operations/createproxyrequest.md
-  - docs/models/operations/createproxyresponse.md
-  - docs/models/operations/putproxyrequest.md
-  - docs/models/operations/putproxyresponse.md
-  - docs/models/operations/patchproxyrequest.md
-  - docs/models/operations/patchproxyresponse.md
-  - docs/models/operations/deleteproxyrequest.md
-  - docs/models/operations/deleteproxyresponse.md
+  - src/models/operations/index.ts
   - docs/models/components/items.md
   - docs/models/components/integrationsresponse200.md
   - docs/models/components/listintegrationsrequest.md
@@ -189,8 +135,32 @@ generatedFiles:
   - docs/models/components/createproxyrequest.md
   - docs/models/components/putproxyrequest.md
   - docs/models/components/patchproxyrequest.md
+  - docs/models/components/security.md
   - docs/models/errors/response400.md
   - docs/models/errors/response404.md
+  - docs/models/operations/getintegrationrequest.md
+  - docs/models/operations/deleteintegrationrequest.md
+  - docs/models/operations/listconnectionsrequest.md
+  - docs/models/operations/getconnectionsrequest.md
+  - docs/models/operations/deleteconnectionsrequest.md
+  - docs/models/operations/createmetadatarequestbody.md
+  - docs/models/operations/createmetadatarequest.md
+  - docs/models/operations/updatemetadatarequestbody.md
+  - docs/models/operations/updatemetadatarequest.md
+  - docs/models/operations/updatemetadataresponsebody.md
+  - docs/models/operations/filter.md
+  - docs/models/operations/getrecordrequest.md
+  - docs/models/operations/sortby.md
+  - docs/models/operations/order.md
+  - docs/models/operations/queryparamfilter.md
+  - docs/models/operations/getsyncrecordrequest.md
+  - docs/models/operations/getsyncstatusrequest.md
+  - docs/models/operations/createactiontriggerrequest.md
+  - docs/models/operations/getproxyrequest.md
+  - docs/models/operations/createproxyrequest.md
+  - docs/models/operations/putproxyrequest.md
+  - docs/models/operations/patchproxyrequest.md
+  - docs/models/operations/deleteproxyrequest.md
   - docs/sdks/nango/README.md
   - docs/sdks/integrations/README.md
   - docs/sdks/connections/README.md

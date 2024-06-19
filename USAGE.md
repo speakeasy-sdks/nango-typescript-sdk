@@ -1,8 +1,10 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
-import { Nango } from "@simplesagar92/nango";
+import { Nango } from "@speakeasy-sdks/nango-ts";
 
-const nango = new Nango();
+const nango = new Nango({
+    apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
     const result = await nango.integrations.list();
