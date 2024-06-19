@@ -4,8 +4,9 @@
    <a href="https://docs.nango.dev/introduction"><img src="https://img.shields.io/static/v1?label=Docs&message=API Ref&color=000000&style=for-the-badge" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" /></a>
 </div>
+<br></br>
 
-The Nango Typescript library provides convenient access to the Nango REST API from any Typescript or Javascript application. The library includes type definitions for all request params and response fields, and runs on any mainstream JS runtime clients powered by [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+The Nango Typescript library provides convenient access to the Nango REST API from any Typescript or Javascript application. The library includes type definitions for all request params and response fields, and runs on any mainstream JS runtime clients powered by [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
