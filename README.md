@@ -8,6 +8,9 @@
 
 The Nango Typescript library provides convenient access to the Nango REST API from any Typescript or Javascript application. The library includes type definitions for all request params and response fields, and makes HTTP requests using the [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) client. Runs on all mainstream JS runtimes.
 
+> ⚠️ TODO: 
+> * Configure pagination for select endpoints per [Nango docs](https://docs.nango.dev/customize/guides/advanced/paginate-api-responses)
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
