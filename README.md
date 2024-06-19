@@ -8,11 +8,11 @@
 
 The Nango Typescript library provides convenient access to the Nango REST API from any Typescript or Javascript application. The library includes type definitions for all request params and response fields, and makes HTTP requests using the [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) client. Runs on all mainstream JS runtimes.
 
-> ⚠️ TODO: 
-> * Configure pagination for select endpoints per [Nango docs](https://docs.nango.dev/customize/guides/advanced/paginate-api-responses)
-> * Configure OAuth support using Speakeasy managed [OAuth](https://www.speakeasyapi.dev/docs/customize-sdks/authentication) or Hooks
-> * Setup automated package publishing to NPM using `speakeasy configure publishing`
-> * Consider adding better error response schemas per 4XX and 5XX type 
+> [!NOTE] 
+> * TODO: Configure pagination for select endpoints per [Nango docs](https://docs.nango.dev/customize/guides/advanced/paginate-api-responses)
+> * TODO: Configure OAuth support using Speakeasy managed [OAuth](https://www.speakeasyapi.dev/docs/customize-sdks/authentication) or Hooks
+> * TODO: Setup automated package publishing to NPM using `speakeasy configure publishing`
+> * TODO: Consider adding better error response schemas per 4XX and 5XX type 
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
