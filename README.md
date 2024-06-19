@@ -10,7 +10,9 @@ The Nango Typescript library provides convenient access to the Nango REST API fr
 
 > ⚠️ TODO: 
 > * Configure pagination for select endpoints per [Nango docs](https://docs.nango.dev/customize/guides/advanced/paginate-api-responses)
-> * Configure OAuth support using Speakeasy managed OAuth or Hooks
+> * Configure OAuth support using Speakeasy managed [OAuth](https://www.speakeasyapi.dev/docs/customize-sdks/authentication) or Hooks
+> * Setup automated package publishing to NPM using `speakeasy configure publishing`
+> * Consider adding better error response schemas per 4XX and 5XX type 
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
