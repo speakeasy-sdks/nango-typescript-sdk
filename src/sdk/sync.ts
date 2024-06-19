@@ -68,13 +68,13 @@ export class Sync extends ClientSDK {
         const path$ = this.templateURLComponent("/sync/records")();
 
         const query$ = encodeFormQuery$({
-            offset: payload$.offset,
-            sort_by: payload$.sort_by,
-            order: payload$.order,
-            filter: payload$.filter,
-            model: payload$.model,
             delta: payload$.delta,
+            filter: payload$.filter,
             limit: payload$.limit,
+            model: payload$.model,
+            offset: payload$.offset,
+            order: payload$.order,
+            sort_by: payload$.sort_by,
         });
 
         headers$.set(
@@ -91,12 +91,33 @@ export class Sync extends ClientSDK {
                 charEncoding: "none",
             })
         );
-        const context = { operationID: "getSyncRecord", oAuth2Scopes: [], securitySource: null };
+
+        let security$;
+        if (typeof this.options$.apiKey === "function") {
+            security$ = { apiKey: await this.options$.apiKey() };
+        } else if (this.options$.apiKey) {
+            security$ = { apiKey: this.options$.apiKey };
+        } else {
+            security$ = {};
+        }
+        const context = {
+            operationID: "getSyncRecord",
+            oAuth2Scopes: [],
+            securitySource: this.options$.apiKey,
+        };
+        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
+            {
+                security: securitySettings$,
+                method: "GET",
+                path: path$,
+                headers: headers$,
+                query: query$,
+                body: body$,
+            },
             options
         );
 
@@ -147,16 +168,32 @@ export class Sync extends ClientSDK {
 
         const query$ = "";
 
+        let security$;
+        if (typeof this.options$.apiKey === "function") {
+            security$ = { apiKey: await this.options$.apiKey() };
+        } else if (this.options$.apiKey) {
+            security$ = { apiKey: this.options$.apiKey };
+        } else {
+            security$ = {};
+        }
         const context = {
             operationID: "createSyncTrigger",
             oAuth2Scopes: [],
-            securitySource: null,
+            securitySource: this.options$.apiKey,
         };
+        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
+            {
+                security: securitySettings$,
+                method: "POST",
+                path: path$,
+                headers: headers$,
+                query: query$,
+                body: body$,
+            },
             options
         );
 
@@ -206,12 +243,32 @@ export class Sync extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "createSyncStart", oAuth2Scopes: [], securitySource: null };
+        let security$;
+        if (typeof this.options$.apiKey === "function") {
+            security$ = { apiKey: await this.options$.apiKey() };
+        } else if (this.options$.apiKey) {
+            security$ = { apiKey: this.options$.apiKey };
+        } else {
+            security$ = {};
+        }
+        const context = {
+            operationID: "createSyncStart",
+            oAuth2Scopes: [],
+            securitySource: this.options$.apiKey,
+        };
+        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
+            {
+                security: securitySettings$,
+                method: "POST",
+                path: path$,
+                headers: headers$,
+                query: query$,
+                body: body$,
+            },
             options
         );
 
@@ -261,12 +318,32 @@ export class Sync extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "createSyncPause", oAuth2Scopes: [], securitySource: null };
+        let security$;
+        if (typeof this.options$.apiKey === "function") {
+            security$ = { apiKey: await this.options$.apiKey() };
+        } else if (this.options$.apiKey) {
+            security$ = { apiKey: this.options$.apiKey };
+        } else {
+            security$ = {};
+        }
+        const context = {
+            operationID: "createSyncPause",
+            oAuth2Scopes: [],
+            securitySource: this.options$.apiKey,
+        };
+        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
+            {
+                security: securitySettings$,
+                method: "POST",
+                path: path$,
+                headers: headers$,
+                query: query$,
+                body: body$,
+            },
             options
         );
 
@@ -319,17 +396,37 @@ export class Sync extends ClientSDK {
         const path$ = this.templateURLComponent("/sync/status")();
 
         const query$ = encodeFormQuery$({
+            connection_id: payload$.connection_id,
             provider_config_key: payload$.provider_config_key,
             syncs: payload$.syncs,
-            connection_id: payload$.connection_id,
         });
 
-        const context = { operationID: "getSyncStatus", oAuth2Scopes: [], securitySource: null };
+        let security$;
+        if (typeof this.options$.apiKey === "function") {
+            security$ = { apiKey: await this.options$.apiKey() };
+        } else if (this.options$.apiKey) {
+            security$ = { apiKey: this.options$.apiKey };
+        } else {
+            security$ = {};
+        }
+        const context = {
+            operationID: "getSyncStatus",
+            oAuth2Scopes: [],
+            securitySource: this.options$.apiKey,
+        };
+        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
+            {
+                security: securitySettings$,
+                method: "GET",
+                path: path$,
+                headers: headers$,
+                query: query$,
+                body: body$,
+            },
             options
         );
 
@@ -378,16 +475,32 @@ export class Sync extends ClientSDK {
 
         const query$ = "";
 
+        let security$;
+        if (typeof this.options$.apiKey === "function") {
+            security$ = { apiKey: await this.options$.apiKey() };
+        } else if (this.options$.apiKey) {
+            security$ = { apiKey: this.options$.apiKey };
+        } else {
+            security$ = {};
+        }
         const context = {
             operationID: "updateConnectionFrequency",
             oAuth2Scopes: [],
-            securitySource: null,
+            securitySource: this.options$.apiKey,
         };
+        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            { method: "PUT", path: path$, headers: headers$, query: query$, body: body$ },
+            {
+                security: securitySettings$,
+                method: "PUT",
+                path: path$,
+                headers: headers$,
+                query: query$,
+                body: body$,
+            },
             options
         );
 

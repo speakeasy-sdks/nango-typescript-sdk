@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 0115721b-c5d5-4598-9754-02eb24f100a8
 management:
-  docChecksum: 794be081c1e1074ca901da6ab16f4b6b
+  docChecksum: fd304620011a21a4ae81e229171ce2eb
   docVersion: 1.0.0
-  speakeasyVersion: 1.304.0
-  generationVersion: 2.340.3
-  releaseVersion: 0.6.0
-  configChecksum: 517d3050e157a38335828ba6a135e38d
+  speakeasyVersion: 1.308.2
+  generationVersion: 2.342.6
+  releaseVersion: 0.7.0
+  configChecksum: 0870c3b6a7e1911e9d83ddf2fd27da5d
   repoURL: https://github.com/speakeasy-sdks/nango-typescript-sdk.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/nango-typescript-sdk
@@ -14,9 +14,11 @@ management:
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.9.13
+    core: 3.9.14
     flattening: 2.81.1
+    globalSecurity: 2.82.9
     globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.4
     nameOverrides: 2.81.2
     responseFormat: 0.2.3
@@ -101,6 +103,7 @@ generatedFiles:
   - src/models/components/createproxyrequest.ts
   - src/models/components/putproxyrequest.ts
   - src/models/components/patchproxyrequest.ts
+  - src/models/components/security.ts
   - src/models/errors/response400.ts
   - src/models/errors/response404.ts
   - src/models/errors/index.ts
@@ -187,6 +190,7 @@ generatedFiles:
   - docs/models/components/createproxyrequest.md
   - docs/models/components/putproxyrequest.md
   - docs/models/components/patchproxyrequest.md
+  - docs/models/components/security.md
   - docs/models/errors/response400.md
   - docs/models/errors/response404.md
   - docs/sdks/nango/README.md

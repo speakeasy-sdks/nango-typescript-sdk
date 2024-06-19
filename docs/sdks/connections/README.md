@@ -19,7 +19,9 @@ Returns a list of connections
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.connections.list("<value>");
@@ -58,7 +60,9 @@ Adds a connection for which you already have an access token
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.connections.create({});
@@ -98,7 +102,9 @@ Returns a specific connection
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.connections.get("<value>", "<value>", false, false);
@@ -142,7 +148,9 @@ Deletes a specific connection
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.connections.delete("<value>", "<value>");
@@ -184,7 +192,9 @@ Set custom metadata for the connection.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.connections.createMetadata("<value>", "<value>", {});
@@ -226,7 +236,9 @@ Update custom metadata for the connection.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.connections.update("<value>", "<value>", {});

@@ -1,0 +1,1262 @@
+openapi: "3.1.0"
+info:
+    title: "Nango API"
+    description: "Nango API specs used to authorize & sync data with external APIs."
+    version: "1.0.0"
+servers:
+    - url: https://api.nango.dev
+      description: Production server
+      x-speakeasy-server-id: prod
+    - url: http://localhost:3003
+      description: Local server
+      x-speakeasy-server-id: local
+paths:
+    /config:
+        get:
+            tags:
+                - integrations
+            description: Returns a list of integrations
+            summary: Returns a list of integrations including their unique keys and providers as configured in the Nango API.
+            operationId: listIntegrations
+            x-speakeasy-name-override: list
+            responses:
+                "200":
+                    description: Successfully returned a list of integrations
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/IntegrationsResponse200"
+        post:
+            tags:
+                - integrations
+            description: Create a new integration
+            summary: Create a new integration including its provider configuration, OAuth details if applicable, and associated integration ID.
+            operationId: createIntegrations
+            x-speakeasy-name-override: create
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ListIntegrationsRequest"
+            responses:
+                "200":
+                    description: Successfully created an integration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/IntegrationsResponse200"
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+        put:
+            tags:
+                - integrations
+            description: Edit an integration (only for OAuth APIs)
+            summary: Edit an integration, specifically tailored for OAuth APIs, updating the provider configuration along with OAuth client ID and secret.
+            operationId: updateIntegration
+            x-speakeasy-name-override: update
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/UpdateIntegrationRequest"
+            responses:
+                "200":
+                    description: Successfully edit an integration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/IntegrationsResponse200"
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+                "404":
+                    description: Unknown integration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response404"
+    /config/{providerConfigKey}:
+        get:
+            tags:
+                - integrations
+            description: Returns a specific integration
+            summary: Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
+            operationId: getIntegration
+            x-speakeasy-name-override: get
+            parameters:
+                - name: providerConfigKey
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  description: The integration ID that you created in Nango.
+                - name: include_creds
+                  in: query
+                  required: false
+                  description: If true, the response will contain the client ID, secret, scopes, auth_mode and app link - if applicable. include_creds is false by default.
+                  schema:
+                    type: boolean
+            responses:
+                "200":
+                    description: Successfully returned an integration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GetIntegrationResponse"
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+                "404":
+                    description: Unknown integration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response404"
+        delete:
+            tags:
+                - integrations
+            description: Deletes a specific integration
+            summary: Deletes a specific integration identified by its provider configuration key.
+            operationId: deleteIntegration
+            x-speakeasy-name-override: delete
+            parameters:
+                - name: providerConfigKey
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  description: The integration ID that you created in Nango.
+            responses:
+                "204":
+                    description: Successfully deleled an integration
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+                "404":
+                    description: Unknown integration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response404"
+    /connection:
+        get:
+            tags:
+                - connections
+            description: Returns a list of connections
+            summary: Returns a list of connections, optionally filtered by connection ID.
+            operationId: listConnections
+            x-speakeasy-name-override: list
+            parameters:
+                - name: connectionId
+                  in: query
+                  schema:
+                    type: string
+                  description: Filter the list of connections based on this connection ID.
+            responses:
+                "200":
+                    description: Successfully returned a list of connections
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GetConnectionResponse"
+        post:
+            tags:
+                - connections
+            description: Adds a connection for which you already have an access token
+            summary: Adds a connection using an existing access token, along with optional OAuth or basic authentication credentials, and additional metadata or configuration.
+            operationId: createConnection
+            x-speakeasy-name-override: create
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateConnectionRequest"
+            responses:
+                "200":
+                    description: Successfully created an integrations
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /connection/{connectionId}:
+        get:
+            tags:
+                - connections
+            description: Returns a specific connection
+            summary: Returns details of a specific connection identified by its connection ID, associated with the specified integration, with optional parameters for force refresh and returning the refresh token.
+            operationId: getConnections
+            x-speakeasy-name-override: get
+            parameters:
+                - name: connectionId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  description: The connection ID used to create the connection.
+                - name: provider_config_key
+                  in: query
+                  required: true
+                  description: The integration ID used to create the connection (aka Unique Key).
+                  schema:
+                    type: string
+                - name: force_refresh
+                  in: query
+                  description: If true, Nango will attempt to refresh the access access token regardless of its expiration status (false by default).
+                  schema:
+                    type: boolean
+                - name: refresh_token
+                  in: query
+                  description: If true, return the refresh token as part of the response (false by default).
+                  schema:
+                    type: boolean
+            responses:
+                "200":
+                    description: Successfully returned a connection
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+                "404":
+                    description: Unknown Connection
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response404"
+        delete:
+            tags:
+                - connections
+            description: Deletes a specific connection
+            summary: Deletes a specific connection identified by its connection ID, associated with the specified integration.
+            operationId: deleteConnections
+            x-speakeasy-name-override: delete
+            parameters:
+                - name: connectionId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  description: The connection ID used to create the connection.
+                - name: provider_config_key
+                  in: query
+                  required: true
+                  description: The integration ID used to create the connection (aka Unique Key).
+                  schema:
+                    type: string
+            responses:
+                "204":
+                    description: Successfully deleled an connection
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+                "404":
+                    description: Unknown connection
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response404"
+    /connection/{connectionId}/metadata:
+        post:
+            tags:
+                - connections
+            description: Set custom metadata for the connection.
+            summary: Set custom metadata for the specified connection.
+            operationId: createMetadata
+            x-speakeasy-name-override: createMetadata
+            parameters:
+                - name: connectionId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  description: The connection ID used to create the connection.
+                - name: Provider-Config-Key
+                  in: header
+                  required: true
+                  description: The integration ID used to create the connection (aka Unique Key).
+                  schema:
+                    type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "201":
+                    description: Successfully created an integrations
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+        patch:
+            tags:
+                - connections
+            description: Update custom metadata for the connection.
+            summary: Update custom metadata for the specified connection.
+            operationId: updateMetadata
+            x-speakeasy-name-override: update
+            parameters:
+                - name: connectionId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  description: The connection ID used to create the connection.
+                - name: Provider-Config-Key
+                  in: header
+                  required: true
+                  description: The integration ID used to create the connection (aka Unique Key).
+                  schema:
+                    type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    description: Successfully updated the metadata
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /records:
+        get:
+            tags:
+                - records
+            description: Returns data synced with Nango Sync
+            summary: Returns data synced with Nango Sync, filtered by specified parameters.
+            operationId: getRecord
+            x-speakeasy-name-override: get
+            parameters:
+                - name: model
+                  in: query
+                  required: true
+                  schema:
+                    type: string
+                  description: The data model to fetch
+                - name: delta
+                  in: query
+                  required: false
+                  schema:
+                    type: string
+                  description: Timestamp, e.g. 2023-05-31T11:46:13.390Z. If passed only records added or updated after this timestamp are returned, otherwise all records are returned.
+                - name: limit
+                  in: query
+                  required: false
+                  schema:
+                    type: integer
+                  description: The maximum number of records to return. If not passed, all records are returned.
+                - name: cursor
+                  in: query
+                  required: false
+                  schema:
+                    type: string
+                  description: |
+                    Base 64 encoded value that can be used to fetch the next page of results. The cursor will be included until there are no more results to paginate through.
+                - name: filter
+                  in: query
+                  required: false
+                  schema:
+                    type: string
+                    enum:
+                        - added
+                        - updated
+                        - deleted
+                  description: Filter to only show results that have been added or updated or deleted. Helpful when used in conjuction with the delta parameter to retrieve a subset or records that were added, updated, or deleted with the latest sync.
+                - name: Connection-Id
+                  in: header
+                  required: true
+                  description: The connection ID used to create the connection.
+                  schema:
+                    type: string
+                - name: Provider-Config-Key
+                  in: header
+                  required: true
+                  description: The integration ID used to create the connection (aka Unique Key).
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Successfully returned records
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GetRecordResponse"
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /sync/records:
+        get:
+            tags:
+                - sync
+            description: Returns data synced with Nango Sync
+            summary: Returns data synced with Nango Sync, allowing for advanced filtering, sorting, and pagination options.
+            operationId: getSyncRecord
+            x-speakeasy-name-override: getRecord
+            parameters:
+                - name: model
+                  in: query
+                  required: true
+                  schema:
+                    type: string
+                  description: The data model to fetch
+                - name: delta
+                  in: query
+                  required: false
+                  schema:
+                    type: string
+                  description: Timestamp, e.g. 2023-05-31T11:46:13.390Z. If passed only records added or updated after this timestamp are returned, otherwise all records are returned.
+                - name: limit
+                  in: query
+                  required: false
+                  schema:
+                    type: integer
+                  description: The maximum number of records to return. If not passed, all records are returned.
+                - name: offset
+                  in: query
+                  required: false
+                  schema:
+                    type: integer
+                  description: The number of records to skip. If not passed, no records are skipped.
+                - name: sort_by
+                  in: query
+                  required: false
+                  schema:
+                    type: string
+                    enum:
+                        - created_at
+                        - updated_at
+                        - id
+                  description: Set how the records are sorted. The default is id. The options are 'created_at', 'updated_at', 'id'.
+                - name: order
+                  in: query
+                  required: false
+                  schema:
+                    type: string
+                    enum:
+                        - desc
+                        - asc
+                  description: Set the order of results. The default is 'desc'. The options are 'desc' or 'asc'.
+                - name: filter
+                  in: query
+                  required: false
+                  schema:
+                    type: string
+                    enum:
+                        - added
+                        - updated
+                        - deleted
+                  description: Filter to only show results that have been added or updated or deleted. Helpful when used in conjuction with the delta parameter to retrieve a subset or records that were added, updated, or deleted with the latest sync.
+                - name: Connection-Id
+                  in: header
+                  required: true
+                  description: The connection ID used to create the connection.
+                  schema:
+                    type: string
+                - name: Provider-Config-Key
+                  in: header
+                  required: true
+                  description: The integration ID used to create the connection (aka Unique Key).
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Successfully returned records
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GetSyncRecordResponse"
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /sync/trigger:
+        post:
+            tags:
+                - sync
+            description: Triggers an additional, one-off execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
+            summary: Triggers an additional, one-off execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+            operationId: createSyncTrigger
+            x-speakeasy-name-override: createTrigger
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateSyncTriggerRequest"
+            responses:
+                "200":
+                    description: Successfully triggered the sync
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /sync/start:
+        post:
+            tags:
+                - sync
+            description: Starts the continuous execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
+            summary: Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+            operationId: createSyncStart
+            x-speakeasy-name-override: start
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateSyncStartRequest"
+            responses:
+                "200":
+                    description: Successfully started the sync
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /sync/pause:
+        post:
+            tags:
+                - sync
+            description: Pauses the continuous execution of specified sync(s) (for a given connection or all applicable connections if no connection is specified).
+            summary: Pauses the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+            operationId: createSyncPause
+            x-speakeasy-name-override: pause
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateSyncPauseRequest"
+            responses:
+                "200":
+                    description: Successfully paused the sync
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /sync/status:
+        get:
+            tags:
+                - sync
+            description: Get the status of specified sync(s) (for a given connection or all applicable connections if no connection is specified)
+            summary: Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+            operationId: getSyncStatus
+            x-speakeasy-name-override: getStatus
+            parameters:
+                - name: provider_config_key
+                  in: query
+                  required: true
+                  schema:
+                    type: string
+                  description: The ID of the integration you established within Nango
+                - name: syncs
+                  in: query
+                  required: true
+                  schema:
+                    type: string
+                  description: The name of the syncs you want to fetch a status for. Pass in "*" to return all syncs per the integration
+                - name: connection_id
+                  in: query
+                  required: false
+                  schema:
+                    type: string
+                  description: The ID of the connection. If omitted, all connections will be surfaced.
+            responses:
+                "200":
+                    description: Successfully returned a list of syncs and their status
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GetSyncStatusResponse"
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /sync/update-connection-frequency:
+        put:
+            tags:
+                - sync
+            description: Override a sync's default frequency for a specific connection, or revert to the default frequency.
+            summary: Override a sync's default frequency for a specific connection or revert to the default frequency.
+            operationId: updateConnectionFrequency
+            x-speakeasy-name-override: updateFrequency
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/UpdateConnectionFrequencyRequest"
+            responses:
+                "200":
+                    description: Successfully updated the frequency
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/UpdateConnectionFrequencyResponse"
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /action/trigger:
+        post:
+            tags:
+                - action
+            description: Triggers an action for a connection
+            summary: Triggers an action for a connection.
+            operationId: createActionTrigger
+            x-speakeasy-name-override: createTrigger
+            x-speakeasy-group: actions
+            parameters:
+                - name: Connection-Id
+                  in: header
+                  required: true
+                  description: The connection ID used to create the connection.
+                  schema:
+                    type: string
+                - name: Provider-Config-Key
+                  in: header
+                  required: true
+                  description: The integration ID used to create the connection (aka Unique Key).
+                  schema:
+                    type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateActionTriggerRequest"
+            responses:
+                "200":
+                    description: Returns the result of the action
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/CreateActionTriggerResponse"
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response400"
+    /environment-variables:
+        get:
+            description: Retrieve the environment variables as added in the Nango dashboard
+            summary: Retrieve the environment variables as added in the Nango dashboard.
+            operationId: getEnvironmentVariable
+            x-speakeasy-name-override: get
+            x-speakeasy-group: environment
+            responses:
+                "200":
+                    description: Retrieve the environment variables as added in the Nango dashboard
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GetEnvironmentVariableResponse"
+    /proxy/{anyPath}:
+        get:
+            tags:
+                - proxy
+            description: Make a GET request with the Proxy.
+            summary: Make a GET request with the Proxy.
+            operationId: getProxy
+            x-speakeasy-name-override: get
+            parameters:
+                - name: anyPath
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: $ANY_QUERY_PARAMS
+                  in: query
+                  required: true
+                  schema:
+                    type: string
+                - in: header
+                  name: Connection-Id
+                  required: true
+                  schema:
+                    type: string
+                  description: The connection ID used to create the connection.
+                - in: header
+                  name: Provider-Config-Key
+                  required: true
+                  schema:
+                    type: string
+                  description: The integration ID used to create the connection (aka Unique Key).
+                - in: header
+                  name: Retries
+                  schema:
+                    type: string
+                  description: The number of retries in case of failure (with exponential back-off). Optional, default 0.
+                - in: header
+                  name: Base-Url-Override
+                  schema:
+                    type: string
+                  description: Provide an API base URL when the base API is not listed in the providers.yaml or it needs to be overridden. Optional
+                - in: header
+                  name: Decompress
+                  schema:
+                    type: string
+                  description: Override the decompress option when making requests. Optional, defaults to false
+                - in: header
+                  name: nango-proxy-$ANY_HEADER
+                  schema:
+                    type: string
+                  description: Any other headers you send are passed on to the external API
+            responses:
+                "200":
+                    description: The response exactly as returned by the external API
+        post:
+            tags:
+                - proxy
+            description: Make a POST request with the Proxy.
+            summary: Make a POST request with the Proxy.
+            operationId: createProxy
+            x-speakeasy-name-override: create
+            parameters:
+                - name: anyPath
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - in: header
+                  name: Connection-Id
+                  required: true
+                  schema:
+                    type: string
+                  description: The connection ID used to create the connection.
+                - in: header
+                  name: Provider-Config-Key
+                  required: true
+                  schema:
+                    type: string
+                  description: The integration ID used to create the connection (aka Unique Key).
+                - in: header
+                  name: Retries
+                  schema:
+                    type: string
+                  description: The number of retries in case of failure (with exponential back-off). Optional, default 0.
+                - in: header
+                  name: Base-Url-Override
+                  schema:
+                    type: string
+                  description: Provide an API base URL when the base API is not listed in the providers.yaml or it needs to be overridden. Optional
+                - in: header
+                  name: Decompress
+                  schema:
+                    type: string
+                  description: Override the decompress option when making requests. Optional, defaults to false
+                - in: header
+                  name: nango-proxy-$ANY_HEADER
+                  schema:
+                    type: string
+                  description: Any other headers you send are passed on to the external API
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateProxyRequest"
+            responses:
+                "200":
+                    description: The response exactly as returned by the external API
+        put:
+            tags:
+                - proxy
+            description: Make a PUT request with the Proxy.
+            summary: Make a PUT request with the Proxy.
+            operationId: putProxy
+            x-speakeasy-name-override: update
+            parameters:
+                - name: anyPath
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - in: header
+                  name: Connection-Id
+                  required: true
+                  schema:
+                    type: string
+                  description: The connection ID used to create the connection.
+                - in: header
+                  name: Provider-Config-Key
+                  required: true
+                  schema:
+                    type: string
+                  description: The integration ID used to create the connection (aka Unique Key).
+                - in: header
+                  name: Retries
+                  schema:
+                    type: string
+                  description: The number of retries in case of failure (with exponential back-off). Optional, default 0.
+                - in: header
+                  name: Base-Url-Override
+                  schema:
+                    type: string
+                  description: Provide an API base URL when the base API is not listed in the providers.yaml or it needs to be overridden. Optional
+                - in: header
+                  name: Decompress
+                  schema:
+                    type: string
+                  description: Override the decompress option when making requests. Optional, defaults to false
+                - in: header
+                  name: nango-proxy-$ANY_HEADER
+                  schema:
+                    type: string
+                  description: Any other headers you send are passed on to the external API
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PutProxyRequest"
+            responses:
+                "200":
+                    description: The response exactly as returned by the external API
+        patch:
+            tags:
+                - proxy
+            description: Make a PATCH request with the Proxy.
+            summary: Make a PATCH request with the Proxy.
+            operationId: patchProxy
+            x-speakeasy-name-override: modify
+            parameters:
+                - name: anyPath
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - in: header
+                  name: Connection-Id
+                  required: true
+                  schema:
+                    type: string
+                  description: The connection ID used to create the connection.
+                - in: header
+                  name: Provider-Config-Key
+                  required: true
+                  schema:
+                    type: string
+                  description: The integration ID used to create the connection (aka Unique Key).
+                - in: header
+                  name: Retries
+                  schema:
+                    type: string
+                  description: The number of retries in case of failure (with exponential back-off). Optional, default 0.
+                - in: header
+                  name: Base-Url-Override
+                  schema:
+                    type: string
+                  description: Provide an API base URL when the base API is not listed in the providers.yaml or it needs to be overridden. Optional
+                - in: header
+                  name: Decompress
+                  schema:
+                    type: string
+                  description: Override the decompress option when making requests. Optional, defaults to false
+                - in: header
+                  name: nango-proxy-$ANY_HEADER
+                  schema:
+                    type: string
+                  description: Any other headers you send are passed on to the external API
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PatchProxyRequest"
+            responses:
+                "200":
+                    description: The response exactly as returned by the external API
+        delete:
+            tags:
+                - proxy
+            description: Make a DELETE request with the Proxy.
+            summary: Make a DELETE request with the Proxy.
+            operationId: deleteProxy
+            x-speakeasy-name-override: delete
+            parameters:
+                - name: anyPath
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: $ANY_QUERY_PARAMS
+                  in: query
+                  required: true
+                  schema:
+                    type: string
+                - in: header
+                  name: Connection-Id
+                  required: true
+                  schema:
+                    type: string
+                  description: The connection ID used to create the connection.
+                - in: header
+                  name: Provider-Config-Key
+                  required: true
+                  schema:
+                    type: string
+                  description: The integration ID used to create the connection (aka Unique Key).
+                - in: header
+                  name: Retries
+                  schema:
+                    type: string
+                  description: The number of retries in case of failure (with exponential back-off). Optional, default 0.
+                - in: header
+                  name: Base-Url-Override
+                  schema:
+                    type: string
+                  description: Provide an API base URL when the base API is not listed in the providers.yaml or it needs to be overridden. Optional
+                - in: header
+                  name: Decompress
+                  schema:
+                    type: string
+                  description: Override the decompress option when making requests. Optional, defaults to false
+                - in: header
+                  name: nango-proxy-$ANY_HEADER
+                  schema:
+                    type: string
+                  description: Any other headers you send are passed on to the external API
+            responses:
+                "200":
+                    description: The response exactly as returned by the external API
+components:
+    schemas:
+        GetRecordResponse:
+            type: object
+            properties:
+                records:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            your-properties:
+                                type: string
+                                description: The data Nango synced in for you
+                                example: "Your synced data, in the schema you (or Nango) defined in nango.yaml"
+                            _nango_metadata:
+                                type: object
+                                properties:
+                                    deleted_at:
+                                        type: string
+                                        description: The timestamp at which Nango detected the record as deleted
+                                    last_action:
+                                        type: string
+                                        description: The last action seen on this record
+                                        enum:
+                                            - "ADDED"
+                                            - "UPDATED"
+                                            - "DELETED"
+                                    first_seen_at:
+                                        type: string
+                                        description: The timestamp at which Nango first saw this record
+                                        example: "2023-09-18T15:20:35.941305+00:00"
+                                    last_modified_at:
+                                        type: string
+                                        description: The timestamp at which Nango last detected a change to this record
+                                        example: "2023-09-18T15:20:35.941305+00:00"
+                next_cursor:
+                    type: string
+                    description: The base64-encoded cursor for pagination
+                    example: "MjAyMy0xMS0xN1QxMTo0NzoxNC40NDcrMDI6MDB8fDAzZTA1NzIxLWNiZmQtNGYxNS1iYTNhLWFlNjM2Y2MwNmEw=="
+        PatchProxyRequest:
+            type: object
+            properties:
+                $ANY_BODY_PARAMS:
+                    type: string
+        PutProxyRequest:
+            type: object
+            properties:
+                $ANY_BODY_PARAMS:
+                    type: string
+        CreateProxyRequest:
+            type: object
+            properties:
+                $ANY_BODY_PARAMS:
+                    type: string
+        GetEnvironmentVariableResponse:
+            type: array
+            items:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        description: The name of the environment variable
+                        example: "MY_SECRET_KEY"
+                    value:
+                        type: string
+                        description: The value of the environment variable
+                        example: "SK_373892NSHFNCOWFO..."
+        CreateActionTriggerResponse:
+            type: object
+            properties:
+                your-properties:
+                    type: string
+                    description: The data returned by the action
+                    example: "The data returned by the action"
+        CreateActionTriggerRequest:
+            type: object
+            required:
+                - action_name
+            properties:
+                action_name:
+                    type: string
+                    description: The name of the action to trigger.
+                input:
+                    type: object
+                    description: The necessary input for your action's 'runAction' function.
+        UpdateConnectionFrequencyResponse:
+            type: object
+            properties:
+                frequency:
+                    type: string
+                    description: The updated frequency value
+        UpdateConnectionFrequencyRequest:
+            type: object
+            required:
+                - provider_config_key
+                - connection_id
+                - sync_name
+                - frequency
+            properties:
+                provider_config_key:
+                    type: string
+                    description: The ID of the integration you established within Nango
+                connection_id:
+                    type: string
+                    description: The ID of the connection
+                sync_name:
+                    type: string
+                    description: The name of the sync you want to update
+                frequency:
+                    type: string
+                    description: "The frequency you want to set (ex: 'every hour'). Set null to revert to the default frequency"
+        GetSyncStatusResponse:
+            type: object
+            properties:
+                syncs:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            id:
+                                type: string
+                                description: The unique identifier for the sync.
+                            name:
+                                type: string
+                                description: The name of the sync.
+                            status:
+                                type: string
+                                enum:
+                                    - "RUNNING"
+                                    - "PAUSED"
+                                    - "STOPPED"
+                                    - "SUCCESS"
+                                    - "ERROR"
+                                description: The current status of the sync.
+                            type:
+                                type: string
+                                description: The most recent sync type completed
+                                enum:
+                                    - "INCREMENTAL"
+                                    - "INITIAL"
+                            finishedAt:
+                                type: string
+                                description: ISO string of the most recently completed sync
+                            nextScheduledSyncAt:
+                                type: string
+                                description: ISO string of the next scheduled sync time
+                            frequency:
+                                type: string
+                                description: The execution frequency of the sync
+                            latestResult:
+                                type: object
+                                description: Additional information regarding the latest result of the sync. Contains a model name with added, updated and deleted records
+        CreateSyncPauseRequest:
+            type: object
+            required:
+                - provider_config_key
+                - syncs
+            properties:
+                provider_config_key:
+                    type: string
+                    description: The ID of the integration that you established within Nango.
+                connection_id:
+                    type: string
+                    description: The ID of the connection. If omitted, the syncs will be paused for all relevant connections.
+                syncs:
+                    type: array
+                    description: A list of sync names that you wish to pause.
+                    items:
+                        type: string
+        CreateSyncStartRequest:
+            type: object
+            required:
+                - provider_config_key
+                - syncs
+            properties:
+                provider_config_key:
+                    type: string
+                    description: The ID of the integration that you established within Nango.
+                connection_id:
+                    type: string
+                    description: The ID of the connection. If omitted, the syncs will be started for all relevant connections.
+                syncs:
+                    type: array
+                    description: A list of sync names that you wish to start.
+                    items:
+                        type: string
+        CreateSyncTriggerRequest:
+            type: object
+            required:
+                - provider_config_key
+                - syncs
+            properties:
+                provider_config_key:
+                    type: string
+                    description: The ID of the integration that you established within Nango.
+                connection_id:
+                    type: string
+                    description: The ID of the connection. If omitted, the syncs will be triggered for all relevant connections.
+                syncs:
+                    type: array
+                    description: A list of sync names that you wish to trigger.
+                    items:
+                        type: string
+        GetSyncRecordResponse:
+            type: array
+            items:
+                type: object
+                properties:
+                    your-properties:
+                        type: string
+                        description: The data Nango synced in for you
+                        example: "Your synced data, in the schema you (or Nango) defined in nango.yaml"
+                    _nango_metadata:
+                        type: object
+                        properties:
+                            deleted_at:
+                                type: string
+                                description: The timestamp at which Nango detected the record as deleted
+                            last_action:
+                                type: string
+                                description: The last action seen on this record
+                                enum:
+                                    - "ADDED"
+                                    - "UPDATED"
+                                    - "DELETED"
+                            first_seen_at:
+                                type: string
+                                description: The timestamp at which Nango first saw this record
+                                example: "2023-09-18T15:20:35.941305+00:00"
+                            last_modified_at:
+                                type: string
+                                description: The timestamp at which Nango last detected a change to this record
+                                example: "2023-09-18T15:20:35.941305+00:00"
+        CreateConnectionRequest:
+            type: object
+            required:
+                - connection_id
+                - provider_config_key
+        GetConnectionResponse:
+            type: object
+            required:
+                - configs
+            properties:
+                configs:
+                    type: array
+                items:
+                    type: object
+                    required:
+                        - id
+                        - connection_id
+                        - provider
+                        - provider_config_key
+                        - created
+        GetIntegrationResponse:
+            type: object
+            required:
+                - config
+            properties:
+                config:
+                    type: object
+                    required:
+                        - unique_key
+                        - provider
+                properties: {}
+        UpdateIntegrationRequest:
+            type: object
+            required:
+                - provider_config_key
+                - provider
+                - oauth_client_id
+                - oauth_client_secret
+        ListIntegrationsRequest:
+            type: object
+            required:
+                - provider_config_key
+                - provider
+        Response404:
+            type: object
+            properties:
+                message:
+                    type: string
+        Response400:
+            type: object
+            properties:
+                message:
+                    type: string
+        IntegrationsResponse200:
+            type: object
+            required:
+                - configs
+            properties:
+                configs:
+                    type: array
+                items:
+                    type: object
+                    required:
+                        - unique_key
+                        - provider

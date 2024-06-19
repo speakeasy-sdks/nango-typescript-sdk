@@ -66,11 +66,11 @@ export class Records extends ClientSDK {
         const path$ = this.templateURLComponent("/records")();
 
         const query$ = encodeFormQuery$({
-            model: payload$.model,
-            delta: payload$.delta,
-            limit: payload$.limit,
             cursor: payload$.cursor,
+            delta: payload$.delta,
             filter: payload$.filter,
+            limit: payload$.limit,
+            model: payload$.model,
         });
 
         headers$.set(
@@ -87,12 +87,33 @@ export class Records extends ClientSDK {
                 charEncoding: "none",
             })
         );
-        const context = { operationID: "getRecord", oAuth2Scopes: [], securitySource: null };
+
+        let security$;
+        if (typeof this.options$.apiKey === "function") {
+            security$ = { apiKey: await this.options$.apiKey() };
+        } else if (this.options$.apiKey) {
+            security$ = { apiKey: this.options$.apiKey };
+        } else {
+            security$ = {};
+        }
+        const context = {
+            operationID: "getRecord",
+            oAuth2Scopes: [],
+            securitySource: this.options$.apiKey,
+        };
+        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
+            {
+                security: securitySettings$,
+                method: "GET",
+                path: path$,
+                headers: headers$,
+                query: query$,
+                body: body$,
+            },
             options
         );
 

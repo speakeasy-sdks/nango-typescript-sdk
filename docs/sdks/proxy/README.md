@@ -18,7 +18,9 @@ Make a GET request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.proxy.get({
@@ -62,7 +64,9 @@ Make a POST request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.proxy.create({
@@ -105,7 +109,9 @@ Make a PUT request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.proxy.update({
@@ -148,7 +154,9 @@ Make a PATCH request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.proxy.patch({
@@ -191,7 +199,9 @@ Make a DELETE request with the Proxy.
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+  apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
   const result = await nango.proxy.deletes({

@@ -30,7 +30,9 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ```typescript
 import { Nango } from "@simplesagar92/nango";
 
-const nango = new Nango();
+const nango = new Nango({
+    apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
     const result = await nango.getEnvironmentVariables();
@@ -111,7 +113,9 @@ Validation errors can also occur when either method arguments or data returned f
 import { Nango } from "@simplesagar92/nango";
 import * as errors from "@simplesagar92/nango/models/errors";
 
-const nango = new Nango();
+const nango = new Nango({
+    apiKey: "<YOUR_API_KEY_HERE>",
+});
 
 async function run() {
     let result;
@@ -162,6 +166,7 @@ import { Nango } from "@simplesagar92/nango";
 
 const nango = new Nango({
     server: "local",
+    apiKey: "<YOUR_API_KEY_HERE>",
 });
 
 async function run() {
@@ -185,6 +190,7 @@ import { Nango } from "@simplesagar92/nango";
 
 const nango = new Nango({
     serverURL: "https://api.nango.dev",
+    apiKey: "<YOUR_API_KEY_HERE>",
 });
 
 async function run() {
@@ -247,6 +253,37 @@ httpClient.addHook("requestError", (error, request) => {
 const sdk = new Nango({ httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
+
+<!-- Start Authentication [security] -->
+## Authentication
+
+### Per-Client Security Schemes
+
+This SDK supports the following security scheme globally:
+
+| Name     | Type     | Scheme   |
+| -------- | -------- | -------- |
+| `apiKey` | apiKey   | API key  |
+
+To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
+```typescript
+import { Nango } from "@simplesagar92/nango";
+
+const nango = new Nango({
+    apiKey: "<YOUR_API_KEY_HERE>",
+});
+
+async function run() {
+    const result = await nango.getEnvironmentVariables();
+
+    // Handle the result
+    console.log(result);
+}
+
+run();
+
+```
+<!-- End Authentication [security] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

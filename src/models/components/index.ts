@@ -19,6 +19,7 @@ export * from "./integrationsresponse200";
 export * from "./listintegrationsrequest";
 export * from "./patchproxyrequest";
 export * from "./putproxyrequest";
+export * from "./security";
 export * from "./updateconnectionfrequencyrequest";
 export * from "./updateconnectionfrequencyresponse";
 export * from "./updateintegrationrequest";

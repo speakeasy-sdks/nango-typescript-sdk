@@ -86,16 +86,33 @@ export class Action extends ClientSDK {
                 charEncoding: "none",
             })
         );
+
+        let security$;
+        if (typeof this.options$.apiKey === "function") {
+            security$ = { apiKey: await this.options$.apiKey() };
+        } else if (this.options$.apiKey) {
+            security$ = { apiKey: this.options$.apiKey };
+        } else {
+            security$ = {};
+        }
         const context = {
             operationID: "createActionTrigger",
             oAuth2Scopes: [],
-            securitySource: null,
+            securitySource: this.options$.apiKey,
         };
+        const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["400", "4XX", "5XX"] };
         const request$ = this.createRequest$(
             context,
-            { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
+            {
+                security: securitySettings$,
+                method: "POST",
+                path: path$,
+                headers: headers$,
+                query: query$,
+                body: body$,
+            },
             options
         );
 
