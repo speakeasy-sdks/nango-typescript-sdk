@@ -5,8 +5,8 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.308.2
   generationVersion: 2.342.6
-  releaseVersion: 0.8.0
-  configChecksum: 053e7ddeff17b0da2d5842a8f771fd17
+  releaseVersion: 0.8.1
+  configChecksum: 0b48a36d294bf19518aa39d040d21148
   repoURL: https://github.com/speakeasy-sdks/nango-typescript-sdk.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/nango-typescript-sdk

@@ -2,17 +2,18 @@ speakeasyVersion: 1.308.2
 sources:
     my-source:
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:d1032f6a4fbade2d625aa27c934a70e10f99718d669144a3a044da150d5592b8
-        sourceBlobDigest: sha256:efa987571d8346ba36b22ab4746cdde4b9470314c134765f1b925c8d4bf07dae
+        sourceRevisionDigest: sha256:853965646e02391a8893822a154191aff370ac953eea37661e258771ada3cc31
+        sourceBlobDigest: sha256:ee8fa2cba530915e9b36f27a1b286a0b32b485e920a549ca7a809b1fb5fe68a5
         tags:
             - latest
+            - main
 targets:
     nango-ts:
         source: my-source
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:d1032f6a4fbade2d625aa27c934a70e10f99718d669144a3a044da150d5592b8
-        sourceBlobDigest: sha256:efa987571d8346ba36b22ab4746cdde4b9470314c134765f1b925c8d4bf07dae
-        outLocation: /Users/sagar/go/src/Nango-sample-sdk
+        sourceRevisionDigest: sha256:853965646e02391a8893822a154191aff370ac953eea37661e258771ada3cc31
+        sourceBlobDigest: sha256:ee8fa2cba530915e9b36f27a1b286a0b32b485e920a549ca7a809b1fb5fe68a5
+        outLocation: /github/workspace/repo
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

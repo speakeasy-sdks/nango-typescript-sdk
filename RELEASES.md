@@ -131,3 +131,13 @@ Based on:
 - [typescript v0.6.0] .
 ### Releases
 - [NPM v0.6.0] https://www.npmjs.com/package/@simplesagar92/nango/v/0.6.0 - .
+
+## 2024-06-19 09:10:23
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.308.2 (2.342.6) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v0.8.1] .
+### Releases
+- [NPM v0.8.1] https://www.npmjs.com/package/@simplesagar92/nango/v/0.8.1 - .
