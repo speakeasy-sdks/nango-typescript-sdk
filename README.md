@@ -10,6 +10,7 @@ The Nango Typescript library provides convenient access to the Nango REST API fr
 
 > ⚠️ TODO: 
 > * Configure pagination for select endpoints per [Nango docs](https://docs.nango.dev/customize/guides/advanced/paginate-api-responses)
+> * Configure OAuth support using Speakeasy managed OAuth or Hooks
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
