@@ -1,3 +1,13 @@
+/funcs
+/react-query
+/core.*
+/esm
+/dist
+/.eslintcache
+/.tshy
+/.tshy-*
+/__tests__
+/.speakeasy/reports
 /models
 /models/errors
 /types

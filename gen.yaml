@@ -12,7 +12,7 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: false
 typescript:
-  version: 0.9.1
+  version: 0.11.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -20,8 +20,12 @@ typescript:
   additionalPackageJSON: {}
   author: Speakeasy
   clientServerStatusCodesAsErrors: true
+  defaultErrorName: SDKError
+  enableCustomCodeRegions: false
+  enableReactQuery: false
   enumFormat: enum
   flattenGlobalSecurity: true
+  flatteningOrder: parameters-first
   imports:
     option: openapi
     paths:
@@ -33,6 +37,7 @@ typescript:
   inputModelSuffix: input
   maxMethodParams: 4
   methodArguments: require-security-and-request
+  moduleFormat: dual
   outputModelSuffix: output
   packageName: '@speakeasy-sdks/nango'
   responseFormat: flat

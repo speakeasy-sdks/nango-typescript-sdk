@@ -10,3 +10,9 @@ targets:
     nango-ts:
         target: typescript
         source: my-source
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/nango/nango/my-source-typescript-code-samples
+            labelOverride:
+                fixedValue: Typescript (SDK)
+            blocking: false

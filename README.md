@@ -14,6 +14,31 @@ The Nango Typescript library provides convenient access to the Nango REST API fr
 > * TODO: Setup automated package publishing to NPM using `speakeasy configure publishing`
 > * TODO: Consider adding better error response schemas per 4XX and 5XX type 
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Nango API: Nango API specs used to authorize & sync data with external APIs.
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+<!-- $toc-max-depth=2 -->
+  * [SDK Installation](#sdk-installation)
+  * [Requirements](#requirements)
+  * [SDK Example Usage](#sdk-example-usage)
+  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Standalone functions](#standalone-functions)
+  * [Retries](#retries)
+  * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
+  * [Custom HTTP Client](#custom-http-client)
+  * [Debugging](#debugging)
+* [Development](#development)
+  * [Maturity](#maturity)
+  * [Contributions](#contributions)
+
+<!-- End Table of Contents [toc] -->
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
@@ -122,6 +147,50 @@ run();
 * [modify](docs/sdks/proxy/README.md#modify) - Make a PATCH request with the Proxy.
 * [delete](docs/sdks/proxy/README.md#delete) - Make a DELETE request with the Proxy.
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Standalone functions [standalone-funcs] -->
+## Standalone functions
+
+All the methods listed above are available as standalone functions. These
+functions are ideal for use in applications running in the browser, serverless
+runtimes or other environments where application bundle size is a primary
+concern. When using a bundler to build your application, all unused
+functionality will be either excluded from the final bundle or tree-shaken away.
+
+To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
+
+<details>
+
+<summary>Available standalone functions</summary>
+
+- [`actionsCreateTrigger`](docs/sdks/actions/README.md#createtrigger) - Triggers an action for a connection.
+- [`connectionsCreate`](docs/sdks/connections/README.md#create) - Adds a connection using an existing access token, along with optional OAuth or basic authentication credentials, and additional metadata or configuration.
+- [`connectionsCreateMetadata`](docs/sdks/connections/README.md#createmetadata) - Set custom metadata for the specified connection.
+- [`connectionsDelete`](docs/sdks/connections/README.md#delete) - Deletes a specific connection identified by its connection ID, associated with the specified integration.
+- [`connectionsGet`](docs/sdks/connections/README.md#get) - Returns details of a specific connection identified by its connection ID, associated with the specified integration, with optional parameters for force refresh and returning the refresh token.
+- [`connectionsList`](docs/sdks/connections/README.md#list) - Returns a list of connections, optionally filtered by connection ID.
+- [`connectionsUpdate`](docs/sdks/connections/README.md#update) - Update custom metadata for the specified connection.
+- [`environmentGet`](docs/sdks/environment/README.md#get) - Retrieve the environment variables as added in the Nango dashboard.
+- [`integrationsCreate`](docs/sdks/integrations/README.md#create) - Create a new integration including its provider configuration, OAuth details if applicable, and associated integration ID.
+- [`integrationsDelete`](docs/sdks/integrations/README.md#delete) - Deletes a specific integration identified by its provider configuration key.
+- [`integrationsGet`](docs/sdks/integrations/README.md#get) - Returns details of a specific integration identified by its provider configuration key, optionally including credentials if specified.
+- [`integrationsList`](docs/sdks/integrations/README.md#list) - Returns a list of integrations including their unique keys and providers as configured in the Nango API.
+- [`integrationsUpdate`](docs/sdks/integrations/README.md#update) - Edit an integration, specifically tailored for OAuth APIs, updating the provider configuration along with OAuth client ID and secret.
+- [`proxyCreate`](docs/sdks/proxy/README.md#create) - Make a POST request with the Proxy.
+- [`proxyDelete`](docs/sdks/proxy/README.md#delete) - Make a DELETE request with the Proxy.
+- [`proxyGet`](docs/sdks/proxy/README.md#get) - Make a GET request with the Proxy.
+- [`proxyModify`](docs/sdks/proxy/README.md#modify) - Make a PATCH request with the Proxy.
+- [`proxyUpdate`](docs/sdks/proxy/README.md#update) - Make a PUT request with the Proxy.
+- [`recordsGet`](docs/sdks/records/README.md#get) - Returns data synced with Nango Sync, filtered by specified parameters.
+- [`syncCreateTrigger`](docs/sdks/sync/README.md#createtrigger) - Triggers an additional, one-off execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+- [`syncGetRecord`](docs/sdks/sync/README.md#getrecord) - Returns data synced with Nango Sync, allowing for advanced filtering, sorting, and pagination options.
+- [`syncGetStatus`](docs/sdks/sync/README.md#getstatus) - Get the status of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+- [`syncPause`](docs/sdks/sync/README.md#pause) - Pauses the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+- [`syncStart`](docs/sdks/sync/README.md#start) - Starts the continuous execution of specified sync(s) for a given connection or all applicable connections if no connection is specified.
+- [`syncUpdateFrequency`](docs/sdks/sync/README.md#updatefrequency) - Override a sync's default frequency for a specific connection or revert to the default frequency.
+
+</details>
+<!-- End Standalone functions [standalone-funcs] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling
@@ -276,6 +345,23 @@ httpClient.addHook("requestError", (error, request) => {
 const sdk = new Nango({ httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
+
+<!-- Start Debugging [debug] -->
+## Debugging
+
+You can setup your SDK to emit debug logs for SDK requests and responses.
+
+You can pass a logger that matches `console`'s interface as an SDK option.
+
+> [!WARNING]
+> Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
+
+```typescript
+import { Nango } from "@speakeasy-sdks/nango";
+
+const sdk = new Nango({ debugLogger: console });
+```
+<!-- End Debugging [debug] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

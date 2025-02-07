@@ -5,8 +5,8 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.309.1
   generationVersion: 2.347.4
-  releaseVersion: 0.9.1
-  configChecksum: 3144aadae02ffcdbc2bcf9d1a9c2c8c7
+  releaseVersion: 0.11.0
+  configChecksum: 32a5ac71831cfc13bd0bf39833afbc51
   repoURL: https://github.com/speakeasy-sdks/nango-typescript-sdk.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/nango-typescript-sdk
@@ -170,3 +170,288 @@ generatedFiles:
   - src/hooks/hooks.ts
   - src/hooks/types.ts
   - src/hooks/index.ts
+examples:
+  createActionTrigger:
+    speakeasy-default-create-action-trigger:
+      parameters:
+        header:
+          Connection-Id: <id>
+          Provider-Config-Key: <value>
+      requestBody:
+        application/json:
+          action_name: <value>
+      responses:
+        "200":
+          application/json:
+            your-properties: The data returned by the action
+        "400":
+          application/json: {}
+  createConnection:
+    speakeasy-default-create-connection:
+      requestBody:
+        application/json: {}
+      responses:
+        "400":
+          application/json: {}
+  createIntegrations:
+    speakeasy-default-create-integrations:
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json:
+            configs:
+              - <value>
+        "400":
+          application/json: {}
+  createMetadata:
+    speakeasy-default-create-metadata:
+      parameters:
+        header:
+          Provider-Config-Key: <value>
+        path:
+          connectionId: <id>
+      requestBody:
+        application/json: {}
+      responses:
+        "400":
+          application/json: {}
+  createProxy:
+    speakeasy-default-create-proxy:
+      parameters:
+        header:
+          Connection-Id: <id>
+          Provider-Config-Key: <value>
+        path:
+          anyPath: <value>
+  createSyncPause:
+    speakeasy-default-create-sync-pause:
+      responses:
+        "400":
+          application/json: {}
+  createSyncStart:
+    speakeasy-default-create-sync-start:
+      responses:
+        "400":
+          application/json: {}
+  createSyncTrigger:
+    speakeasy-default-create-sync-trigger:
+      responses:
+        "400":
+          application/json: {}
+  deleteConnections:
+    speakeasy-default-delete-connections:
+      parameters:
+        path:
+          connectionId: <id>
+        query:
+          provider_config_key: <value>
+      responses:
+        "400":
+          application/json: {}
+        "404":
+          application/json: {}
+  deleteIntegration:
+    speakeasy-default-delete-integration:
+      parameters:
+        path:
+          providerConfigKey: <value>
+      responses:
+        "400":
+          application/json: {}
+        "404":
+          application/json: {}
+  deleteProxy:
+    speakeasy-default-delete-proxy:
+      parameters:
+        header:
+          Connection-Id: <id>
+          Provider-Config-Key: <value>
+        path:
+          anyPath: <value>
+        query:
+          $ANY_QUERY_PARAMS: <value>
+  getConnections:
+    speakeasy-default-get-connections:
+      parameters:
+        path:
+          connectionId: <id>
+        query:
+          provider_config_key: <value>
+      responses:
+        "400":
+          application/json: {}
+        "404":
+          application/json: {}
+  getEnvironmentVariable:
+    speakeasy-default-get-environment-variable:
+      responses:
+        "200":
+          application/json:
+            - name: MY_SECRET_KEY
+              value: SK_373892NSHFNCOWFO...
+            - name: MY_SECRET_KEY
+              value: SK_373892NSHFNCOWFO...
+            - name: MY_SECRET_KEY
+              value: SK_373892NSHFNCOWFO...
+  getIntegration:
+    speakeasy-default-get-integration:
+      parameters:
+        path:
+          providerConfigKey: <value>
+        query: {}
+      responses:
+        "200":
+          application/json:
+            config: {}
+        "400":
+          application/json: {}
+        "404":
+          application/json: {}
+  getProxy:
+    speakeasy-default-get-proxy:
+      parameters:
+        header:
+          Connection-Id: <id>
+          Provider-Config-Key: <value>
+        path:
+          anyPath: <value>
+        query:
+          $ANY_QUERY_PARAMS: <value>
+  getRecord:
+    speakeasy-default-get-record:
+      parameters:
+        header:
+          Connection-Id: <id>
+          Provider-Config-Key: <value>
+        query:
+          model: Model S
+      responses:
+        "200":
+          application/json:
+            next_cursor: MjAyMy0xMS0xN1QxMTo0NzoxNC40NDcrMDI6MDB8fDAzZTA1NzIxLWNiZmQtNGYxNS1iYTNhLWFlNjM2Y2MwNmEw==
+            records:
+              - _nango_metadata:
+                  first_seen_at: "2023-09-18T15:20:35.941305+00:00"
+                  last_modified_at: "2023-09-18T15:20:35.941305+00:00"
+                your-properties: Your synced data, in the schema you (or Nango) defined in nango.yaml
+              - _nango_metadata:
+                  first_seen_at: "2023-09-18T15:20:35.941305+00:00"
+                  last_modified_at: "2023-09-18T15:20:35.941305+00:00"
+                your-properties: Your synced data, in the schema you (or Nango) defined in nango.yaml
+        "400":
+          application/json: {}
+  getSyncRecord:
+    speakeasy-default-get-sync-record:
+      parameters:
+        header:
+          Connection-Id: <id>
+          Provider-Config-Key: <value>
+        query:
+          model: ATS
+      responses:
+        "200":
+          application/json:
+            - _nango_metadata:
+                first_seen_at: "2023-09-18T15:20:35.941305+00:00"
+                last_modified_at: "2023-09-18T15:20:35.941305+00:00"
+              your-properties: Your synced data, in the schema you (or Nango) defined in nango.yaml
+            - _nango_metadata:
+                first_seen_at: "2023-09-18T15:20:35.941305+00:00"
+                last_modified_at: "2023-09-18T15:20:35.941305+00:00"
+              your-properties: Your synced data, in the schema you (or Nango) defined in nango.yaml
+            - _nango_metadata:
+                first_seen_at: "2023-09-18T15:20:35.941305+00:00"
+                last_modified_at: "2023-09-18T15:20:35.941305+00:00"
+              your-properties: Your synced data, in the schema you (or Nango) defined in nango.yaml
+        "400":
+          application/json: {}
+  getSyncStatus:
+    speakeasy-default-get-sync-status:
+      parameters:
+        query:
+          provider_config_key: <value>
+          syncs: <value>
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+  listConnections:
+    speakeasy-default-list-connections:
+      responses:
+        "200":
+          application/json:
+            configs:
+              - <value>
+              - <value>
+              - <value>
+  listIntegrations:
+    speakeasy-default-list-integrations:
+      responses:
+        "200":
+          application/json:
+            configs:
+              - <value>
+              - <value>
+              - <value>
+  patchProxy:
+    speakeasy-default-patch-proxy:
+      parameters:
+        header:
+          Connection-Id: <id>
+          Provider-Config-Key: <value>
+        path:
+          anyPath: <value>
+  putProxy:
+    speakeasy-default-put-proxy:
+      parameters:
+        header:
+          Connection-Id: <id>
+          Provider-Config-Key: <value>
+        path:
+          anyPath: <value>
+  updateConnectionFrequency:
+    speakeasy-default-update-connection-frequency:
+      requestBody:
+        application/json:
+          connection_id: <id>
+          frequency: <value>
+          provider_config_key: <value>
+          sync_name: <value>
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+  updateIntegration:
+    speakeasy-default-update-integration:
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json:
+            configs:
+              - <value>
+              - <value>
+              - <value>
+        "400":
+          application/json: {}
+        "404":
+          application/json: {}
+  updateMetadata:
+    speakeasy-default-update-metadata:
+      parameters:
+        header:
+          Provider-Config-Key: <value>
+        path:
+          connectionId: <id>
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+examplesVersion: 1.0.0
+generatedTests: {}
